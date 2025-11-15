@@ -1,0 +1,86 @@
+@use './variables' as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+}
+
+body {
+  font-family: Inter, sans-serif;
+  overflow-x: hidden;
+  color: $text;
+  background-color: $background;
+}
+
+main {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.container {
+  width: 100%;
+  border-radius: 20px;
+}
+
+.container.white {
+  background-color: $white;
+}
+
+h1 {
+  // font-family: Gilroy;
+  font-size: 100px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 100%; /* 100px */
+  text-transform: uppercase;
+}
+
+h2 {
+  // font-family: Gilroy;
+  font-size: 89px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 110%; /* 110px */
+  text-transform: uppercase;
+}
+
+.text-48 {
+  // font-family: Gilroy;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 100%; /* 48px */
+}
+
+.text-36 {
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.text-16 {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.text-14 {
+  // font-family: Gilroy;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.text-white {
+  color: $white;
+}
