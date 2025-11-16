@@ -6,6 +6,7 @@
       <MainChoose />
       <ProjectsSlider />
       <WhyUs />
+      <FeedbackForm />
     </main>
     <!-- <AppFooter /> -->
   </div>
