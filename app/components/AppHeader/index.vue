@@ -55,7 +55,7 @@
 </template>
 
 <script setup>
-import AppHeaderIconsPhone from './Icons/phone.vue'
+import AppHeaderIconsPhone from './Icons/Phone.vue'
 import AppHeaderIconsTGWhite from './Icons/TGWhite.vue'
 import AppHeaderIconsWhatsappWhite from './Icons/WhatsappWhite.vue'
 
