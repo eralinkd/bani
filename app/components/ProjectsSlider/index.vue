@@ -16,19 +16,14 @@
         </div>
 
         <div class="slider-controls">
-          <ProjectSliderArrowLeft />
+          <IconsArrowLeft />
           <p class="text-18">2 / 18</p>
-          <ProjectSliderArrowRight />
+          <IconsArrowRight />
         </div>
       </div>
     </div>
   </div>
 </template>
-
-<script setup>
-import ProjectSliderArrowLeft from './ArrowLeft.vue'
-import ProjectSliderArrowRight from './ArrowRight.vue'
-</script>
 
 <style scoped lang="scss">
 @use '@scss/variables' as *;

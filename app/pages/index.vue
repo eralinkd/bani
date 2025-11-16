@@ -7,6 +7,7 @@
       <ProjectsSlider />
       <WhyUs />
       <FeedbackForm />
+      <Popular />
     </main>
     <!-- <AppFooter /> -->
   </div>
