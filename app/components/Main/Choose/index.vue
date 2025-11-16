@@ -61,7 +61,6 @@
 
   .item {
     position: relative;
-    aspect-ratio: 719 / 281;
   }
 
   .image {
