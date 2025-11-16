@@ -26,12 +26,21 @@
       </ul>
     </div>
     <div class="right">
-      <div class="icons">
+      <div v-if="!isMain" class="icons">
         <NuxtLink to="https://t.me/bani21veka" target="_blank">
-          <AppHeaderIconsTG />
+          <AppHeaderIconsTG class="icon" />
         </NuxtLink>
         <NuxtLink to="https://wa.me/79137668115" target="_blank">
-          <AppHeaderIconsWhatsapp />
+          <AppHeaderIconsWhatsapp class="icon" />
+        </NuxtLink>
+      </div>
+
+      <div v-if="isMain" class="icons">
+        <NuxtLink to="https://t.me/bani21veka" target="_blank">
+          <AppHeaderIconsTGWhite class="icon" />
+        </NuxtLink>
+        <NuxtLink to="https://wa.me/79137668115" target="_blank">
+          <AppHeaderIconsWhatsappWhite class="icon" />
         </NuxtLink>
       </div>
       <UIButton secondary small icon-position="left"
@@ -47,6 +56,15 @@
 
 <script setup>
 import AppHeaderIconsPhone from './Icons/phone.vue'
+import AppHeaderIconsTGWhite from './Icons/TGWhite.vue'
+import AppHeaderIconsWhatsappWhite from './Icons/WhatsappWhite.vue'
+
+defineProps({
+  isMain: {
+    type: Boolean,
+    default: false,
+  },
+})
 </script>
 
 <style lang="scss" scoped>
@@ -56,11 +74,13 @@ header {
   width: 100%;
   margin: 0 auto;
   max-width: 1440px;
-  box-sizing: content-box;
+  padding: 0 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-top: 60px;
+  position: relative;
+  z-index: 1;
 }
 
 .left {

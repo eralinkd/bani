@@ -71,7 +71,7 @@
   .container.white {
     display: flex;
     justify-content: center;
-    padding: 0px 120px 0 60px;
+    padding: 60px 120px 0 60px;
     flex-direction: column;
   }
 }

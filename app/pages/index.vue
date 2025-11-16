@@ -1,7 +1,7 @@
 <template>
   <div>
-    <AppHeader />
-    <main>
+    <AppHeader is-main />
+    <main class="main-page">
       <MainHero />
       <MainChoose />
       <ProjectsSlider />
@@ -12,3 +12,9 @@
     <!-- <AppFooter /> -->
   </div>
 </template>
+
+<style scoped lang="scss">
+.main-page {
+  margin-top: -75px;
+}
+</style>
