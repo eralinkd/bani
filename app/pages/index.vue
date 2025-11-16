@@ -3,6 +3,7 @@
     <!-- <AppHeader /> -->
     <main>
       <MainHero />
+      <MainChoose />
     </main>
     <!-- <AppFooter /> -->
   </div>

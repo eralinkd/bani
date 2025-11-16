@@ -64,7 +64,8 @@
 <style scoped lang="scss">
 @use '@scss/variables' as *;
 .main-hero {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 32px;
 
   .container.white {
