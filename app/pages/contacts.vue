@@ -1,5 +1,6 @@
 <template>
   <div>
+    <AppHeader />
     <main>
       <section class="contacts">
         <div class="contacts__container">
@@ -111,7 +112,7 @@
 
   &__container {
     max-width: 1440px;
-    margin: 30px auto 0 auto;
+    margin: 0 auto;
     padding: 0 32px 100px;
   }
 

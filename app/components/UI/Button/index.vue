@@ -3,14 +3,24 @@
     class="ui-button"
     :class="{
       'ui-button--secondary': secondary,
-      'ui-button--no-icon': !showIcon,
+      'ui-button--no-icon': iconPosition === 'none' || !showIcon,
+      'ui-button--small': small,
     }"
     type="button"
   >
+    <span v-if="showIcon && iconPosition === 'left'" class="ui-button__icon">
+      <slot name="icon">
+        <IconsSend aria-hidden="true" />
+      </slot>
+    </span>
     <span class="ui-button__label">
       <slot />
     </span>
-    <IconsSend v-if="showIcon" class="ui-button__icon" aria-hidden="true" />
+    <span v-if="showIcon && iconPosition === 'right'" class="ui-button__icon">
+      <slot name="icon">
+        <IconsSend aria-hidden="true" />
+      </slot>
+    </span>
   </button>
 </template>
 
@@ -23,6 +33,15 @@ defineProps({
   secondary: {
     type: Boolean,
     default: false,
+  },
+  small: {
+    type: Boolean,
+    default: false,
+  },
+  iconPosition: {
+    type: String,
+    default: 'right',
+    validator: (value) => ['left', 'right', 'none'].includes(value),
   },
 })
 </script>
@@ -71,6 +90,27 @@ defineProps({
   &--no-icon {
     padding-left: 45px;
   }
+}
+
+.ui-button--small {
+  padding: 15px 25px;
+  border-radius: 150px;
+  color: $text;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  .ui-button__icon {
+    width: 17px;
+    height: 17px;
+    flex: 0 0 17px;
+  }
+}
+
+.ui-button--small.ui-button--no-icon {
+  padding-left: 25px;
 }
 
 .ui-button--secondary {

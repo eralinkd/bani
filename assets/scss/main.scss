@@ -9,6 +9,10 @@
   text-decoration: none;
 }
 
+a {
+  color: inherit;
+}
+
 body {
   font-family: Inter, sans-serif;
   overflow-x: hidden;
@@ -24,6 +28,7 @@ main {
   flex-direction: column;
   gap: 50px;
   margin-bottom: 100px;
+  box-sizing: content-box;
 }
 
 .container {
@@ -91,7 +96,7 @@ h2 {
 
 .text-14 {
   font-family: Gilroy;
-  font-size: 12px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
