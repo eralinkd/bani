@@ -5,6 +5,7 @@
       <MainHero />
       <MainChoose />
       <ProjectsSlider />
+      <WhyUs />
     </main>
     <!-- <AppFooter /> -->
   </div>
