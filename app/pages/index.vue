@@ -13,6 +13,7 @@
       <MainQuiz />
       <Reviews />
       <FAQ />
+      <MainContacts />
     </main>
     <!-- <AppFooter /> -->
   </div>
