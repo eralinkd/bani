@@ -8,7 +8,7 @@
       <ProjectsSlider />
       <HowWeWork />
       <Reviews />
-      <!-- <Promotions /> -->
+      <Promotions />
       <WhyUs />
       <FAQ />
     </main>
