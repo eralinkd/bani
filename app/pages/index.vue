@@ -11,6 +11,7 @@
       <MainAbout />
       <HowWeWork />
       <MainQuiz />
+      <Reviews />
     </main>
     <!-- <AppFooter /> -->
   </div>
