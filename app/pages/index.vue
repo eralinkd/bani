@@ -10,6 +10,7 @@
       <Popular />
       <MainAbout />
       <HowWeWork />
+      <MainQuiz />
     </main>
     <!-- <AppFooter /> -->
   </div>
