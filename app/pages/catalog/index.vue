@@ -3,7 +3,8 @@
     <AppHeader />
     <main>
       <Breadcrumbs />
-      <!-- <CatalogHero /> -->
+      <PageTitle>Каталог</PageTitle>
+      <CatalogHero />
       <ProjectsSlider />
       <HowWeWork />
       <Reviews />
