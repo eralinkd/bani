@@ -9,6 +9,7 @@
       <FeedbackForm />
       <Popular />
       <MainAbout />
+      <HowWeWork />
     </main>
     <!-- <AppFooter /> -->
   </div>
