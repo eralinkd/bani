@@ -8,6 +8,7 @@
       <WhyUs />
       <FeedbackForm />
       <Popular />
+      <MainAbout />
     </main>
     <!-- <AppFooter /> -->
   </div>
