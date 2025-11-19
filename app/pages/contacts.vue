@@ -2,10 +2,9 @@
   <div>
     <AppHeader />
     <main>
+      <Breadcrumbs />
       <section class="contacts">
         <div class="contacts__container">
-          <Breadcrumbs class="contacts__breadcrumbs" />
-
           <div class="contacts__grid">
             <div class="contacts__left">
               <h1 class="contacts__title">Контакты</h1>

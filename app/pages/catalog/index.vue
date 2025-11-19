@@ -2,6 +2,7 @@
   <div>
     <AppHeader />
     <main>
+      <Breadcrumbs />
       <!-- <CatalogHero /> -->
       <ProjectsSlider />
       <HowWeWork />

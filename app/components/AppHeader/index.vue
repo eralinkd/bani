@@ -9,14 +9,14 @@
           <NuxtLink to="/catalog" class="text-14">Каталог объектов</NuxtLink>
         </li>
         <li>
-          <NuxtLink to="/" class="text-14">О нас</NuxtLink>
+          <NuxtLink to="/about" class="text-14">О нас</NuxtLink>
         </li>
         <li>
           <NuxtLink to="/" class="text-14">Наши работы</NuxtLink>
         </li>
-        <li>
+        <!-- <li>
           <NuxtLink to="/" class="text-14">Блог</NuxtLink>
-        </li>
+        </li> -->
         <li>
           <NuxtLink to="/" class="text-14">Отзывы</NuxtLink>
         </li>

@@ -72,6 +72,7 @@ const items = computed(() => {
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  padding-left: 30px;
 
   &__link,
   &__current {
