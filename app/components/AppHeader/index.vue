@@ -6,7 +6,7 @@
       </NuxtLink>
       <ul class="nav">
         <li>
-          <NuxtLink to="/" class="text-14">Каталог объектов</NuxtLink>
+          <NuxtLink to="/catalog" class="text-14">Каталог объектов</NuxtLink>
         </li>
         <li>
           <NuxtLink to="/" class="text-14">О нас</NuxtLink>
