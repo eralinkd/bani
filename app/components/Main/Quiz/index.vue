@@ -51,7 +51,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 32px;
-  padding-left: 60px;
+  padding: 0 60px;
 
   .left {
     h2,

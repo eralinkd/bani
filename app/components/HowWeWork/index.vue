@@ -55,7 +55,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 32px;
-  padding-left: 60px;
+  padding: 0 60px;
 
   .left {
     .text-16.intro {
