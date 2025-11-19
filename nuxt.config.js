@@ -6,6 +6,11 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: 'Бани 21 века',
+      app: {
+        head: {
+          link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+        },
+      },
     },
   },
   htmlAttrs: {
