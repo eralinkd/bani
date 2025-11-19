@@ -12,6 +12,7 @@
       <HowWeWork />
       <MainQuiz />
       <Reviews />
+      <FAQ />
     </main>
     <!-- <AppFooter /> -->
   </div>
