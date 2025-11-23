@@ -57,6 +57,14 @@
 @use '@scss/variables' as *;
 .container {
   padding: 0 32px;
+
+  @media (max-width: $mobileBreakpoint) {
+    padding: 0 20px;
+
+    h2 {
+      font-size: 50px;
+    }
+  }
 }
 
 .slider {
@@ -64,6 +72,12 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 32px;
+
+  @media (max-width: $mobileBreakpoint) {
+    padding: 0 10px;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
 
   .item {
     border-radius: 20px;
@@ -74,6 +88,14 @@
     justify-content: flex-end;
     overflow: hidden;
     padding: 20px 50px 20px 20px;
+
+    @media (max-width: $mobileBreakpoint) {
+      display: none;
+
+      &:nth-child(1) {
+        display: flex;
+      }
+    }
 
     p {
       position: relative;
@@ -97,6 +119,13 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 40px;
+
+  @media (max-width: $mobileBreakpoint) {
+    margin-top: 30px;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 20px;
+  }
 
   .slider-controls {
     display: flex;
