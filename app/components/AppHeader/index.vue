@@ -12,7 +12,7 @@
           <NuxtLink to="/about" class="text-14">О нас</NuxtLink>
         </li>
         <li>
-          <NuxtLink to="/" class="text-14">Наши работы</NuxtLink>
+          <NuxtLink to="/our-products" class="text-14">Наши работы</NuxtLink>
         </li>
         <!-- <li>
           <NuxtLink to="/" class="text-14">Блог</NuxtLink>

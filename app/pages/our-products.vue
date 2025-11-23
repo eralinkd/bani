@@ -3,7 +3,7 @@
     <AppHeader />
     <main>
       <Breadcrumbs />
-      <!-- <OurProductsHero /> -->
+      <OurProductsHero />
       <WhyUs />
       <Reviews />
     </main>

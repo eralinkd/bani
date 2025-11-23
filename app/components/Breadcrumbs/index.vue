@@ -25,6 +25,7 @@ const LABELS = {
   '/blog': 'Блог',
   '/reviews': 'Отзывы',
   '/catalog/bathhouses': 'Бани',
+  '/our-products': 'Наши работы',
 }
 
 function humanize(segment) {
