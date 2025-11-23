@@ -4,11 +4,9 @@
     <main>
       <Breadcrumbs />
       <PageTitle>Бани</PageTitle>
-
-      <!-- <BathhousesHero /> -->
-
+      <ProductsGrid />
       <ProjectsSlider />
-      <HowWeWork />
+      <HowWeWork no-button />
       <Reviews />
       <Promotions />
       <WhyUs />

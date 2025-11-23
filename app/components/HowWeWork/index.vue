@@ -32,7 +32,7 @@
           <p class="text-16">Оформите заказ и подтвердите все условия работы и монтажа.</p>
         </div>
       </div>
-      <UIButton>Оставить заявку</UIButton>
+      <UIButton v-if="!noButton">Оставить заявку</UIButton>
     </div>
     <div class="right">
       <h2 class="text-64 text-white">Воспользуйтесь беспроцентной рассрочкой</h2>
@@ -49,6 +49,14 @@
   </div>
 </template>
 
+<script setup>
+defineProps({
+  noButton: {
+    type: Boolean,
+    default: false,
+  },
+})
+</script>
 <style scoped lang="scss">
 @use '@scss/variables' as *;
 .container {
@@ -72,14 +80,14 @@
       .item {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
         padding: 20px;
         border-radius: 15px;
         background: $white;
 
         .number {
-          width: 63px;
-          height: 63px;
+          width: 55px;
+          height: 55px;
           background: $text;
           border-radius: 14px;
           display: flex;
@@ -119,7 +127,7 @@
       position: absolute;
       bottom: 20px;
       right: 20px;
-      width: 78%;
+      width: 68%;
     }
 
     .button {

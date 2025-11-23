@@ -95,7 +95,7 @@ defineProps({
 .ui-button--small {
   padding: 15px 25px;
   border-radius: 150px;
-  color: $text;
+  color: $white;
   font-family: Inter, sans-serif;
   font-size: 14px;
   font-style: normal;
@@ -103,9 +103,9 @@ defineProps({
   line-height: normal;
 
   .ui-button__icon {
-    width: 17px;
-    height: 17px;
-    flex: 0 0 17px;
+    width: 17px !important;
+    height: 17px !important;
+    flex: 0 0 17px !important;
   }
 }
 
