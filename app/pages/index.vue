@@ -2,7 +2,7 @@
   <div>
     <AppHeader is-main />
     <main class="main-page">
-      <MainHero />
+      <!-- <MainHero />
       <MainChoose />
       <ProjectsSlider />
       <WhyUs />
@@ -13,7 +13,7 @@
       <MainQuiz />
       <Reviews />
       <FAQ />
-      <MainContacts />
+      <MainContacts /> -->
     </main>
     <!-- <AppFooter /> -->
   </div>
