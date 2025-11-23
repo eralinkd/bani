@@ -3,9 +3,9 @@
     <AppHeader is-main />
     <main class="main-page">
       <MainHero />
-      <!-- <MainChoose />
+      <MainChoose />
       <ProjectsSlider />
-      <WhyUs />
+      <!-- <WhyUs />
       <FeedbackForm />
       <Popular />
       <MainAbout />

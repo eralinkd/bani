@@ -35,9 +35,20 @@
   gap: 32px;
   padding: 50px 60px 50px 60px;
 
+  @media (max-width: $mobileBreakpoint) {
+    margin-top: 130px;
+    grid-template-columns: 1fr;
+    padding: 40px 20px;
+    gap: 40px;
+  }
+
   .text-36 {
     margin-top: 10px;
     margin-bottom: 40px;
+
+    @media (max-width: $mobileBreakpoint) {
+      margin-bottom: 20px;
+    }
   }
 }
 
@@ -48,6 +59,16 @@
     aspect-ratio: 688 / 485;
     width: 100%;
     position: relative;
+
+    @media (max-width: $mobileBreakpoint) {
+      aspect-ratio: 333/474;
+
+      .item {
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+    }
 
     .image {
       width: 100%;
@@ -61,6 +82,11 @@
       position: absolute;
       bottom: 40px;
       left: 40px;
+
+      @media (max-width: $mobileBreakpoint) {
+        bottom: 10px;
+        left: 22px;
+      }
     }
 
     .slider-controls {
@@ -70,6 +96,12 @@
       display: flex;
       align-items: center;
       gap: 20px;
+
+      @media (max-width: $mobileBreakpoint) {
+        position: static;
+        margin-top: 20px;
+        justify-content: center;
+      }
 
       .text-18 {
         color: $text-secondary;

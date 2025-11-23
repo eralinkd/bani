@@ -112,10 +112,24 @@ defineProps({
   font-weight: 400;
   line-height: normal;
 
+  @media (max-width: $mobileBreakpoint) {
+    padding: 11px 25px;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
   .ui-button__icon {
     width: 17px !important;
     height: 17px !important;
     flex: 0 0 17px !important;
+
+    @media (max-width: $mobileBreakpoint) {
+      width: 13px !important;
+      height: 13px !important;
+      flex: 0 0 13px !important;
+    }
   }
 }
 
