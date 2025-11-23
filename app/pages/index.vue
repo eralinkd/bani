@@ -8,8 +8,8 @@
       <WhyUs />
       <FeedbackForm />
       <Popular />
-      <!-- <MainAbout />
-      <HowWeWork />
+      <MainAbout />
+      <!-- <HowWeWork />
       <MainQuiz />
       <Reviews />
       <FAQ />

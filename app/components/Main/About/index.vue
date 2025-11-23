@@ -39,12 +39,30 @@
   gap: 32px;
   overflow: hidden;
 
+  @media (max-width: $mobileBreakpoint) {
+    grid-template-columns: 1fr;
+    gap: 45px;
+    padding: 40px 10px 10px 10px;
+
+    h2 {
+      font-size: 50px;
+    }
+  }
+
   .left {
     padding: 50px 0 0 60px;
+
+    @media (max-width: $mobileBreakpoint) {
+      padding: 0 10px;
+    }
 
     .text-16 {
       margin-top: 10px;
       margin-bottom: 40px;
+
+      @media (max-width: $mobileBreakpoint) {
+        margin-bottom: 20px;
+      }
     }
   }
 
@@ -53,6 +71,10 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
+
+    @media (max-width: $mobileBreakpoint) {
+      border-radius: 20px;
+    }
 
     iframe {
       width: 100%;

@@ -77,6 +77,10 @@
     grid-template-columns: 1fr;
     padding: 27px 10px 30px 10px;
     background-color: $white;
+
+    h2 {
+      font-size: 59px;
+    }
   }
 
   .container.white {
@@ -138,6 +142,8 @@
     text-align: right;
 
     @media (max-width: $mobileBreakpoint) {
+      font-size: 21px;
+
       margin-top: 2px;
     }
   }

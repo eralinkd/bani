@@ -53,7 +53,7 @@ h1 {
   text-transform: uppercase;
 
   @media (max-width: $mobileBreakpoint) {
-    font-size: 59px;
+    font-size: 50px;
     font-style: normal;
     font-weight: 900;
     line-height: 100%; /* 59px */
@@ -70,7 +70,7 @@ h2 {
   text-transform: uppercase;
 
   @media (max-width: $mobileBreakpoint) {
-    font-size: 59px;
+    font-size: 50px;
     font-style: normal;
     font-weight: 900;
     line-height: 100%; /* 59px */
