@@ -5,7 +5,7 @@
       <Breadcrumbs />
       <AboutBanner />
       <AboutHero />
-      <!-- <AboutWhyUs /> -->
+      <AboutWhyUs />
       <FeedbackForm />
       <Reviews />
     </main>
