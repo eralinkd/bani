@@ -174,6 +174,12 @@ ul {
   gap: 22px;
 }
 
+.cta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
 /* Burger button */
 .burger {
   display: none;
@@ -237,7 +243,7 @@ ul {
   right: 0;
   bottom: 0;
   width: min(88vw, 360px);
-  background: $white;
+  background: $background;
   z-index: 10;
   display: flex;
   flex-direction: column;

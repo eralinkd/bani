@@ -29,6 +29,10 @@ main {
   gap: 50px;
   margin-bottom: 100px;
   box-sizing: content-box;
+
+  @media (max-width: $mobileBreakpoint) {
+    padding: 0;
+  }
 }
 
 .container {
@@ -47,6 +51,14 @@ h1 {
   font-weight: 900;
   line-height: 100%; /* 100px */
   text-transform: uppercase;
+
+  @media (max-width: $mobileBreakpoint) {
+    font-size: 59px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 100%; /* 59px */
+    text-transform: uppercase;
+  }
 }
 
 h2 {
@@ -56,6 +68,14 @@ h2 {
   font-weight: 900;
   line-height: 110%; /* 110px */
   text-transform: uppercase;
+
+  @media (max-width: $mobileBreakpoint) {
+    font-size: 59px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 100%; /* 59px */
+    text-transform: uppercase;
+  }
 }
 
 .text-64 {
@@ -89,6 +109,13 @@ h2 {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+
+  @media (max-width: $mobileBreakpoint) {
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
 }
 
 .text-24 {

@@ -73,6 +73,11 @@ defineProps({
     box-shadow 0.2s ease,
     transform 0.02s ease;
 
+  @media (max-width: $mobileBreakpoint) {
+    padding: 17px 40px;
+    width: 100%;
+  }
+
   &:hover {
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)), $text;
   }
@@ -85,6 +90,11 @@ defineProps({
     width: 24px;
     height: 24px;
     flex: 0 0 24px;
+    @media (max-width: $mobileBreakpoint) {
+      width: 21px;
+      height: 21px;
+      flex: 0 0 21px;
+    }
   }
 
   &--no-icon {
