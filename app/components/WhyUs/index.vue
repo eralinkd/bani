@@ -75,4 +75,34 @@
     }
   }
 }
+
+@media (max-width: $mobileBreakpoint) {
+  .container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 20px;
+
+    .left {
+      .text-36 {
+        margin-top: 8px;
+        margin-bottom: 16px;
+      }
+
+      :deep(.UIButton) {
+        width: 100%;
+      }
+    }
+
+    .right {
+      grid-template-columns: 1fr;
+      gap: 10px;
+
+      .item {
+        padding: 23px 32px;
+        border-radius: 15px;
+        gap: 16px;
+      }
+    }
+  }
+}
 </style>

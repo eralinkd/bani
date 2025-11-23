@@ -5,8 +5,8 @@
       <MainHero />
       <MainChoose />
       <ProjectsSlider />
-      <!-- <WhyUs />
-      <FeedbackForm />
+      <WhyUs />
+      <!-- <FeedbackForm />
       <Popular />
       <MainAbout />
       <HowWeWork />
