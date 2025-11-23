@@ -3,8 +3,8 @@
     <AppHeader />
     <main>
       <Breadcrumbs />
-      <!-- <AboutBanner /> -->
-      <!-- <AboutHero /> -->
+      <AboutBanner />
+      <AboutHero />
       <!-- <AboutWhyUs /> -->
       <FeedbackForm />
       <Reviews />
