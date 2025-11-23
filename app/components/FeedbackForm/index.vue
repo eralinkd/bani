@@ -7,7 +7,8 @@
       <p class="text-36 text-white">
         Сообщите о вашей задумке и мы расскажем, как сможем ее реализовать
       </p>
-      <UIButton secondary>Оставить заявку</UIButton>
+      <UIButton class="button" small secondary>Оставить заявку</UIButton>
+      <UIButton class="button mobile" secondary>Оставить заявку</UIButton>
     </div>
     <NuxtImg class="decor" src="/images/Feedback/decor.png" alt="Feedback Form" format="webp" />
   </div>
@@ -19,6 +20,36 @@
   padding: 50px 32px;
   position: relative;
   overflow: hidden;
+
+  .button.mobile {
+    display: none;
+  }
+
+  @media (max-width: $mobileBreakpoint) {
+    width: calc(100% - 20px);
+    padding: 36px 20px 400px 20px;
+    margin: 0 10px 0px 10px;
+
+    h2 {
+      font-family: Gilroy;
+      font-size: 40px;
+      font-style: normal;
+      font-weight: 900;
+      line-height: 110%; /* 44px */
+      text-transform: uppercase;
+    }
+
+    .button {
+      display: none;
+    }
+
+    .button.mobile {
+      display: flex;
+      margin: auto;
+      width: fit-content;
+      padding: 17px 39px;
+    }
+  }
 
   .bg {
     position: absolute;
@@ -38,6 +69,11 @@
       margin-top: 10px;
       max-width: 544px;
       margin-bottom: 40px;
+
+      @media (max-width: $mobileBreakpoint) {
+        margin-bottom: 44px;
+        max-width: 295px;
+      }
     }
   }
 
@@ -46,6 +82,10 @@
     bottom: 0;
     right: 0;
     width: 44%;
+
+    @media (max-width: $mobileBreakpoint) {
+      width: 100%;
+    }
   }
 }
 </style>

@@ -6,8 +6,8 @@
       <MainChoose />
       <ProjectsSlider />
       <WhyUs />
-      <!-- <FeedbackForm />
-      <Popular />
+      <FeedbackForm />
+      <!-- <Popular />
       <MainAbout />
       <HowWeWork />
       <MainQuiz />
