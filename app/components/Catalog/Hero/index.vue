@@ -3,7 +3,9 @@
     <div class="grid">
       <div class="item">
         <NuxtImg class="image" src="/images/Catalog/Hero/1.png" alt="Бани" format="webp" />
-        <UIButton class="button" secondary>Бани</UIButton>
+        <UIButton class="button" secondary @click="navigateTo('/catalog/bathhouses')"
+          >Бани</UIButton
+        >
       </div>
       <div class="item">
         <NuxtImg class="image" src="/images/Catalog/Hero/2.png" alt="Бани" format="webp" />

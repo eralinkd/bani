@@ -24,6 +24,7 @@ const LABELS = {
   '/projects': 'Наши работы',
   '/blog': 'Блог',
   '/reviews': 'Отзывы',
+  '/catalog/bathhouses': 'Бани',
 }
 
 function humanize(segment) {
@@ -72,7 +73,7 @@ const items = computed(() => {
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  padding-left: 30px;
+  padding-left: 60px;
 
   &__link,
   &__current {

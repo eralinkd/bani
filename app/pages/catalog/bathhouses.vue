@@ -3,6 +3,8 @@
     <AppHeader />
     <main>
       <Breadcrumbs />
+      <PageTitle>Бани</PageTitle>
+
       <!-- <BathhousesHero /> -->
 
       <ProjectsSlider />
