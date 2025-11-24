@@ -20,7 +20,7 @@
       </button>
     </div>
     <div class="products">
-      <div v-for="i in productsAmount" :key="i" class="item hover-card">
+      <NuxtLink v-for="i in productsAmount" :key="i" to="/catalog/product" class="item hover-card">
         <NuxtImg class="image" src="/images/Products/1.png" alt="Продукт" format="webp" />
         <p class="text-24 text-white">Баня бочка</p>
         <p class="text-14 text-white">
@@ -28,7 +28,7 @@
           входом.
         </p>
         <p class="text-24 text-white">858 000 ₽</p>
-      </div>
+      </NuxtLink>
       <UIButton v-if="!isShowAll" icon-position="none" small class="button" @click="showAll"
         >Еще</UIButton
       >

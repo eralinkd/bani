@@ -27,6 +27,7 @@ const LABELS = {
   '/catalog/bathhouses': 'Бани',
   '/our-products': 'Наши работы',
   '/catalog/verandas': 'Веранды',
+  '/catalog/product': 'Баня бочка',
 }
 
 function humanize(segment) {

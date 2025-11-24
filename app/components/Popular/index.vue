@@ -18,12 +18,17 @@
       >
         <SwiperSlide v-for="(slideGroup, index) in slideGroups" :key="index" class="slide">
           <div class="slide-content">
-            <div v-for="(item, itemIndex) in slideGroup" :key="itemIndex" class="item hover-card">
+            <NuxtLink
+              v-for="(item, itemIndex) in slideGroup"
+              :key="itemIndex"
+              to="/catalog/product"
+              class="item hover-card"
+            >
               <NuxtImg class="image" :src="item.image" :alt="item.title" format="webp" />
               <p class="text-24 text-white">{{ item.title }}</p>
               <p class="text-14 text-white">{{ item.description }}</p>
               <p class="text-24 text-white">{{ item.price }}</p>
-            </div>
+            </NuxtLink>
           </div>
         </SwiperSlide>
       </Swiper>
