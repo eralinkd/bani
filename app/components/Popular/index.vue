@@ -106,7 +106,7 @@ const onSlideChange = (swiper) => {
 .slider-wrapper {
   margin-top: 20px;
   width: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
 
   @media (max-width: $mobileBreakpoint) {
     padding: 0 10px;
@@ -153,6 +153,16 @@ const onSlideChange = (swiper) => {
       padding: 20px 50px 20px 20px;
       width: 100%;
       height: 100%;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease;
+
+      &:hover {
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+
+        .image {
+          transform: scale(1.1);
+        }
+      }
 
       p {
         position: relative;
@@ -167,6 +177,7 @@ const onSlideChange = (swiper) => {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        transition: transform 0.5s ease;
       }
     }
   }
