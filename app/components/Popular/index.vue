@@ -9,8 +9,8 @@
         :modules="modules"
         :space-between="32"
         :navigation="{
-          nextEl: '.swiper-button-next-custom',
-          prevEl: '.swiper-button-prev-custom',
+          nextEl: '.swiper-button-next-popular',
+          prevEl: '.swiper-button-prev-popular',
         }"
         :breakpoints="breakpoints"
         class="slider"
@@ -31,11 +31,11 @@
     <div class="controls">
       <UIButton>В каталог</UIButton>
       <div class="slider-controls">
-        <button class="swiper-button-prev-custom" type="button">
+        <button class="swiper-button-prev-popular" type="button">
           <IconsArrowLeft />
         </button>
         <p class="text-18">{{ currentSlide + 1 }} / {{ slideGroups.length }}</p>
-        <button class="swiper-button-next-custom" type="button">
+        <button class="swiper-button-next-popular" type="button">
           <IconsArrowRight />
         </button>
       </div>

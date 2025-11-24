@@ -25,8 +25,8 @@
           :modules="modules"
           :space-between="12"
           :navigation="{
-            nextEl: '.swiper-button-next-custom',
-            prevEl: '.swiper-button-prev-custom',
+            nextEl: '.swiper-button-next-reviews',
+            prevEl: '.swiper-button-prev-reviews',
           }"
           :breakpoints="breakpoints"
           class="slider"
@@ -64,11 +64,11 @@
       </div>
 
       <div class="slider-controls">
-        <button class="swiper-button-prev-custom" type="button">
+        <button class="swiper-button-prev-reviews" type="button">
           <IconsArrowLeft />
         </button>
         <p class="text-18">{{ currentSlide + 1 }} / {{ slideGroups.length }}</p>
-        <button class="swiper-button-next-custom" type="button">
+        <button class="swiper-button-next-reviews" type="button">
           <IconsArrowRight />
         </button>
       </div>

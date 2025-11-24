@@ -15,8 +15,8 @@
           :slides-per-view="1"
           :space-between="0"
           :navigation="{
-            nextEl: '.swiper-button-next-custom',
-            prevEl: '.swiper-button-prev-custom',
+            nextEl: '.swiper-button-next-projects',
+            prevEl: '.swiper-button-prev-projects',
           }"
           class="slider"
           @slide-change="onSlideChange"
@@ -35,11 +35,11 @@
         </Swiper>
 
         <div class="slider-controls">
-          <button class="swiper-button-prev-custom" type="button">
+          <button class="swiper-button-prev-projects" type="button">
             <IconsArrowLeft />
           </button>
           <p class="text-18">{{ currentSlide + 1 }} / {{ slides.length }}</p>
-          <button class="swiper-button-next-custom" type="button">
+          <button class="swiper-button-next-projects" type="button">
             <IconsArrowRight />
           </button>
         </div>
