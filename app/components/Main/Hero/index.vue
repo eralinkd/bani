@@ -127,6 +127,7 @@
   display: flex;
   gap: 18px;
   justify-content: flex-end;
+  margin-bottom: -15px;
 
   @media (max-width: $mobileBreakpoint) {
     width: 95%;
@@ -136,10 +137,12 @@
     justify-content: center;
     margin-left: auto;
     margin-top: 2px;
+    margin-bottom: 0;
   }
 
   p {
     text-align: right;
+    margin-top: 12px;
 
     @media (max-width: $mobileBreakpoint) {
       font-size: 21px;

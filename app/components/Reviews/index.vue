@@ -20,63 +20,159 @@
       <UIButton>Прочитать все отзывы</UIButton>
     </div>
     <div class="right">
-      <div class="review-card">
-        <div class="header">
-          <div class="avatar" aria-hidden="true"></div>
-          <div class="meta">
-            <div class="name">Анна Кондрашова</div>
-            <div class="date">30 июля 2025</div>
-          </div>
-        </div>
-        <p class="content">
-          Очень понравился подход: помогли с проектом, подобрали материал, всё согласовали заранее.
-          Работали аккуратно, без мусора и лишней суеты. Уже полгода пользуемся — баня тёплая, нигде
-          не течёт, пар держит отлично. Спасибо за качественную работу!
-        </p>
-        <div class="footer">
-          <ReviewsIcons2gisGrey />
-          <div class="stars" aria-label="Оценка 5 из 5">
-            <ReviewsIconsStar />
-            <ReviewsIconsStar />
-            <ReviewsIconsStar />
-            <ReviewsIconsStar />
-            <ReviewsIconsStar />
-          </div>
-        </div>
-      </div>
-      <div class="review-card">
-        <div class="header">
-          <div class="avatar" aria-hidden="true"></div>
-          <div class="meta">
-            <div class="name">Татьяна Голованова</div>
-            <div class="date">18 июля 2025</div>
-          </div>
-        </div>
-        <p class="content">
-          Давно мечтали о красивой беседке во дворе. Ребята предложили несколько вариантов дизайна,
-          подобрали под наш участок. Построили быстро, аккуратно и по адекватной цене. Получилось
-          даже лучше, чем на визуализации!
-        </p>
-        <div class="footer">
-          <ReviewsIcons2gisGrey />
-          <div class="stars" aria-label="Оценка 5 из 5">
-            <ReviewsIconsStar />
-            <ReviewsIconsStar />
-            <ReviewsIconsStar />
-            <ReviewsIconsStar />
-            <ReviewsIconsStar />
-          </div>
-        </div>
+      <div class="slider-wrapper">
+        <Swiper
+          :modules="modules"
+          :space-between="12"
+          :navigation="{
+            nextEl: '.swiper-button-next-custom',
+            prevEl: '.swiper-button-prev-custom',
+          }"
+          :breakpoints="breakpoints"
+          class="slider"
+          @slide-change="onSlideChange"
+        >
+          <SwiperSlide v-for="(slideGroup, index) in slideGroups" :key="index" class="slide">
+            <div class="slide-content">
+              <div
+                v-for="(review, reviewIndex) in slideGroup"
+                :key="reviewIndex"
+                class="review-card"
+              >
+                <div class="header">
+                  <div class="avatar" aria-hidden="true"></div>
+                  <div class="meta">
+                    <div class="name">{{ review.name }}</div>
+                    <div class="date">{{ review.date }}</div>
+                  </div>
+                </div>
+                <p class="content">{{ review.content }}</p>
+                <div class="footer">
+                  <ReviewsIcons2gisGrey />
+                  <div class="stars" aria-label="Оценка 5 из 5">
+                    <ReviewsIconsStar />
+                    <ReviewsIconsStar />
+                    <ReviewsIconsStar />
+                    <ReviewsIconsStar />
+                    <ReviewsIconsStar />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </SwiperSlide>
+        </Swiper>
       </div>
 
       <div class="slider-controls">
-        <IconsArrowLeft />
-        <p class="text-18">2 / 18</p>
-        <IconsArrowRight />
+        <button class="swiper-button-prev-custom" type="button">
+          <IconsArrowLeft />
+        </button>
+        <p class="text-18">{{ currentSlide + 1 }} / {{ slideGroups.length }}</p>
+        <button class="swiper-button-next-custom" type="button">
+          <IconsArrowRight />
+        </button>
       </div>
     </div>
   </div>
 </template>
+
+<script setup>
+import { Navigation } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { computed } from 'vue'
+import 'swiper/css'
+import 'swiper/css/navigation'
+
+const modules = [Navigation]
+
+const reviews = [
+  {
+    name: 'Анна Кондрашова',
+    date: '30 июля 2025',
+    content:
+      'Очень понравился подход: помогли с проектом, подобрали материал, всё согласовали заранее. Работали аккуратно, без мусора и лишней суеты. Уже полгода пользуемся — баня тёплая, нигде не течёт, пар держит отлично. Спасибо за качественную работу!',
+  },
+  {
+    name: 'Татьяна Голованова',
+    date: '18 июля 2025',
+    content:
+      'Давно мечтали о красивой беседке во дворе. Ребята предложили несколько вариантов дизайна, подобрали под наш участок. Построили быстро, аккуратно и по адекватной цене. Получилось даже лучше, чем на визуализации!',
+  },
+  {
+    name: 'Анна Кондрашова',
+    date: '30 июля 2025',
+    content:
+      'Очень понравился подход: помогли с проектом, подобрали материал, всё согласовали заранее. Работали аккуратно, без мусора и лишней суеты. Уже полгода пользуемся — баня тёплая, нигде не течёт, пар держит отлично. Спасибо за качественную работу!',
+  },
+  {
+    name: 'Татьяна Голованова',
+    date: '18 июля 2025',
+    content:
+      'Давно мечтали о красивой беседке во дворе. Ребята предложили несколько вариантов дизайна, подобрали под наш участок. Построили быстро, аккуратно и по адекватной цене. Получилось даже лучше, чем на визуализации!',
+  },
+  {
+    name: 'Анна Кондрашова',
+    date: '30 июля 2025',
+    content:
+      'Очень понравился подход: помогли с проектом, подобрали материал, всё согласовали заранее. Работали аккуратно, без мусора и лишней суеты. Уже полгода пользуемся — баня тёплая, нигде не течёт, пар держит отлично. Спасибо за качественную работу!',
+  },
+  {
+    name: 'Татьяна Голованова',
+    date: '18 июля 2025',
+    content:
+      'Давно мечтали о красивой беседке во дворе. Ребята предложили несколько вариантов дизайна, подобрали под наш участок. Построили быстро, аккуратно и по адекватной цене. Получилось даже лучше, чем на визуализации!',
+  },
+  {
+    name: 'Анна Кондрашова',
+    date: '30 июля 2025',
+    content:
+      'Очень понравился подход: помогли с проектом, подобрали материал, всё согласовали заранее. Работали аккуратно, без мусора и лишней суеты. Уже полгода пользуемся — баня тёплая, нигде не течёт, пар держит отлично. Спасибо за качественную работу!',
+  },
+  {
+    name: 'Татьяна Голованова',
+    date: '18 июля 2025',
+    content:
+      'Давно мечтали о красивой беседке во дворе. Ребята предложили несколько вариантов дизайна, подобрали под наш участок. Построили быстро, аккуратно и по адекватной цене. Получилось даже лучше, чем на визуализации!',
+  },
+  {
+    name: 'Анна Кондрашова',
+    date: '30 июля 2025',
+    content:
+      'Очень понравился подход: помогли с проектом, подобрали материал, всё согласовали заранее. Работали аккуратно, без мусора и лишней суеты. Уже полгода пользуемся — баня тёплая, нигде не течёт, пар держит отлично. Спасибо за качественную работу!',
+  },
+  {
+    name: 'Татьяна Голованова',
+    date: '18 июля 2025',
+    content:
+      'Давно мечтали о красивой беседке во дворе. Ребята предложили несколько вариантов дизайна, подобрали под наш участок. Построили быстро, аккуратно и по адекватной цене. Получилось даже лучше, чем на визуализации!',
+  },
+]
+
+const slideGroups = computed(() => {
+  const groups = []
+  for (let i = 0; i < reviews.length; i += 2) {
+    groups.push(reviews.slice(i, i + 2))
+  }
+  return groups
+})
+
+const currentSlide = ref(0)
+
+const breakpoints = {
+  769: {
+    slidesPerView: 1,
+    spaceBetween: 12,
+  },
+  320: {
+    slidesPerView: 1,
+    spaceBetween: 12,
+  },
+}
+
+const onSlideChange = (swiper) => {
+  currentSlide.value = swiper.activeIndex
+}
+</script>
 
 <style scoped lang="scss">
 @use '@scss/variables' as *;
@@ -101,10 +197,61 @@
 
   .right {
     height: fit-content;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
     position: relative;
+    width: 100%;
+
+    .slider-wrapper {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slider {
+      width: 100%;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+
+      :deep(.swiper-wrapper) {
+        display: flex;
+        width: 100%;
+        align-items: stretch;
+      }
+
+      :deep(.swiper-slide) {
+        width: 100% !important;
+        height: auto;
+        flex-shrink: 0;
+        box-sizing: border-box;
+        display: flex;
+        align-items: stretch;
+      }
+
+      .slide {
+        width: 100% !important;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+
+        .slide-content {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+          width: 100%;
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+          flex: 1;
+
+          @media (max-width: $mobileBreakpoint) {
+            grid-template-columns: 1fr;
+          }
+        }
+      }
+    }
 
     .slider-controls {
       position: absolute;
@@ -113,6 +260,16 @@
       display: flex;
       align-items: center;
       gap: 20px;
+
+      button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
       .text-18 {
         color: $text-secondary;
@@ -123,6 +280,11 @@
       background: #ffffff;
       border-radius: 20px;
       padding: 20px;
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
 
       .header {
         display: flex;

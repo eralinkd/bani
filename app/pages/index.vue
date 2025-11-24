@@ -9,11 +9,11 @@
       <FeedbackForm />
       <Popular />
       <MainAbout />
-      <!-- <HowWeWork />
+      <HowWeWork />
       <MainQuiz />
       <Reviews />
       <FAQ />
-      <MainContacts /> -->
+      <MainContacts />
     </main>
     <!-- <AppFooter /> -->
   </div>
