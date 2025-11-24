@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container hover-card">
     <h1 class="text-white">Создаем объекты для отличного загородного отдыха</h1>
     <UIButton class="button" secondary>Обсудить проект</UIButton>
     <NuxtImg class="image" src="/images/About/banner.png" alt="Фоновое изображение" format="webp" />

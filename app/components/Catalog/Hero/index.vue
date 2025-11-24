@@ -1,17 +1,17 @@
 <template>
   <div class="container">
     <div class="grid">
-      <div class="item">
+      <div class="item hover-card">
         <NuxtImg class="image" src="/images/Catalog/Hero/1.png" alt="Бани" format="webp" />
         <UIButton class="button" secondary @click="navigateTo('/catalog/bathhouses')"
           >Бани</UIButton
         >
       </div>
-      <div class="item">
+      <div class="item hover-card">
         <NuxtImg class="image" src="/images/Catalog/Hero/2.png" alt="Бани" format="webp" />
         <UIButton class="button" secondary>Беседки и веранды</UIButton>
       </div>
-      <div class="item double">
+      <div class="item double hover-card">
         <NuxtImg class="image" src="/images/Catalog/Hero/3.png" alt="Бани" format="webp" />
         <UIButton class="button" secondary>Другие садовые объекты</UIButton>
       </div>

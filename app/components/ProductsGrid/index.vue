@@ -17,7 +17,7 @@
       <UIButton small>Нужна помощь</UIButton>
     </div>
     <div class="products">
-      <div v-for="i in productsAmount" :key="i" class="item">
+      <div v-for="i in productsAmount" :key="i" class="item hover-card">
         <NuxtImg class="image" src="/images/Products/1.png" alt="Продукт" format="webp" />
         <p class="text-24 text-white">Баня бочка</p>
         <p class="text-14 text-white">

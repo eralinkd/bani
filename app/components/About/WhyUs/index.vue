@@ -84,6 +84,17 @@
     background: $white;
     flex-direction: column;
     padding: 31px 33px 30px 20px;
+    cursor: pointer;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease,
+      background-color 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      background-color: #fafafa;
+    }
 
     .text-24 {
       margin-top: 44px;
