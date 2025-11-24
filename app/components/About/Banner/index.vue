@@ -2,7 +2,7 @@
   <div class="container">
     <h1 class="text-white">Создаем объекты для отличного загородного отдыха</h1>
     <UIButton class="button" secondary>Обсудить проект</UIButton>
-    <NuxtImg class="image" src="/images/About/Banner.png" alt="Фоновое изображение" format="webp" />
+    <NuxtImg class="image" src="/images/About/banner.png" alt="Фоновое изображение" format="webp" />
   </div>
 </template>
 
