@@ -18,7 +18,7 @@
       >
         <SwiperSlide v-for="(slideGroup, index) in slideGroups" :key="index" class="slide">
           <div class="slide-content">
-            <div v-for="(item, itemIndex) in slideGroup" :key="itemIndex" class="item">
+            <div v-for="(item, itemIndex) in slideGroup" :key="itemIndex" class="item hover-card">
               <NuxtImg class="image" :src="item.image" :alt="item.title" format="webp" />
               <p class="text-24 text-white">{{ item.title }}</p>
               <p class="text-14 text-white">{{ item.description }}</p>
@@ -153,16 +153,6 @@ const onSlideChange = (swiper) => {
       padding: 20px 50px 20px 20px;
       width: 100%;
       height: 100%;
-      cursor: pointer;
-      transition: box-shadow 0.3s ease;
-
-      &:hover {
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-
-        .image {
-          transform: scale(1.1);
-        }
-      }
 
       p {
         position: relative;
@@ -177,7 +167,6 @@ const onSlideChange = (swiper) => {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.5s ease;
       }
     }
   }

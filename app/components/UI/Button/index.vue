@@ -68,10 +68,11 @@ defineProps({
   font-weight: 400;
   line-height: normal;
   transition:
-    background-color 0.2s ease,
-    color 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.02s ease;
+    background-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
   @media (max-width: $mobileBreakpoint) {
     padding: 17px 40px;
@@ -79,22 +80,30 @@ defineProps({
   }
 
   &:hover {
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)), $text;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08)), $text;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
   }
 
   &:active {
-    transform: translateY(1px);
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   }
 
   &__icon {
     width: 24px;
     height: 24px;
     flex: 0 0 24px;
+    transition: transform 0.3s ease;
     @media (max-width: $mobileBreakpoint) {
       width: 21px;
       height: 21px;
       flex: 0 0 21px;
     }
+  }
+
+  &:hover &__icon {
+    transform: translateX(2px);
   }
 
   &--no-icon {
@@ -140,9 +149,17 @@ defineProps({
 .ui-button--secondary {
   background: $white;
   color: $text;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 
   &:hover {
     background-color: $background;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   .ui-button__icon {

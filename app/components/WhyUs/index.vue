@@ -72,6 +72,17 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
+      cursor: pointer;
+      transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        background-color 0.3s ease;
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        background-color: #fafafa;
+      }
     }
   }
 }

@@ -164,3 +164,20 @@ h2 {
 .text-white {
   color: $white;
 }
+
+.hover-card {
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+
+    .image {
+      transform: scale(1.1);
+    }
+  }
+
+  .image {
+    transition: transform 0.5s ease;
+  }
+}

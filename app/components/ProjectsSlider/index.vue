@@ -22,7 +22,7 @@
           @slide-change="onSlideChange"
         >
           <SwiperSlide v-for="(slide, index) in slides" :key="index" class="slide">
-            <div class="item">
+            <div class="item hover-card">
               <NuxtImg
                 class="image"
                 src="/images/ProjectsSlider/1.png"
@@ -137,6 +137,7 @@ const onSlideChange = (swiper) => {
         display: flex;
         flex-direction: column;
         overflow: hidden;
+        border-radius: 20px;
 
         @media (max-width: $mobileBreakpoint) {
           width: 100%;
@@ -150,6 +151,7 @@ const onSlideChange = (swiper) => {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      border-radius: 20px;
       display: block;
       flex-shrink: 0;
     }

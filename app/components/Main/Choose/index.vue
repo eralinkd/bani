@@ -6,7 +6,7 @@
       <NuxtImg class="decor-image" src="/images/MainChoose/decor.png" alt="Беседка" format="webp" />
     </div>
     <div class="container right">
-      <div class="item">
+      <div class="item hover-card">
         <NuxtImg
           class="image"
           src="/images/MainChoose/1.png"
@@ -16,7 +16,7 @@
         <UIButton class="button" secondary>Бани</UIButton>
         <UIButton small class="button mobile" secondary>Бани</UIButton>
       </div>
-      <div class="item">
+      <div class="item hover-card">
         <NuxtImg
           class="image"
           src="/images/MainChoose/2.png"
@@ -97,6 +97,8 @@
 
   .item {
     position: relative;
+    overflow: hidden;
+    border-radius: 20px;
   }
 
   .image {
