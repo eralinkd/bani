@@ -4,6 +4,8 @@
     <main>
       <Breadcrumbs />
       <ProductHero />
+      <ProductStats />
+      <HowToOffer />
       <Popular />
       <Reviews />
       <Promotions />
@@ -13,5 +15,7 @@
 </template>
 
 <script setup>
+import HowToOffer from '../../components/HowToOffer/index.vue'
 import ProductHero from '../../components/Product/Hero/index.vue'
+import ProductStats from '../../components/Product/Stats/index.vue'
 </script>
