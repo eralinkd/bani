@@ -19,7 +19,7 @@
                     class="contacts__icon contacts__icon--phone"
                     aria-hidden="true"
                   />
-                  <a href="tel:+79137668115" class="contacts__link text-18">+7(913) 766-81-15</a>
+                  <a href="tel:+79374011990" class="contacts__link text-18">+7 (937) 401 19 90</a>
                 </li>
                 <li class="contacts__item">
                   <IconsContactsMail
@@ -46,11 +46,11 @@
                     aria-hidden="true"
                   />
                   <a
-                    href="https://wa.me/79137668115"
+                    href="https://wa.me/79251375856"
                     target="_blank"
                     rel="noopener"
                     class="contacts__link text-18"
-                    >+7(913) 766-81-15</a
+                    >+7 (925) 137-58-56</a
                   >
                 </li>
               </ul>

@@ -30,7 +30,7 @@
         <NuxtLink to="https://t.me/bani21veka" target="_blank">
           <AppHeaderIconsTG class="icon" />
         </NuxtLink>
-        <NuxtLink to="https://wa.me/79137668115" target="_blank">
+        <NuxtLink to="https://wa.me/79251375856" target="_blank">
           <AppHeaderIconsWhatsapp class="icon" />
         </NuxtLink>
       </div>
@@ -39,7 +39,7 @@
         <NuxtLink to="https://t.me/bani21veka" target="_blank">
           <AppHeaderIconsTGWhite class="icon" />
         </NuxtLink>
-        <NuxtLink to="https://wa.me/79137668115" target="_blank">
+        <NuxtLink to="https://wa.me/79251375856" target="_blank">
           <AppHeaderIconsWhatsappWhite class="icon" />
         </NuxtLink>
       </div>
@@ -85,7 +85,7 @@
           <NuxtLink to="https://t.me/bani21veka" target="_blank">
             <component :is="isMain ? 'AppHeaderIconsTGWhite' : 'AppHeaderIconsTG'" class="icon" />
           </NuxtLink>
-          <NuxtLink to="https://wa.me/79137668115" target="_blank">
+          <NuxtLink to="https://wa.me/79251375856" target="_blank">
             <component
               :is="isMain ? 'AppHeaderIconsWhatsappWhite' : 'AppHeaderIconsWhatsapp'"
               class="icon"
