@@ -114,9 +114,10 @@
 }
 
 .image {
-  width: 100%;
+  width: calc(100% + 120px);
   height: 100%;
   object-fit: cover;
+  margin-left: -120px;
 
   @media (max-width: $mobileBreakpoint) {
     display: none;

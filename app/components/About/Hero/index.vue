@@ -68,7 +68,7 @@
       </div>
     </div>
     <div class="container">
-      <NuxtImg class="image" src="/images/MainHero/image.png" alt="Бани 21 века" format="webp" />
+      <NuxtImg class="image" src="/images/About/hero.png" alt="Бани 21 века" format="webp" />
     </div>
   </div>
 </template>
@@ -89,10 +89,13 @@
 }
 
 .image {
-  width: 100%;
+  position: relative;
+  z-index: 2;
+  width: calc(100% + 120px);
   height: 100%;
   object-fit: cover;
   border-radius: 20px;
+  margin-left: -120px;
 }
 
 .first-row {
