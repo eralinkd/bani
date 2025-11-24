@@ -24,7 +24,7 @@
       <p class="text-16">
         Оказываем услуги по проектированию, постройке и поставке садовых объектов.
       </p>
-      <UIButton>Реквизиты</UIButton>
+      <UIButton @click="navigateTo('/contacts#requisites')">Реквизиты</UIButton>
     </div>
 
     <div class="right">
@@ -34,6 +34,8 @@
     </div>
   </div>
 </template>
+
+<script setup></script>
 
 <style scoped lang="scss">
 @use '@scss/variables' as *;

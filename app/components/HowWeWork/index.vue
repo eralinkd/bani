@@ -86,6 +86,15 @@ defineProps({
         padding: 20px;
         border-radius: 15px;
         background: $white;
+        cursor: pointer;
+        transition:
+          box-shadow 0.3s ease,
+          transform 0.3s ease;
+
+        &:hover {
+          box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+          transform: translateY(-4px);
+        }
 
         .number {
           width: 55px;
@@ -96,6 +105,11 @@ defineProps({
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
+          transition: transform 0.3s ease;
+        }
+
+        &:hover .number {
+          transform: scale(1.05);
         }
       }
     }

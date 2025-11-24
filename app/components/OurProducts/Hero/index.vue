@@ -27,22 +27,22 @@
           >
             <SwiperSlide v-for="(slide, slideIndex) in slides" :key="slideIndex" class="slide">
               <div class="item hover-card">
-                <NuxtImg class="image" src="/images/OurProducts/1.png" alt="Бани" format="webp" />
-                <p class="text-24 text-white">Баня бочка</p>
-                <p class="text-16 text-white">
+        <NuxtImg class="image" src="/images/OurProducts/1.png" alt="Бани" format="webp" />
+        <p class="text-24 text-white">Баня бочка</p>
+        <p class="text-16 text-white">
                   Простой вариант бани-бочки эконом-класса, в конструкции которой предусмотрен
                   козырек над входом.
-                </p>
+        </p>
               </div>
             </SwiperSlide>
           </Swiper>
-          <div class="slider-controls">
+        <div class="slider-controls">
             <button :class="`swiper-button-prev-our-products-${i}`" type="button">
-              <IconsArrowLeftWhite />
+          <IconsArrowLeftWhite />
             </button>
             <p class="text-18">{{ (currentSlides[i] ?? 0) + 1 }} / {{ slides.length }}</p>
             <button :class="`swiper-button-next-our-products-${i}`" type="button">
-              <IconsArrowRightWhite />
+          <IconsArrowRightWhite />
             </button>
           </div>
         </div>
@@ -192,31 +192,31 @@ const items = [
           position: relative;
           width: 100%;
           height: 100%;
-          border-radius: 20px;
-          overflow: hidden;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-end;
-          padding: 30px;
-          gap: 10px;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 30px;
+    gap: 10px;
 
-          * {
-            position: relative;
-            z-index: 2;
-          }
+    * {
+      position: relative;
+      z-index: 2;
+    }
 
-          .image {
-            z-index: 1;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-          }
+    .image {
+      z-index: 1;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-          .text-16 {
-            max-width: 249px;
+    .text-16 {
+      max-width: 249px;
           }
         }
       }

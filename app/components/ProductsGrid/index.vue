@@ -14,7 +14,10 @@
         placeholder="Не выбрано"
       />
       <UIPriceInput v-model:min="minPrice" v-model:max="maxPrice" label="Цена, ₽" />
-      <UIButton small>Нужна помощь</UIButton>
+      <UIButton small icon-position="none">Применить</UIButton>
+      <button v-if="hasActiveFilters" class="reset-button" @click="resetFilters">
+        Сбросить фильтры
+      </button>
     </div>
     <div class="products">
       <div v-for="i in productsAmount" :key="i" class="item hover-card">
@@ -59,6 +62,22 @@ const lengthOptions = [
   { label: '4 м', value: '4' },
   { label: '5 м', value: '5' },
 ]
+
+const hasActiveFilters = computed(() => {
+  return (
+    selectedType.value !== null ||
+    selectedLength.value !== null ||
+    minPrice.value !== '' ||
+    maxPrice.value !== ''
+  )
+})
+
+function resetFilters() {
+  selectedType.value = null
+  selectedLength.value = null
+  minPrice.value = ''
+  maxPrice.value = ''
+}
 </script>
 
 <style scoped lang="scss">
@@ -123,5 +142,25 @@ const lengthOptions = [
 
 .filters-preview {
   color: #6f6f6f;
+}
+
+.reset-button {
+  margin: auto;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: 2px;
+  color: #6f6f6f;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: underline;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.3s ease;
+  margin-bottom: 8px;
+
+  &:hover {
+    color: $text;
+  }
 }
 </style>

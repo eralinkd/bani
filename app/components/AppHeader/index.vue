@@ -44,13 +44,15 @@
         </NuxtLink>
       </div>
       <div class="cta">
-        <UIButton secondary small icon-position="left">
-          8(800) 000 00 00
+        <UIButton secondary small icon-position="left" @click="openPhoneLink">
+          +7 (937) 401 19 90
           <template #icon>
             <AppHeaderIconsPhone />
           </template>
         </UIButton>
-        <UIButton secondary small icon-position="none">Заказать звонок</UIButton>
+        <UIButton secondary small icon-position="none" @click="modal.open('default')"
+          >Заказать звонок</UIButton
+        >
       </div>
       <!-- keep one desktop phone button for large screens only -->
       <!-- Burger button (mobile) -->
@@ -92,13 +94,15 @@
             />
           </NuxtLink>
         </div>
-        <UIButton secondary small icon-position="left" class="phone-btn">
-          8(800) 000 00 00
+        <UIButton secondary small icon-position="left" class="phone-btn" @click="openPhoneLink">
+          +7 (937) 401 19 90
           <template #icon>
             <AppHeaderIconsPhone />
           </template>
         </UIButton>
-        <UIButton secondary small icon-position="none" class="cb-btn">Заказать звонок</UIButton>
+        <UIButton secondary small icon-position="none" class="cb-btn" @click="modal.open('default')"
+          >Заказать звонок</UIButton
+        >
       </div>
     </aside>
   </transition>
@@ -116,7 +120,12 @@ defineProps({
   },
 })
 
+const modal = useModal()
+
 const isMenuOpen = ref(false)
+function openPhoneLink() {
+  window.location.href = 'tel:+79374011990'
+}
 function toggleMenu() {
   isMenuOpen.value = !isMenuOpen.value
 }

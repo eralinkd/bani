@@ -59,7 +59,7 @@
                 Оказываем услуги по проектированию, постройке и&nbsp;поставке садовых объектов.
               </p>
 
-              <h2 class="contacts__subtitle">Реквизиты</h2>
+              <h2 id="requisites" class="contacts__subtitle">Реквизиты</h2>
 
               <div class="contacts__requisites">
                 <div class="contacts__req-row">
