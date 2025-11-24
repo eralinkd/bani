@@ -26,6 +26,7 @@ const LABELS = {
   '/reviews': 'Отзывы',
   '/catalog/bathhouses': 'Бани',
   '/our-products': 'Наши работы',
+  '/catalog/verandas': 'Веранды',
 }
 
 function humanize(segment) {

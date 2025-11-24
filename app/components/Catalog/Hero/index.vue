@@ -9,7 +9,9 @@
       </div>
       <div class="item hover-card">
         <NuxtImg class="image" src="/images/Catalog/Hero/2.png" alt="Бани" format="webp" />
-        <UIButton class="button" secondary>Беседки и веранды</UIButton>
+        <UIButton class="button" secondary @click="navigateTo('/catalog/verandas')"
+          >Беседки и веранды</UIButton
+        >
       </div>
       <div class="item double hover-card">
         <NuxtImg class="image" src="/images/Catalog/Hero/3.png" alt="Бани" format="webp" />
@@ -18,6 +20,8 @@
     </div>
   </div>
 </template>
+
+<script setup></script>
 
 <style lang="scss" scoped>
 .grid {
