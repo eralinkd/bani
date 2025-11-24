@@ -18,7 +18,7 @@
           <NuxtLink to="/" class="text-14">Блог</NuxtLink>
         </li> -->
         <li>
-          <NuxtLink to="/" class="text-14">Отзывы</NuxtLink>
+          <NuxtLink to="/#reviews" class="text-14">Отзывы</NuxtLink>
         </li>
         <li>
           <NuxtLink to="/contacts" class="text-14">Контакты</NuxtLink>

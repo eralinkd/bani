@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div id="reviews" class="container">
     <div class="left">
       <h2>Отзывы</h2>
       <p class="text-36">

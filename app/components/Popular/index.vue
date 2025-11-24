@@ -29,7 +29,7 @@
       </Swiper>
     </div>
     <div class="controls">
-      <UIButton>В каталог</UIButton>
+      <UIButton @click="navigateTo('/catalog')">В каталог</UIButton>
       <div class="slider-controls">
         <button class="swiper-button-prev-popular" type="button">
           <IconsArrowLeft />

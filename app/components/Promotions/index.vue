@@ -10,7 +10,7 @@
       <NuxtImg class="decor" src="/images/Promotions/decor-1.png" alt="Декор" format="webp" />
       <h2 class="text-52 text-white">Скидка 5% на полный комплект беседки</h2>
       <p class="text-36 text-white">с установкой в день обращения</p>
-      <UIButton class="button" secondary>Оставить заявку</UIButton>
+      <UIButton class="button" secondary @click="modal.open('default')">Оставить заявку</UIButton>
     </div>
     <div class="item">
       <NuxtImg
@@ -21,10 +21,14 @@
       />
       <NuxtImg class="decor" src="/images/Promotions/decor-2.png" alt="Декор" format="webp" />
       <h2 class="text-52 text-white">Дрова на первую топку в подарок на бани в каменку</h2>
-      <UIButton class="button" secondary>Оставить заявку</UIButton>
+      <UIButton class="button" secondary @click="modal.open('default')">Оставить заявку</UIButton>
     </div>
   </div>
 </template>
+
+<script setup>
+const modal = useModal()
+</script>
 
 <style scoped lang="scss">
 @use '@scss/variables' as *;

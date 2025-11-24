@@ -18,7 +18,7 @@
         <h2>под ключ</h2>
       </div>
       <div class="btn-row">
-        <UIButton>В каталог</UIButton>
+        <UIButton @click="navigateTo('/catalog')">В каталог</UIButton>
         <p class="text-36">— наш профиль</p>
       </div>
 

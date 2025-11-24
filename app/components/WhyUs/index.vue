@@ -6,7 +6,7 @@
         У нас многолетний опыт в сфере строительства садовых построек, поэтому наши изделия
         отличаются качеством, а сервис — оперативностью
       </p>
-      <UIButton>Оставить заявку</UIButton>
+      <UIButton @click="modal.open('default')">Оставить заявку</UIButton>
     </div>
     <div class="right">
       <div class="item">
@@ -44,6 +44,10 @@
     </div>
   </div>
 </template>
+
+<script setup>
+const modal = useModal()
+</script>
 
 <style scoped lang="scss">
 @use '@scss/variables' as *;

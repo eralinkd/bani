@@ -16,7 +16,7 @@
         Поэтому мы гордимся качеством производимой нами продукции и точно в срок поставляем ее
         заказчику.
       </p>
-      <UIButton class="button">Подробнее</UIButton>
+      <UIButton class="button" @click="navigateTo('/about')">Подробнее</UIButton>
     </div>
     <div class="video">
       <iframe

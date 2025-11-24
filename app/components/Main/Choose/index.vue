@@ -13,8 +13,12 @@
           alt="Выбирайте проект"
           format="webp"
         />
-        <UIButton class="button" secondary>Бани</UIButton>
-        <UIButton small class="button mobile" secondary>Бани</UIButton>
+        <UIButton class="button" secondary @click="navigateTo('/catalog/bathhouses')"
+          >Бани</UIButton
+        >
+        <UIButton small class="button mobile" secondary @click="navigateTo('/catalog/bathhouses')"
+          >Бани</UIButton
+        >
       </div>
       <div class="item hover-card">
         <NuxtImg
@@ -23,8 +27,12 @@
           alt="Выбирайте проект"
           format="webp"
         />
-        <UIButton class="button" secondary>Беседки и веранды</UIButton>
-        <UIButton small class="button mobile" secondary>Беседки и веранды</UIButton>
+        <UIButton class="button" secondary @click="navigateTo('/catalog/verandas')"
+          >Беседки и веранды</UIButton
+        >
+        <UIButton small class="button mobile" secondary @click="navigateTo('/catalog/verandas')"
+          >Беседки и веранды</UIButton
+        >
       </div>
 
       <NuxtImg

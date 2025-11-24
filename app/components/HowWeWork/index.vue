@@ -32,12 +32,12 @@
           <p class="text-16">Оформите заказ и подтвердите все условия работы и монтажа.</p>
         </div>
       </div>
-      <UIButton v-if="!noButton">Оставить заявку</UIButton>
+      <UIButton v-if="!noButton" @click="modal.open('default')">Оставить заявку</UIButton>
     </div>
     <div class="right">
       <h2 class="text-64 text-white">Воспользуйтесь беспроцентной рассрочкой</h2>
       <p class="text-36 text-white">от Т-Банка и банков партнеров</p>
-      <UIButton secondary class="button">Оставить заявку</UIButton>
+      <UIButton secondary class="button" @click="modal.open('default')">Оставить заявку</UIButton>
       <NuxtImg class="image" src="/images/HowWeWork/bg.png" alt="Как мы работаем" format="webp" />
       <NuxtImg
         class="decor"
@@ -50,6 +50,8 @@
 </template>
 
 <script setup>
+const modal = useModal()
+
 defineProps({
   noButton: {
     type: Boolean,

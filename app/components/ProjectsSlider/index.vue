@@ -6,7 +6,7 @@
         Оцените наше мастерство и вдохновитесь примерами реальных работ, выполненных для наших
         клиентов.
       </p>
-      <UIButton>В каталог</UIButton>
+      <UIButton @click="navigateTo('/catalog')">В каталог</UIButton>
     </div>
     <div class="right">
       <div class="slider-wrapper">

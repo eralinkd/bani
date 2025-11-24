@@ -19,7 +19,7 @@
         <p class="text-36">с гарантией</p>
       </div>
       <div class="btn-row">
-        <UIButton>В каталог</UIButton>
+        <UIButton @click="navigateTo('/catalog')">В каталог</UIButton>
         <p class="text-36">с гарантией</p>
       </div>
 
@@ -65,6 +65,8 @@
     </div>
   </div>
 </template>
+
+<script setup></script>
 
 <style scoped lang="scss">
 @use '@scss/variables' as *;

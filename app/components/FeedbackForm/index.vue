@@ -7,12 +7,20 @@
       <p class="text-36 text-white">
         Сообщите о вашей задумке и мы расскажем, как сможем ее реализовать
       </p>
-      <UIButton class="button" small secondary>Оставить заявку</UIButton>
-      <UIButton class="button mobile" secondary>Оставить заявку</UIButton>
+      <UIButton class="button" small secondary @click="modal.open('default')"
+        >Оставить заявку</UIButton
+      >
+      <UIButton class="button mobile" secondary @click="modal.open('default')"
+        >Оставить заявку</UIButton
+      >
     </div>
     <NuxtImg class="decor" src="/images/Feedback/decor.png" alt="Feedback Form" format="webp" />
   </div>
 </template>
+
+<script setup>
+const modal = useModal()
+</script>
 
 <style scoped lang="scss">
 @use '@scss/variables' as *;
