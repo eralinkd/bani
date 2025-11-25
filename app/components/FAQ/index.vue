@@ -146,6 +146,7 @@ function toggle(idx: number) {
       text-align: left;
       border: none;
       cursor: pointer;
+      border-radius: 10px;
 
       .text-16 {
         color: #41424c;
