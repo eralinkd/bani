@@ -19,6 +19,7 @@
             prevEl: '.swiper-button-prev-projects',
           }"
           class="slider"
+          :loop="true"
           @slide-change="onSlideChange"
         >
           <SwiperSlide v-for="(slide, index) in slides" :key="index" class="slide">
@@ -60,7 +61,7 @@ const slides = Array(5).fill(null) // 5 слайдов с одной карти�
 const currentSlide = ref(0)
 
 const onSlideChange = (swiper) => {
-  currentSlide.value = swiper.activeIndex
+  currentSlide.value = swiper.realIndex
 }
 </script>
 

@@ -12,6 +12,7 @@
           nextEl: '.swiper-button-next-popular',
           prevEl: '.swiper-button-prev-popular',
         }"
+        :loop="true"
         :breakpoints="breakpoints"
         class="slider"
         @slide-change="onSlideChange"
@@ -90,7 +91,7 @@ const breakpoints = {
 }
 
 const onSlideChange = (swiper) => {
-  currentSlide.value = swiper.activeIndex
+  currentSlide.value = swiper.realIndex
 }
 </script>
 

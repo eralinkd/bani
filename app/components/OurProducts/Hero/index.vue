@@ -22,6 +22,7 @@
               nextEl: `.swiper-button-next-our-products-${i}`,
               prevEl: `.swiper-button-prev-our-products-${i}`,
             }"
+            :loop="true"
             class="slider"
             @slide-change="(swiper) => onSlideChange(swiper, i)"
           >
@@ -76,7 +77,7 @@ const currentSlides = ref({
 const selected = ref('бани')
 
 const onSlideChange = (swiper, index) => {
-  currentSlides.value[index] = swiper.activeIndex
+  currentSlides.value[index] = swiper.realIndex
 }
 
 const items = [

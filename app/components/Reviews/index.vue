@@ -28,6 +28,7 @@
             nextEl: '.swiper-button-next-reviews',
             prevEl: '.swiper-button-prev-reviews',
           }"
+          :loop="true"
           :breakpoints="breakpoints"
           class="slider"
           @slide-change="onSlideChange"
@@ -170,7 +171,7 @@ const breakpoints = {
 }
 
 const onSlideChange = (swiper) => {
-  currentSlide.value = swiper.activeIndex
+  currentSlide.value = swiper.realIndex
 }
 </script>
 
