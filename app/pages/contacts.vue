@@ -92,7 +92,22 @@
             </div>
 
             <div class="contacts__right">
-              <NuxtImg class="contacts__map" src="/images/Map.png" alt="Карта" format="webp" />
+              <div style="position: relative; overflow: hidden">
+                <a
+                  href="https://yandex.ru/maps/213/moscow/?utm_medium=mapframe&utm_source=maps"
+                  style="color: #eee; font-size: 12px; position: absolute; top: 0px"
+                  >Москва</a
+                ><a
+                  href="https://yandex.ru/maps/geo/moskva/53166393/?ll=37.683562%2C55.755819&mode=search&sll=30.547764%2C50.449247&sspn=0.480652%2C0.183481&text=350059%2C%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F%2C%20%D0%B3.%20%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%20%D0%BF%D1%80%D0%BE%D1%81%D0%BF%D0%B5%D0%BA%D1%82%20%D0%9F%D1%83%D1%82%D0%B8%D0%BD%D0%B0%2C%2039&utm_medium=mapframe&utm_source=maps&z=12"
+                  style="color: #eee; font-size: 12px; position: absolute; top: 14px"
+                  >Москва — Яндекс Карты</a
+                ><iframe
+                  class="contacts__map"
+                  src="https://yandex.ru/map-widget/v1/?ll=37.683562%2C55.755819&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1MzE2NjM5MxIa0KDQvtGB0YHQuNGPLCDQnNC-0YHQutCy0LAiCg14eBZCFfUFX0I%2C&sll=30.547764%2C50.449247&sspn=0.480652%2C0.183481&text=350059%2C%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F%2C%20%D0%B3.%20%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%20%D0%BF%D1%80%D0%BE%D1%81%D0%BF%D0%B5%D0%BA%D1%82%20%D0%9F%D1%83%D1%82%D0%B8%D0%BD%D0%B0%2C%2039&z=12"
+                  allowfullscreen="true"
+                  frameborder="0"
+                ></iframe>
+              </div>
             </div>
           </div>
         </div>
