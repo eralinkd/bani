@@ -126,10 +126,44 @@ function resetQuiz() {
   gap: 32px;
   padding: 0 60px;
 
+  @media (max-width: $mobileBreakpoint) {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 20px;
+
+    h2 {
+      font-family: Gilroy;
+      font-size: 50px;
+      font-style: normal;
+      font-weight: 900;
+      line-height: 110%; /* 55px */
+      text-transform: uppercase;
+    }
+
+    .text-36 {
+      font-family: Inter;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
+
+  .text-36 {
+    margin-top: 10px;
+  }
+
   .left {
     h2,
     p {
       max-width: 568px;
+    }
+
+    @media (max-width: $mobileBreakpoint) {
+      h2,
+      p {
+        max-width: 100%;
+      }
     }
   }
 
@@ -140,6 +174,28 @@ function resetQuiz() {
       gap: 26px;
       border-radius: 25px;
       background: #41a3db;
+
+      @media (max-width: $mobileBreakpoint) {
+        flex-direction: column;
+        padding: 20px;
+        gap: 0;
+        border-radius: 20px;
+        overflow: hidden;
+      }
+    }
+
+    .question {
+      @media (max-width: $mobileBreakpoint) {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        margin-top: 20px;
+
+        .text-24 {
+          font-size: 18px;
+          margin-bottom: 0;
+        }
+      }
     }
 
     .answers {
@@ -148,6 +204,14 @@ function resetQuiz() {
       gap: 20px;
       margin-top: 20px;
       margin-bottom: 40px;
+
+      @media (max-width: $mobileBreakpoint) {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        gap: 10px;
+      }
 
       .answer {
         padding: 16px 12px;
@@ -163,6 +227,15 @@ function resetQuiz() {
           border-color 0.3s ease;
         min-height: 60px;
 
+        @media (max-width: $mobileBreakpoint) {
+          width: auto;
+          flex: 0 0 auto;
+          padding: 9px;
+          min-height: 40px;
+          min-width: 130px;
+          border-radius: 12px;
+        }
+
         p {
           text-align: center;
           line-height: 1.4;
@@ -170,6 +243,10 @@ function resetQuiz() {
           hyphens: auto;
           margin: 0;
           padding: 0;
+
+          @media (max-width: $mobileBreakpoint) {
+            font-size: 16px;
+          }
         }
 
         &:hover {
@@ -192,6 +269,11 @@ function resetQuiz() {
       align-items: center;
       gap: 10px;
 
+      @media (max-width: $mobileBreakpoint) {
+        margin-top: auto;
+        padding-top: 20px;
+      }
+
       .next-button {
         background: none;
         border: none;
@@ -200,6 +282,10 @@ function resetQuiz() {
         margin-left: 20px;
         transition: opacity 0.3s ease;
 
+        @media (max-width: $mobileBreakpoint) {
+          margin-left: 10px;
+        }
+
         &:hover {
           opacity: 0.7;
         }
@@ -207,6 +293,10 @@ function resetQuiz() {
 
       .arrow {
         margin-left: 20px;
+
+        @media (max-width: $mobileBreakpoint) {
+          margin-left: 10px;
+        }
 
         &.disabled {
           opacity: 0.5;
@@ -221,6 +311,16 @@ function resetQuiz() {
       object-fit: cover;
       border-radius: 20px;
       aspect-ratio: 170 / 273;
+
+      @media (max-width: $mobileBreakpoint) {
+        width: 100%;
+        min-width: 100%;
+        height: auto;
+        border-radius: 0;
+        aspect-ratio: 333 / 191;
+        order: -1;
+        border-radius: 10.843px;
+      }
     }
   }
 }

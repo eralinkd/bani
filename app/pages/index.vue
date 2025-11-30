@@ -10,7 +10,7 @@
       <Popular />
       <MainAbout />
       <HowWeWork />
-      <!-- <MainQuiz /> -->
+      <MainQuiz />
       <!-- <Reviews /> -->
       <!-- <FAQ /> -->
       <!-- <MainContacts /> -->
