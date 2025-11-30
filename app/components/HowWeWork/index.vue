@@ -9,25 +9,25 @@
       <div class="steps">
         <div class="item">
           <div class="number">
-            <HowWeWorkIconsOne />
+            <HowWeWorkIconsOne class="icon" />
           </div>
           <p class="text-16">Оставьте заявку на нашем сайте, чтобы начать процесс.</p>
         </div>
         <div class="item">
           <div class="number">
-            <HowWeWorkIconsTwo />
+            <HowWeWorkIconsTwo class="icon" />
           </div>
           <p class="text-16">Согласуйте детали с менеджером, включая сроки и стоимость.</p>
         </div>
         <div class="item">
           <div class="number">
-            <HowWeWorkIconsThree />
+            <HowWeWorkIconsThree class="icon" />
           </div>
           <p class="text-16">Накануне работ мы созвонимся с вами. Оплатите и отдыхайте!</p>
         </div>
         <div class="item">
           <div class="number">
-            <HowWeWorkIconsFour />
+            <HowWeWorkIconsFour class="icon" />
           </div>
           <p class="text-16">Оформите заказ и подтвердите все условия работы и монтажа.</p>
         </div>
@@ -67,10 +67,20 @@ defineProps({
   gap: 32px;
   padding: 0 60px;
 
+  @media (max-width: $mobileBreakpoint) {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 20px;
+  }
+
   .left {
     .text-16.intro {
       margin-top: 10px;
       margin-bottom: 40px;
+
+      @media (max-width: $mobileBreakpoint) {
+        margin-bottom: 20px;
+      }
     }
 
     .steps {
@@ -78,6 +88,11 @@ defineProps({
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
       margin-bottom: 40px;
+
+      @media (max-width: $mobileBreakpoint) {
+        margin-bottom: 20px;
+        gap: 9px;
+      }
 
       .item {
         display: flex;
@@ -96,6 +111,24 @@ defineProps({
           transform: translateY(-4px);
         }
 
+        @media (max-width: $mobileBreakpoint) {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 6px;
+          padding: 20px 10px;
+
+          p {
+            text-align: center;
+            font-family: Inter;
+            font-size: 10px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            max-width: 121px;
+          }
+        }
+
         .number {
           width: 55px;
           height: 55px;
@@ -106,6 +139,17 @@ defineProps({
           justify-content: center;
           flex-shrink: 0;
           transition: transform 0.3s ease;
+
+          @media (max-width: $mobileBreakpoint) {
+            width: 29.64px;
+            height: 29.64px;
+            border-radius: 6.587px;
+
+            .icon {
+              width: 8.412px;
+              height: 15.451px;
+            }
+          }
         }
 
         &:hover .number {
@@ -118,6 +162,20 @@ defineProps({
   .right {
     position: relative;
     padding: 40px;
+
+    @media (max-width: $mobileBreakpoint) {
+      padding: 20px;
+      padding-bottom: 30px;
+      h2 {
+        color: #fff;
+        font-family: Gilroy;
+        font-size: 35px;
+        font-style: normal;
+        font-weight: 900;
+        line-height: 110%; /* 38.5px */
+        text-transform: uppercase;
+      }
+    }
 
     * {
       position: relative;
@@ -133,10 +191,24 @@ defineProps({
       height: 100%;
       object-fit: cover;
       border-radius: 30px;
+
+      @media (max-width: $mobileBreakpoint) {
+        border-radius: 17.622px;
+      }
     }
 
     .text-36 {
       margin: 20px 0;
+
+      @media (max-width: $mobileBreakpoint) {
+        margin: 8px 0;
+        font-size: 24px;
+        font-family: Inter;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
     }
 
     .decor {
@@ -144,10 +216,25 @@ defineProps({
       bottom: 20px;
       right: 20px;
       width: 68%;
+
+      @media (max-width: $mobileBreakpoint) {
+        right: auto;
+        left: 50%;
+        top: 180px;
+        transform: translateX(-50%);
+        width: 90%;
+      }
     }
 
     .button {
       z-index: 3;
+
+      @media (max-width: $mobileBreakpoint) {
+        margin: 213px auto 0 auto;
+        width: fit-content;
+        left: 50%;
+        transform: translateX(-50%);
+      }
     }
   }
 }

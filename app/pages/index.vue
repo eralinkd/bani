@@ -10,10 +10,10 @@
       <Popular />
       <MainAbout />
       <HowWeWork />
-      <MainQuiz />
-      <Reviews />
-      <FAQ />
-      <MainContacts />
+      <!-- <MainQuiz /> -->
+      <!-- <Reviews /> -->
+      <!-- <FAQ /> -->
+      <!-- <MainContacts /> -->
     </main>
     <!-- <AppFooter /> -->
   </div>
