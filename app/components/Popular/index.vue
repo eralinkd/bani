@@ -52,7 +52,7 @@
 <script setup>
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { computed } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import 'swiper/css'
 import 'swiper/css/navigation'
 
@@ -69,10 +69,28 @@ const items = Array.from({ length: 20 }, (_, index) => {
   }
 })
 
+const isMobile = ref(false)
+
+const updateIsMobile = () => {
+  if (typeof window === 'undefined') return
+  isMobile.value = window.innerWidth <= 768
+}
+
+onMounted(() => {
+  updateIsMobile()
+  window.addEventListener('resize', updateIsMobile)
+})
+
+onBeforeUnmount(() => {
+  if (typeof window === 'undefined') return
+  window.removeEventListener('resize', updateIsMobile)
+})
+
 const slideGroups = computed(() => {
+  const chunkSize = isMobile.value ? 1 : 4
   const groups = []
-  for (let i = 0; i < items.length; i += 4) {
-    groups.push(items.slice(i, i + 4))
+  for (let i = 0; i < items.length; i += chunkSize) {
+    groups.push(items.slice(i, i + chunkSize))
   }
   return groups
 })
