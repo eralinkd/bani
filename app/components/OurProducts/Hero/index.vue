@@ -125,12 +125,23 @@ const productTitle = computed(() => {
 @use '@scss/variables' as *;
 .container {
   padding: 0 60px;
+
+  @media (max-width: $mobileBreakpoint) {
+    padding: 0 16px 40px;
+  }
 }
 
 .filters {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 3px;
+
+  @media (max-width: $mobileBreakpoint) {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
 
   .item {
     display: flex;
@@ -154,6 +165,12 @@ const productTitle = computed(() => {
       background: $text;
       color: $white;
     }
+
+    @media (max-width: $mobileBreakpoint) {
+      border-radius: 12px;
+      padding: 12px 18px;
+      justify-content: flex-start;
+    }
   }
 }
 
@@ -163,16 +180,31 @@ const productTitle = computed(() => {
   gap: 32px;
   margin-top: 20px;
 
+  @media (max-width: $mobileBreakpoint) {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
   .product-item {
     position: relative;
     aspect-ratio: 688 / 481;
     width: 100%;
+
+    @media (max-width: $mobileBreakpoint) {
+      aspect-ratio: auto;
+    }
 
     .slider-wrapper {
       aspect-ratio: 688 / 481;
       width: 100%;
       position: relative;
       overflow: hidden;
+
+      @media (max-width: $mobileBreakpoint) {
+        aspect-ratio: 328 / 220;
+        border-radius: 20px;
+      }
     }
 
     .slider {
@@ -214,6 +246,12 @@ const productTitle = computed(() => {
           padding: 30px;
           gap: 10px;
 
+          @media (max-width: $mobileBreakpoint) {
+            padding: 20px;
+            border-radius: 24px;
+            gap: 8px;
+          }
+
           * {
             position: relative;
             z-index: 2;
@@ -231,6 +269,25 @@ const productTitle = computed(() => {
 
           .text-16 {
             max-width: 249px;
+
+            @media (max-width: $mobileBreakpoint) {
+              max-width: 100%;
+              font-family: Inter;
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: 125%; /* 17.5px */
+            }
+          }
+
+          .text-24 {
+            @media (max-width: $mobileBreakpoint) {
+              font-family: Inter;
+              font-size: 18px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: normal;
+            }
           }
         }
       }
@@ -244,6 +301,13 @@ const productTitle = computed(() => {
       align-items: center;
       gap: 20px;
       z-index: 10;
+
+      @media (max-width: $mobileBreakpoint) {
+        position: static;
+        margin-top: 12px;
+        justify-content: flex-start;
+        gap: 16px;
+      }
 
       button {
         background: none;
