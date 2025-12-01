@@ -5,7 +5,7 @@
       <Breadcrumbs />
       <PageTitle>Каталог</PageTitle>
       <CatalogHero />
-      <ProjectsSlider />
+      <ProjectsSlider class="slider" />
       <HowWeWork />
       <Reviews />
       <Promotions />
@@ -15,3 +15,12 @@
     <!-- <AppFooter /> -->
   </div>
 </template>
+
+<style scoped lang="scss">
+@use '@scss/variables' as *;
+.slider {
+  @media (max-width: $mobileBreakpoint) {
+    margin-top: 0;
+  }
+}
+</style>

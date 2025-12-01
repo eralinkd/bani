@@ -78,6 +78,10 @@ const items = computed(() => {
   line-height: normal;
   padding-left: 60px;
 
+  @media (max-width: $mobileBreakpoint) {
+    padding-left: 20px;
+  }
+
   &__link,
   &__current {
     color: $text;
