@@ -76,10 +76,6 @@
           <ReviewsIconsYandex />
         </a>
       </div>
-
-      <div class="mobile-button">
-        <UIButton>Прочитать все отзывы</UIButton>
-      </div>
     </div>
   </div>
 </template>

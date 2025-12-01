@@ -17,7 +17,6 @@
           <ReviewsIconsYandex />
         </a>
       </div>
-      <UIButton>Прочитать все отзывы</UIButton>
     </div>
     <div class="right">
       <div class="slider-wrapper">
