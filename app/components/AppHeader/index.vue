@@ -79,7 +79,7 @@
         <NuxtLink to="/catalog" class="link text-18" @click="closeMenu">Каталог объектов</NuxtLink>
         <NuxtLink to="/about" class="link text-18" @click="closeMenu">О нас</NuxtLink>
         <NuxtLink to="/our-products" class="link text-18" @click="closeMenu">Наши работы</NuxtLink>
-        <NuxtLink to="/" class="link text-18" @click="closeMenu">Отзывы</NuxtLink>
+        <NuxtLink to="/#reviews" class="link text-18" @click="closeMenu">Отзывы</NuxtLink>
         <NuxtLink to="/contacts" class="link text-18" @click="closeMenu">Контакты</NuxtLink>
       </nav>
       <div class="mobile-contacts">

@@ -128,6 +128,10 @@
     max-width: 1440px;
     margin: 0 auto;
     padding: 0 32px 100px;
+
+    @media (max-width: $mobileBreakpoint) {
+      padding: 0 16px 60px;
+    }
   }
 
   &__breadcrumbs {
@@ -139,12 +143,21 @@
     grid-template-columns: 1fr 688px;
     gap: 56px;
     align-items: start;
+
+    @media (max-width: $mobileBreakpoint) {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
   }
 
   &__left {
     display: flex;
     flex-direction: column;
     gap: 20px;
+
+    @media (max-width: $mobileBreakpoint) {
+      gap: 16px;
+    }
   }
 
   &__title {
@@ -155,11 +168,22 @@
     line-height: 1.1;
     text-transform: uppercase;
     margin: 0;
+
+    @media (max-width: $mobileBreakpoint) {
+      font-size: 48px;
+      line-height: 110%;
+    }
   }
 
   &__lead {
     color: $text;
     max-width: 551px;
+
+    @media (max-width: $mobileBreakpoint) {
+      font-size: 18px;
+      line-height: 140%;
+      max-width: 100%;
+    }
   }
 
   &__list {
@@ -168,6 +192,11 @@
     gap: 12px 30px;
     margin: 10px 0 0;
     padding: 0;
+
+    @media (max-width: $mobileBreakpoint) {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
   }
 
   &__item {
@@ -190,6 +219,12 @@
     color: #000;
     max-width: 463px;
     margin-top: 8px;
+
+    @media (max-width: $mobileBreakpoint) {
+      font-size: 14px;
+      line-height: 140%;
+      max-width: 100%;
+    }
   }
 
   &__subtitle {
@@ -199,6 +234,10 @@
     font-weight: 900;
     line-height: 1;
     margin-top: 20px;
+
+    @media (max-width: $mobileBreakpoint) {
+      font-size: 28px;
+    }
   }
 
   &__requisites {
@@ -213,6 +252,11 @@
     display: grid;
     grid-template-columns: 220px 1fr;
     gap: 24px;
+
+    @media (max-width: $mobileBreakpoint) {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
   }
 
   &__req-label {
@@ -233,6 +277,10 @@
     height: 669px;
     border-radius: 15px;
     object-fit: cover;
+
+    @media (max-width: $mobileBreakpoint) {
+      height: 320px;
+    }
   }
 }
 </style>
