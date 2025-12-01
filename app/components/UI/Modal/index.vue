@@ -78,7 +78,7 @@
             </div>
 
             <div class="form-bottom-row">
-              <UIButton small type="submit" :disabled="isSubmitting" class="submit-button">
+              <UIButton small type="submit" :disabled="isSubmitting" class="submit-button desktop">
                 Отправить
               </UIButton>
 
@@ -114,6 +114,10 @@
                 </label>
                 <span v-if="errors.agreed" class="error-message">{{ errors.agreed }}</span>
               </div>
+
+              <UIButton type="submit" :disabled="isSubmitting" class="submit-button mobile">
+                Отправить
+              </UIButton>
             </div>
           </form>
         </div>
@@ -301,6 +305,22 @@ watch(
 <style scoped lang="scss">
 @use '@scss/variables' as *;
 
+.mobile {
+  display: none;
+
+  @media (max-width: $mobileBreakpoint) {
+    display: flex !important;
+  }
+}
+
+.desktop {
+  display: inline-flex;
+
+  @media (max-width: $mobileBreakpoint) {
+    display: none;
+  }
+}
+
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -323,6 +343,14 @@ watch(
   justify-content: center;
   z-index: 1001;
   overflow: hidden;
+  padding: 20px;
+
+  @media (max-width: $mobileBreakpoint) {
+    max-width: 100vw;
+    width: 100vw;
+    align-items: flex-start;
+    padding: 20px 12px 40px;
+  }
 }
 
 .modal-content {
@@ -334,10 +362,14 @@ watch(
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.15);
 
   @media (max-width: $mobileBreakpoint) {
-    padding: 40px 20px 30px;
+    padding: 32px 20px 28px;
     border-radius: 20px;
+    max-width: 360px;
+    width: calc(100vw - 40px);
+    margin: 40px auto 0;
   }
 }
 
@@ -463,6 +495,10 @@ watch(
   flex-direction: column;
   gap: 5px;
   align-items: flex-end;
+
+  @media (max-width: $mobileBreakpoint) {
+    align-items: flex-start;
+  }
 }
 
 .form-checkbox {
@@ -518,6 +554,11 @@ watch(
 .submit-button {
   min-width: 200px;
   flex-shrink: 0;
+
+  @media (max-width: $mobileBreakpoint) {
+    width: 100%;
+    min-width: unset;
+  }
 }
 
 // Transitions
@@ -549,12 +590,5 @@ body:has(.modal-container) {
   height: 100vh;
 
   overflow: hidden !important;
-}
-
-html:has(.modal-container) {
-  /* max-height: 100vh;
-  height: 100vh; */
-
-  /* overflow: hidden !important; */
 }
 </style>
