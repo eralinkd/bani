@@ -30,18 +30,18 @@
                 alt="Проект"
                 format="webp"
               />
-              <p class="text-16">Баня бочка в Пензе</p>
-            </div>
+          <p class="text-16">Баня бочка в Пензе</p>
+        </div>
           </SwiperSlide>
         </Swiper>
 
         <div class="slider-controls">
           <button class="swiper-button-prev-projects" type="button">
-            <IconsArrowLeft />
+          <IconsArrowLeft />
           </button>
           <p class="text-18">{{ currentSlide + 1 }} / {{ slides.length }}</p>
           <button class="swiper-button-next-projects" type="button">
-            <IconsArrowRight />
+          <IconsArrowRight />
           </button>
         </div>
       </div>
@@ -168,23 +168,23 @@ const onSlideChange = (swiper) => {
         left: 22px;
       }
     }
-  }
-}
+      }
+    }
 
-.slider-controls {
-  position: absolute;
-  right: 0;
-  bottom: -43px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
+    .slider-controls {
+      position: absolute;
+      right: 0;
+      bottom: -43px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
   z-index: 10;
 
-  @media (max-width: $mobileBreakpoint) {
-    position: static;
-    margin-top: 20px;
-    justify-content: center;
-  }
+      @media (max-width: $mobileBreakpoint) {
+        position: static;
+        margin-top: 20px;
+        justify-content: center;
+      }
 
   button {
     background: none;
@@ -196,8 +196,8 @@ const onSlideChange = (swiper) => {
     justify-content: center;
   }
 
-  .text-18 {
-    color: $text-secondary;
+      .text-18 {
+        color: $text-secondary;
   }
 }
 </style>

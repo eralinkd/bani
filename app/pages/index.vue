@@ -11,7 +11,7 @@
       <MainAbout />
       <HowWeWork />
       <MainQuiz />
-      <!-- <Reviews /> -->
+      <Reviews />
       <FAQ />
       <MainContacts />
     </main>
