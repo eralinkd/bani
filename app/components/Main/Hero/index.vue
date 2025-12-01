@@ -61,7 +61,18 @@
       </div>
     </div>
     <div class="container">
-      <NuxtImg class="image" src="/images/MainHero/image.png" alt="Бани 21 века" format="webp" />
+      <NuxtImg
+        class="image desktop"
+        src="/images/MainHero/image.png"
+        alt="Бани 21 века"
+        format="webp"
+      />
+      <NuxtImg
+        class="image mobile"
+        src="/images/MainHero/image-mobile.png"
+        alt="Бани 21 века"
+        format="webp"
+      />
     </div>
   </div>
 </template>
@@ -70,6 +81,25 @@
 
 <style scoped lang="scss">
 @use '@scss/variables' as *;
+
+.desktop {
+  display: block;
+}
+
+.mobile {
+  display: none;
+}
+
+@media (max-width: $mobileBreakpoint) {
+  .desktop {
+    display: none !important;
+  }
+
+  .mobile {
+    display: block !important;
+  }
+}
+
 .main-hero {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -101,16 +131,6 @@
     margin-top: 30px;
     display: none;
   }
-
-  @media (max-width: $mobileBreakpoint) {
-    .mobile-image {
-      display: block !important;
-
-      .image {
-        display: block !important;
-      }
-    }
-  }
 }
 
 .image {
@@ -123,6 +143,9 @@
     display: none;
     border-radius: 10px;
     aspect-ratio: 373/345;
+    margin-left: 0;
+    width: 100%;
+    height: auto;
   }
 }
 

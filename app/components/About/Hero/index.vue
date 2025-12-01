@@ -56,7 +56,12 @@
       </div>
 
       <div class="mobile-image">
-        <NuxtImg class="image" src="/images/About/hero.png" alt="Бани 21 века" format="webp" />
+        <NuxtImg
+          class="image"
+          src="/images/About/hero-mobile.png"
+          alt="Бани 21 века"
+          format="webp"
+        />
       </div>
 
       <div class="text-16">
