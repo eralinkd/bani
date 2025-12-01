@@ -55,6 +55,10 @@
         </div>
       </div>
 
+      <div class="mobile-image">
+        <NuxtImg class="image" src="/images/About/hero.png" alt="Бани 21 века" format="webp" />
+      </div>
+
       <div class="text-16">
         За 12 лет работы мы зарекомендовали себя как надежного поставщика садовых построек и мебели.
         География наших работ — это вся ральная часть России. <br /><br />
@@ -80,11 +84,26 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 32px;
 
+  @media (max-width: $mobileBreakpoint) {
+    grid-template-columns: 1fr;
+    padding: 27px 10px 30px 10px;
+    background-color: $white;
+
+    h2 {
+      font-size: 59px;
+    }
+  }
+
   .container.white {
     display: flex;
     justify-content: center;
     padding: 60px 120px 50px 60px;
     flex-direction: column;
+
+    @media (max-width: $mobileBreakpoint) {
+      padding: 0;
+      background-color: transparent;
+    }
   }
 }
 
@@ -96,6 +115,28 @@
   object-fit: cover;
   border-radius: 20px;
   margin-left: -120px;
+
+  @media (max-width: $mobileBreakpoint) {
+    display: none;
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    aspect-ratio: 373 / 345;
+  }
+}
+
+.mobile-image {
+  margin-top: 30px;
+  display: none;
+
+  @media (max-width: $mobileBreakpoint) {
+    display: block !important;
+
+    .image {
+      display: block !important;
+    }
+  }
 }
 
 .first-row {
@@ -103,18 +144,47 @@
   gap: 18px;
   justify-content: flex-end;
 
+  @media (max-width: $mobileBreakpoint) {
+    width: 95%;
+    gap: 11px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    margin-left: auto;
+    margin-top: 2px;
+  }
+
   p {
     text-align: right;
+
+    @media (max-width: $mobileBreakpoint) {
+      font-size: 21px;
+      margin-top: 2px;
+    }
   }
 }
 
 .second-row {
   margin-top: 15px;
   margin-bottom: 5px;
+
+  @media (max-width: $mobileBreakpoint) {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    width: 95%;
+    text-align: center;
+    margin-left: auto;
+  }
 }
 
 .third-row {
   margin-bottom: 15px;
+
+  @media (max-width: $mobileBreakpoint) {
+    width: 95%;
+    text-align: center;
+    margin-left: auto;
+  }
 }
 
 .btn-row {
@@ -123,6 +193,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: $mobileBreakpoint) {
+    width: 90%;
+    margin: auto;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 10px;
+
+    p {
+      display: none;
+    }
+  }
 }
 
 .pros {
@@ -132,6 +214,13 @@
   gap: 14px;
   margin-top: 70px;
   margin-bottom: 20px;
+
+  @media (max-width: $mobileBreakpoint) {
+    max-width: 90%;
+    width: 100%;
+    margin: 60px auto 0 auto;
+    grid-template-columns: 1fr;
+  }
 
   .item {
     position: relative;
@@ -143,6 +232,16 @@
     border-radius: 20px;
     background: $background;
     gap: 3px;
+
+    @media (max-width: $mobileBreakpoint) {
+      align-items: center;
+      padding-bottom: 37px;
+
+      &:nth-child(2),
+      &:nth-child(3) {
+        display: none;
+      }
+    }
   }
 
   .img {
@@ -155,6 +254,24 @@
     flex-shrink: 0;
     aspect-ratio: 1/1;
     border-radius: 50%;
+
+    @media (max-width: $mobileBreakpoint) {
+      width: 74px;
+      height: 74px;
+    }
+  }
+}
+
+.text-16 {
+  margin-top: 40px;
+
+  @media (max-width: $mobileBreakpoint) {
+    padding: 0 10px;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
   }
 }
 </style>

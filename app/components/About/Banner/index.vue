@@ -37,4 +37,36 @@ const modal = useModal()
     left: 0;
   }
 }
+
+@media (max-width: $mobileBreakpoint) {
+  .container {
+    padding: 40px 30px;
+    position: relative;
+  }
+
+  h1 {
+    font-family: Gilroy;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 100%; /* 35px */
+    text-transform: uppercase;
+    margin-bottom: 100px;
+  }
+
+  .image {
+    width: 95% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    border-radius: 20px;
+  }
+
+  .button {
+    width: fit-content;
+
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
 </style>
