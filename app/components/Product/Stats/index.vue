@@ -62,10 +62,30 @@
   grid-template-columns: 568fr 328fr 448fr;
   gap: 32px;
 
+  @media (max-width: $mobileBreakpoint) {
+    grid-template-columns: 1fr;
+    padding: 0 16px 40px;
+    gap: 0px;
+  }
+
   .item {
     display: flex;
     flex-direction: column;
     gap: 10px;
+
+    @media (max-width: $mobileBreakpoint) {
+      padding: 18px;
+      gap: 12px;
+    }
+
+    .title {
+      font-size: 36px;
+      line-height: 1.2;
+
+      @media (max-width: $mobileBreakpoint) {
+        font-size: 24px;
+      }
+    }
 
     .separator {
       width: 100%;
@@ -78,6 +98,10 @@
     }
 
     .text-16 {
+      @media (max-width: $mobileBreakpoint) {
+        font-size: 14px;
+      }
+
       ul {
         padding-left: 20px;
         li {

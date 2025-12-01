@@ -45,9 +45,30 @@
   gap: 32px;
   padding: 0 60px;
 
+  @media (max-width: $mobileBreakpoint) {
+    grid-template-columns: 1fr;
+    padding: 0 16px 40px;
+    gap: 20px;
+    margin-top: -40px;
+  }
+
   .left {
     .text-36 {
       margin-top: 10px;
+    }
+
+    @media (max-width: $mobileBreakpoint) {
+      h2 {
+        font-size: 50px;
+        line-height: 110%;
+        text-transform: uppercase;
+      }
+
+      .text-36 {
+        font-size: 18px;
+        line-height: 140%;
+        margin-top: 16px;
+      }
     }
   }
 
@@ -57,6 +78,12 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     margin-bottom: 40px;
+
+    @media (max-width: $mobileBreakpoint) {
+      margin-top: 0;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
 
     .item {
       height: fit-content;
@@ -70,6 +97,15 @@
       transition:
         box-shadow 0.3s ease,
         transform 0.3s ease;
+
+      @media (max-width: $mobileBreakpoint) {
+        padding: 18px;
+        gap: 16px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+      }
 
       &:hover {
         box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
@@ -86,10 +122,25 @@
         justify-content: center;
         flex-shrink: 0;
         transition: transform 0.3s ease;
+
+        @media (max-width: $mobileBreakpoint) {
+          width: 48px;
+          height: 48px;
+        }
       }
 
       &:hover .number {
         transform: scale(1.05);
+      }
+
+      .text-16 {
+        font-size: 16px;
+        line-height: 140%;
+
+        @media (max-width: $mobileBreakpoint) {
+          font-size: 12px;
+          text-align: center;
+        }
       }
     }
   }
