@@ -50,6 +50,12 @@
   gap: 32px;
   padding: 0 60px;
 
+  @media (max-width: $mobileBreakpoint) {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 20px;
+  }
+
   .left {
     h2 {
       max-width: 568px;
@@ -65,6 +71,10 @@
       margin-top: 20px;
       margin-bottom: 40px;
       color: #000;
+
+      @media (max-width: $mobileBreakpoint) {
+        margin-bottom: 20px;
+      }
     }
 
     .contacts-grid {
@@ -73,6 +83,11 @@
       grid-template-columns: repeat(2, 1fr);
       row-gap: 15px;
       column-gap: 40px;
+
+      @media (max-width: $mobileBreakpoint) {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
 
       .item {
         display: flex;

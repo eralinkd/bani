@@ -12,8 +12,8 @@
       <HowWeWork />
       <MainQuiz />
       <!-- <Reviews /> -->
-      <!-- <FAQ /> -->
-      <!-- <MainContacts /> -->
+      <FAQ />
+      <MainContacts />
     </main>
     <!-- <AppFooter /> -->
   </div>

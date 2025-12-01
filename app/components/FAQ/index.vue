@@ -119,6 +119,12 @@ function toggle(idx: number) {
   gap: 32px;
   padding: 0 60px;
 
+  @media (max-width: $mobileBreakpoint) {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 20px;
+  }
+
   .right {
     display: flex;
     flex-direction: column;
