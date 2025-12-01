@@ -76,5 +76,35 @@ const modal = useModal()
     right: 0;
     width: 60%;
   }
+
+  @media (max-width: $mobileBreakpoint) {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 20px;
+
+    .item {
+      padding: 28px 24px 140px;
+      gap: 12px;
+    }
+
+    .text-52 {
+      font-size: 32px;
+      line-height: 1.1;
+    }
+
+    .text-36 {
+      font-size: 18px;
+      margin-top: 0;
+    }
+
+    .button {
+      width: 100%;
+    }
+
+    .decor {
+      width: 75%;
+      max-width: 260px;
+    }
+  }
 }
 </style>
