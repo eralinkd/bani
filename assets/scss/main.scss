@@ -52,6 +52,14 @@ h1 {
   line-height: 100%; /* 100px */
   text-transform: uppercase;
 
+  @media (max-width: 1500px) {
+    font-size: 90px;
+  }
+
+  @media (max-width: 1450px) {
+    font-size: 80px;
+  }
+
   @media (max-width: $mobileBreakpoint) {
     font-size: 50px;
     font-style: normal;
@@ -68,6 +76,14 @@ h2 {
   font-weight: 900;
   line-height: 110%; /* 110px */
   text-transform: uppercase;
+
+  @media (max-width: 1500px) {
+    font-size: 90px;
+  }
+
+  @media (max-width: 1450px) {
+    font-size: 80px;
+  }
 
   @media (max-width: $mobileBreakpoint) {
     font-size: 50px;
