@@ -124,9 +124,43 @@
       </div>
     </Transition>
   </Teleport>
+
+  <Teleport to="body">
+    <Transition name="toast">
+      <div v-if="showSuccessNotification" class="toast">
+        <div class="toast-box">
+          <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path
+              d="M5 13l4 4L19 7"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <div class="toast-content">
+            <p class="toast-title">Заявка отправлена!</p>
+            <p class="toast-subtitle">Мы свяжемся с вами в ближайшее время</p>
+          </div>
+          <button class="toast-close" aria-label="Закрыть уведомление" @click="hideToast">
+            <svg class="toast-close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path
+                d="M6 18L18 6M6 6l12 12"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </Transition>
+  </Teleport>
 </template>
 
 <script setup>
+import { computed, onBeforeUnmount, reactive, ref, watch } from 'vue'
+import { api } from '~/app/api'
+
 const props = defineProps({
   modelValue: {
     type: Boolean,
@@ -176,6 +210,25 @@ const errors = reactive({
 })
 
 const isSubmitting = ref(false)
+const showSuccessNotification = ref(false)
+let toastTimeoutId
+
+function hideToast() {
+  if (toastTimeoutId) {
+    clearTimeout(toastTimeoutId)
+    toastTimeoutId = undefined
+  }
+  showSuccessNotification.value = false
+}
+
+function scheduleToastHide() {
+  hideToast()
+  showSuccessNotification.value = true
+  toastTimeoutId = window.setTimeout(() => {
+    showSuccessNotification.value = false
+    toastTimeoutId = undefined
+  }, 3000)
+}
 
 function formatPhone(event) {
   const input = event.target
@@ -257,25 +310,31 @@ function validateForm() {
   return !errors.name && !errors.phone && !errors.agreed
 }
 
-function handleSubmit() {
+async function handleSubmit() {
+  if (isSubmitting.value) {
+    return
+  }
+
   if (!validateForm()) {
     return
   }
 
   isSubmitting.value = true
 
-  // Здесь можно добавить отправку данных на сервер
-  console.log('Данные формы:', {
-    name: formData.name.trim(),
-    phone: formData.phone,
-    agreed: formData.agreed,
-  })
+  try {
+    await api.pushWebsiteQuestionnaire({
+      phoneNumber: formData.phone,
+      fullName: formData.name.trim(),
+    })
 
-  setTimeout(() => {
-    isSubmitting.value = false
-    resetForm()
+    scheduleToastHide()
     close()
-  }, 500)
+  } catch (error) {
+    console.error('Ошибка отправки формы:', error)
+    alert('Произошла ошибка при отправке. Попробуйте позже.')
+  } finally {
+    isSubmitting.value = false
+  }
 }
 
 function resetForm() {
@@ -300,6 +359,12 @@ watch(
     }
   },
 )
+
+onBeforeUnmount(() => {
+  if (toastTimeoutId) {
+    clearTimeout(toastTimeoutId)
+  }
+})
 </script>
 
 <style scoped lang="scss">
