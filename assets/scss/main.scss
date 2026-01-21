@@ -13,6 +13,12 @@ a {
   color: inherit;
 }
 
+html {
+  @media (max-width: $mobileBreakpoint) {
+    overflow-x: hidden;
+  }
+}
+
 body {
   font-family: Inter, sans-serif;
   overflow-x: hidden;
