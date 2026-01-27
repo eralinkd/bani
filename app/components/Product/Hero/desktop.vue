@@ -17,21 +17,16 @@
       </div>
     </div>
     <div class="right">
-      <h2>Баня бочка</h2>
+      <h2>{{ title }}</h2>
       <div class="content">
         <div class="text">
           <p class="text-16 bold">Описание:</p>
-          <p class="text-16">
-            Корпус бани выполнен из качественной древесины ели, собранной по надежной системе
-            «лунный паз», что обеспечивает отличную теплоизоляцию. Для долговечности и эстетики,
-            корпус снаружи обработан защитными составами (цвет на выбор клиента), а верхняя часть
-            бочки покрыта мягкой черепицей (доступны зеленый, красный или коричневый цвета).
-          </p>
+          <p class="text-16">{{ description }}</p>
           <div class="stats">
             <p class="name text-16">Материалы:</p>
-            <div class="value text-16">Брус / металл / кирпичи</div>
+            <div class="value text-16">{{ materials }}</div>
             <div class="name text-16">Печь:</div>
-            <div class="value text-16">Термофор Допропар -14</div>
+            <div class="value text-16">{{ stove }}</div>
           </div>
         </div>
         <div class="filters">
@@ -49,7 +44,14 @@
 
 <script setup>
 const modal = useModal()
-const images = [
+const props = defineProps({
+  product: {
+    type: Object,
+    default: null,
+  },
+})
+
+const placeholderImages = [
   '/images/Product/1.png',
   '/images/Product/2.png',
   '/images/Product/3.png',
@@ -58,36 +60,48 @@ const images = [
   '/images/Product/6.png',
 ]
 
+const images = computed(() => {
+  const items = props.product?.images ?? []
+  if (items.length) return items.map((item) => item.url)
+  return placeholderImages
+})
+
 const selectedImageIndex = ref(0)
 
 const currentImage = computed(() => {
-  return images[selectedImageIndex.value]
+  return images.value[selectedImageIndex.value]
 })
 
 function selectImage(index) {
   selectedImageIndex.value = index
 }
 
-const sizeOptions = [
-  { label: '4,2х2,2х2,5 м.', value: '4.2x2.2x2.5', price: 2270000, code: '4197410' },
-  { label: '5,0х2,2х2,5 м.', value: '5.0x2.2x2.5', price: 2580000, code: '4197411' },
-  { label: '6,0х2,2х2,5 м.', value: '6.0x2.2x2.5', price: 2890000, code: '4197412' },
-  { label: '7,0х2,2х2,5 м.', value: '7.0x2.2x2.5', price: 3200000, code: '4197413' },
-]
+const sizeOptions = computed(() => props.product?.sizes ?? [])
+const selectedSize = ref('')
 
-const selectedSize = ref(sizeOptions[0].value)
+watchEffect(() => {
+  if (!selectedSize.value && sizeOptions.value.length) {
+    selectedSize.value = sizeOptions.value[0].value
+  }
+})
 
 const currentSize = computed(() => {
-  return sizeOptions.find((option) => option.value === selectedSize.value) || sizeOptions[0]
+  return sizeOptions.value.find((option) => option.value === selectedSize.value)
 })
 
 const formattedPrice = computed(() => {
+  if (!currentSize.value?.price) return ''
   return new Intl.NumberFormat('ru-RU').format(currentSize.value.price) + ' ₽'
 })
 
 const productCode = computed(() => {
-  return currentSize.value.code
+  return currentSize.value?.code ?? ''
 })
+
+const title = computed(() => props.product?.title ?? '')
+const description = computed(() => props.product?.description ?? '')
+const materials = computed(() => props.product?.materials ?? '')
+const stove = computed(() => props.product?.stove ?? '')
 </script>
 
 <style scoped lang="scss">

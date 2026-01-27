@@ -1,0 +1,104 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
+}
+
+model AppData {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  payload   Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Seo {
+  key         String   @id @default("main")
+  title       String
+  description String
+  updatedAt   DateTime @updatedAt
+}
+
+model ProjectCategory {
+  id        String    @id @default(cuid())
+  title     String    @unique
+  sortOrder Int       @default(0)
+  projects  Project[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Project {
+  id          String          @id @default(cuid())
+  title       String
+  description String
+  categoryId  String
+  category    ProjectCategory @relation(fields: [categoryId], references: [id])
+  sortOrder   Int             @default(0)
+  images      ProjectImage[]
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+}
+
+model ProjectImage {
+  id        String   @id @default(cuid())
+  url       String
+  sortOrder Int      @default(0)
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ProductCategory {
+  id        String    @id @default(cuid())
+  title     String    @unique
+  sortOrder Int       @default(0)
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Product {
+  id          String         @id @default(cuid())
+  title       String
+  description String
+  materials   String?
+  stove       String?
+  interiorHtml        String?
+  characteristicsHtml String?
+  kitHtml             String?
+  categoryId  String
+  category    ProductCategory @relation(fields: [categoryId], references: [id])
+  sortOrder   Int            @default(0)
+  sizes       ProductSize[]
+  images      ProductImage[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model ProductSize {
+  id        String   @id @default(cuid())
+  label     String
+  value     String
+  price     Int
+  code      String
+  sortOrder Int      @default(0)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ProductImage {
+  id        String   @id @default(cuid())
+  url       String
+  sortOrder Int      @default(0)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

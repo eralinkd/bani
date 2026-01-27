@@ -3,30 +3,48 @@
     <div class="grid">
       <div class="item hover-card">
         <NuxtImg class="image" src="/images/Catalog/Hero/1.png" alt="Бани" format="webp" />
-        <UIButton class="button" secondary @click="navigateTo('/catalog/bathhouses')"
-          >Бани</UIButton
-        >
+        <UIButton class="button" secondary @click="navigateToCategory('Бани')">Бани</UIButton>
       </div>
       <div class="item hover-card">
         <NuxtImg class="image" src="/images/Catalog/Hero/2.png" alt="Бани" format="webp" />
-        <UIButton class="button" secondary @click="navigateTo('/catalog/verandas')"
+        <UIButton class="button" secondary @click="navigateToCategory('Беседки и веранды')"
           >Беседки и веранды</UIButton
         >
       </div>
       <div class="item double hover-card desktop">
         <NuxtImg class="image" src="/images/Catalog/Hero/3.png" alt="Бани" format="webp" />
-        <UIButton class="button" secondary>Другие садовые объекты</UIButton>
+        <UIButton class="button" secondary @click="navigateToCategory('Другие садовые объекты')"
+          >Другие садовые объекты</UIButton
+        >
       </div>
 
       <div class="item double hover-card mobile">
         <NuxtImg class="image" src="/images/Catalog/Hero/3-mobile.png" alt="Бани" format="webp" />
-        <UIButton class="button" secondary>Другие садовые объекты</UIButton>
+        <UIButton class="button" secondary @click="navigateToCategory('Другие садовые объекты')"
+          >Другие садовые объекты</UIButton
+        >
       </div>
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+const { data: productsResponse } = await useAsyncData('catalog-hero-categories', () =>
+  $fetch('/api/products')
+)
+
+const productCategories = computed(() => productsResponse.value?.productCategories ?? [])
+
+const categoryByTitle = (title) => {
+  return productCategories.value.find((category) => category.title === title) || null
+}
+
+const navigateToCategory = (title) => {
+  const category = categoryByTitle(title)
+  if (!category) return
+  navigateTo(`/catalog/${category.id}`)
+}
+</script>
 
 <style lang="scss" scoped>
 @use '@scss/variables' as *;

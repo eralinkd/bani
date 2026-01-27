@@ -30,16 +30,15 @@
         class="slider"
         @slide-change="onSlideChange"
       >
-        <SwiperSlide v-for="(product, index) in products" :key="index">
+        <SwiperSlide v-for="(product, index) in products" :key="product.id || index">
           <NuxtLink to="/catalog/product" class="item">
-            <NuxtImg class="image" src="/images/Products/1.png" alt="Продукт" format="webp" />
+            <NuxtImg class="image" :src="getImage(product)" :alt="product.title" format="webp" />
             <div class="item-content">
-              <p class="text-24 text-white">Баня бочка</p>
+              <p class="text-24 text-white">{{ product.title }}</p>
               <p class="text-14 text-white">
-                Простой вариант бани-бочки эконом-класса, в конструкции которой предусмотрен козырек
-                над входом.
+                {{ product.description }}
               </p>
-              <p class="text-24 text-white">858 000 ₽</p>
+              <p class="text-24 text-white">{{ formatPrice(getPrice(product)) }}</p>
             </div>
           </NuxtLink>
         </SwiperSlide>
@@ -68,7 +67,15 @@ import IconsArrowRight from '../Icons/ArrowRight.vue'
 
 const modules = [Navigation]
 
-const products = Array(12).fill(null)
+const props = defineProps({
+  products: {
+    type: Array,
+    default: () => [],
+  },
+})
+
+const products = computed(() => props.products)
+const placeholderImage = '/images/Products/1.png'
 const currentSlide = ref(0)
 
 const navigationOptions = {
@@ -108,6 +115,21 @@ function resetFilters() {
   selectedLength.value = null
   minPrice.value = ''
   maxPrice.value = ''
+}
+
+const getImage = (product) => {
+  if (product.images?.length) return product.images[0].url
+  return placeholderImage
+}
+
+const getPrice = (product) => {
+  if (!product.sizes?.length) return 0
+  return product.sizes[0].price ?? 0
+}
+
+const formatPrice = (price) => {
+  if (!price) return ''
+  return new Intl.NumberFormat('ru-RU').format(price) + ' ₽'
 }
 
 function onSlideChange(swiper) {

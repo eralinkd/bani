@@ -13,10 +13,8 @@
           alt="Выбирайте проект"
           format="webp"
         />
-        <UIButton class="button" secondary @click="navigateTo('/catalog/bathhouses')"
-          >Бани</UIButton
-        >
-        <UIButton small class="button mobile" secondary @click="navigateTo('/catalog/bathhouses')"
+        <UIButton class="button" secondary @click="navigateToCategory('Бани')">Бани</UIButton>
+        <UIButton small class="button mobile" secondary @click="navigateToCategory('Бани')"
           >Бани</UIButton
         >
       </div>
@@ -27,10 +25,10 @@
           alt="Выбирайте проект"
           format="webp"
         />
-        <UIButton class="button" secondary @click="navigateTo('/catalog/verandas')"
+        <UIButton class="button" secondary @click="navigateToCategory('Беседки и веранды')"
           >Беседки и веранды</UIButton
         >
-        <UIButton small class="button mobile" secondary @click="navigateTo('/catalog/verandas')"
+        <UIButton small class="button mobile" secondary @click="navigateToCategory('Беседки и веранды')"
           >Беседки и веранды</UIButton
         >
       </div>
@@ -45,7 +43,23 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+const { data: productsResponse } = await useAsyncData('main-choose-categories', () =>
+  $fetch('/api/products')
+)
+
+const productCategories = computed(() => productsResponse.value?.productCategories ?? [])
+
+const categoryByTitle = (title) => {
+  return productCategories.value.find((category) => category.title === title) || null
+}
+
+const navigateToCategory = (title) => {
+  const category = categoryByTitle(title)
+  if (!category) return
+  navigateTo(`/catalog/${category.id}`)
+}
+</script>
 
 <style scoped lang="scss">
 @use '@scss/variables' as *;

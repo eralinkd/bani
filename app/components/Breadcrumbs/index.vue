@@ -24,9 +24,7 @@ const LABELS = {
   '/projects': 'Наши работы',
   '/blog': 'Блог',
   '/reviews': 'Отзывы',
-  '/catalog/bathhouses': 'Бани',
   '/our-products': 'Наши работы',
-  '/catalog/verandas': 'Веранды',
   '/catalog/product': 'Баня бочка',
 }
 
@@ -34,6 +32,15 @@ function humanize(segment) {
   const text = decodeURIComponent(segment).replace(/-/g, ' ')
   return text.charAt(0).toUpperCase() + text.slice(1)
 }
+
+const { data: productsResponse } = await useAsyncData('breadcrumbs-products', () =>
+  $fetch('/api/products')
+)
+
+const categoryTitleById = computed(() => {
+  const categories = productsResponse.value?.productCategories ?? []
+  return new Map(categories.map((category) => [category.id, category.title]))
+})
 
 const items = computed(() => {
   const path = route.path || '/'
@@ -55,7 +62,7 @@ const items = computed(() => {
     const isLast = i === segments.length - 1
     crumbs.push({
       to: isLast ? undefined : acc,
-      label: LABELS[acc] || humanize(segments[i]),
+      label: LABELS[acc] || categoryTitleById.value.get(segments[i]) || humanize(segments[i]),
       current: isLast,
     })
   }

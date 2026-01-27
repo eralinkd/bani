@@ -3,8 +3,8 @@
     <AppHeader />
     <main>
       <Breadcrumbs />
-      <ProductHero class="mobile-margin" />
-      <ProductStats class="mobile-margin big" />
+      <ProductHero class="mobile-margin" :product="product" />
+      <ProductStats class="mobile-margin big" :product="product" />
       <HowToOffer />
       <Popular />
       <Reviews />
@@ -18,6 +18,9 @@
 import HowToOffer from '../../components/HowToOffer/index.vue'
 import ProductHero from '../../components/Product/Hero/index.vue'
 import ProductStats from '../../components/Product/Stats/index.vue'
+
+const { data: productResponse } = await useAsyncData('product-page', () => $fetch('/api/product'))
+const product = computed(() => productResponse.value?.product ?? null)
 </script>
 
 <style scoped lang="scss">

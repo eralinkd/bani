@@ -20,6 +20,21 @@ export default defineNuxtConfig({
 
   modules: ['@nuxt/eslint', '@nuxt/image', '@nuxt/fonts'],
 
+  runtimeConfig: {
+    redis: {
+      host: process.env.REDIS_HOST || '127.0.0.1',
+      port: Number(process.env.REDIS_PORT || 6379),
+      password: process.env.REDIS_PASSWORD || '',
+      db: Number(process.env.REDIS_DB || 0),
+    },
+    cache: {
+      redisKey: process.env.REDIS_KEY || 'app:data',
+      memoryTtlMs: Number(process.env.MEMORY_TTL_MS || 60_000),
+      redisPullMs: Number(process.env.REDIS_PULL_MS || 60_000),
+      dbPushMs: Number(process.env.DB_PUSH_MS || 60_000),
+    },
+  },
+
   fonts: {
     families: [
       {

@@ -7,13 +7,20 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "prisma:studio": "prisma studio",
+    "prisma:seed": "prisma db seed"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
   },
   "dependencies": {
+    "@prisma/client": "^6.17.1",
     "@nuxt/eslint": "^1.9.0",
     "@nuxt/fonts": "^0.11.4",
     "@nuxt/image": "^1.11.0",
     "eslint": "^9.34.0",
+    "ioredis": "^5.7.0",
     "nuxt": "^4.1.0",
     "prettier-plugin-tailwindcss": "^0.6.14",
     "sharp": "^0.34.5",
@@ -26,6 +33,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "prettier": "^3.6.2",
+    "prisma": "^6.17.1",
     "sass": "^1.94.0"
   }
 }

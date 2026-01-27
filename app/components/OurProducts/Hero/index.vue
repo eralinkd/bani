@@ -3,46 +3,51 @@
     <div class="filters">
       <div
         v-for="item in items"
-        :key="item.value"
+        :key="item.id"
         class="item text-16"
-        :class="{ selected: selected === item.value }"
-        @click="selected = item.value"
+        :class="{ selected: selected === item.id }"
+        @click="selected = item.id"
       >
-        {{ item.label }}
+        {{ item.title }}
       </div>
     </div>
     <div class="products">
-      <div v-for="i in 8" :key="i" class="product-item">
+      <div v-for="project in filteredProjects" :key="project.id" class="product-item">
         <div class="slider-wrapper">
           <Swiper
             :modules="modules"
             :slides-per-view="1"
             :space-between="0"
             :navigation="{
-              nextEl: `.swiper-button-next-our-products-${i}`,
-              prevEl: `.swiper-button-prev-our-products-${i}`,
+              nextEl: `.swiper-button-next-our-products-${project.id}`,
+              prevEl: `.swiper-button-prev-our-products-${project.id}`,
             }"
             :loop="true"
             class="slider"
-            @slide-change="(swiper) => onSlideChange(swiper, i)"
+            @slide-change="(swiper) => onSlideChange(swiper, project.id)"
           >
-            <SwiperSlide v-for="(slide, slideIndex) in slides" :key="slideIndex" class="slide">
+            <SwiperSlide
+              v-for="(slide, slideIndex) in getSlides(project)"
+              :key="slideIndex"
+              class="slide"
+            >
               <div class="item hover-card">
-                <NuxtImg class="image" src="/images/OurProducts/1.png" alt="Бани" format="webp" />
-                <p class="text-24 text-white">{{ productTitle }}</p>
+                <NuxtImg class="image" :src="slide.url" alt="Проект" format="webp" />
+                <p class="text-24 text-white">{{ project.title }}</p>
                 <p class="text-16 text-white">
-                  Простой вариант бани-бочки эконом-класса, в конструкции которой предусмотрен
-                  козырек над входом.
+                  {{ project.description }}
                 </p>
               </div>
             </SwiperSlide>
           </Swiper>
           <div class="slider-controls">
-            <button :class="`swiper-button-prev-our-products-${i}`" type="button">
+            <button :class="`swiper-button-prev-our-products-${project.id}`" type="button">
               <IconsArrowLeftWhite />
             </button>
-            <p class="text-18">{{ (currentSlides[i] ?? 0) + 1 }} / {{ slides.length }}</p>
-            <button :class="`swiper-button-next-our-products-${i}`" type="button">
+            <p class="text-18">
+              {{ (currentSlides[project.id] ?? 0) + 1 }} / {{ getSlides(project).length }}
+            </p>
+            <button :class="`swiper-button-next-our-products-${project.id}`" type="button">
               <IconsArrowRightWhite />
             </button>
           </div>
@@ -62,63 +67,34 @@ import IconsArrowRightWhite from '../../Icons/ArrowRightWhite.vue'
 
 const modules = [Navigation]
 
-const slides = Array(5).fill(null) // 5 слайдов с одной картинкой
-const currentSlides = ref({
-  1: 0,
-  2: 0,
-  3: 0,
-  4: 0,
-  5: 0,
-  6: 0,
-  7: 0,
-  8: 0,
+const placeholderImage = '/images/OurProducts/1.png'
+const { data: projectsResponse } = await useAsyncData('projects', () => $fetch('/api/projects'))
+
+const items = computed(() => projectsResponse.value?.projectCategories ?? [])
+const projects = computed(() => projectsResponse.value?.projects ?? [])
+
+const currentSlides = ref({})
+const selected = ref('')
+
+watchEffect(() => {
+  if (!selected.value && items.value.length) {
+    selected.value = items.value[0].id
+  }
 })
 
-const selected = ref('бани')
-
-const onSlideChange = (swiper, index) => {
-  currentSlides.value[index] = swiper.realIndex
+const onSlideChange = (swiper, id) => {
+  currentSlides.value[id] = swiper.realIndex
 }
 
-const items = [
-  {
-    label: 'Бани',
-    value: 'бани',
-  },
-  {
-    label: 'Беседки',
-    value: 'беседки',
-  },
-  {
-    label: 'Веранды',
-    value: 'веранды',
-  },
-  {
-    label: 'Мягкие окна',
-    value: 'мягкие окна',
-  },
-  {
-    label: 'Садовая мебель',
-    value: 'садовая мебель',
-  },
-  {
-    label: 'Сваи',
-    value: 'сваи',
-  },
-]
-
-const productTitles = {
-  бани: 'Баня бочка',
-  беседки: 'Беседка',
-  веранды: 'Веранда',
-  'мягкие окна': 'Мягкие окна',
-  'садовая мебель': 'Садовая мебель',
-  сваи: 'Сваи',
-}
-
-const productTitle = computed(() => {
-  return productTitles[selected.value] || 'Товар'
+const filteredProjects = computed(() => {
+  if (!selected.value) return projects.value
+  return projects.value.filter((project) => project.categoryId === selected.value)
 })
+
+const getSlides = (project) => {
+  if (project.images?.length) return project.images
+  return [{ url: placeholderImage }]
+}
 </script>
 
 <style scoped lang="scss">

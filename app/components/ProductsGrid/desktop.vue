@@ -20,16 +20,20 @@
       </button>
     </div>
     <div class="products">
-      <NuxtLink v-for="i in productsAmount" :key="i" to="/catalog/product" class="item hover-card">
-        <NuxtImg class="image" src="/images/Products/1.png" alt="Продукт" format="webp" />
-        <p class="text-24 text-white">Баня бочка</p>
+      <NuxtLink
+        v-for="product in visibleProducts"
+        :key="product.id"
+        to="/catalog/product"
+        class="item hover-card"
+      >
+        <NuxtImg class="image" :src="getImage(product)" :alt="product.title" format="webp" />
+        <p class="text-24 text-white">{{ product.title }}</p>
         <p class="text-14 text-white">
-          Простой вариант бани-бочки эконом-класса, в конструкции которой предусмотрен козырек над
-          входом.
+          {{ product.description }}
         </p>
-        <p class="text-24 text-white">858 000 ₽</p>
+        <p class="text-24 text-white">{{ formatPrice(getPrice(product)) }}</p>
       </NuxtLink>
-      <UIButton v-if="!isShowAll" icon-position="none" small class="button" @click="showAll"
+      <UIButton v-if="!isShowAll && canShowMore" icon-position="none" small class="button" @click="showAll"
         >Еще</UIButton
       >
     </div>
@@ -37,12 +41,21 @@
 </template>
 
 <script setup>
+const props = defineProps({
+  products: {
+    type: Array,
+    default: () => [],
+  },
+})
+
+const placeholderImage = '/images/Products/1.png'
+
 const productsAmount = ref(9)
 const isShowAll = ref(false)
 
 function showAll() {
   isShowAll.value = true
-  productsAmount.value = 12
+  productsAmount.value = props.products.length
 }
 
 const selectedType = ref(null)
@@ -77,6 +90,28 @@ function resetFilters() {
   selectedLength.value = null
   minPrice.value = ''
   maxPrice.value = ''
+}
+
+const visibleProducts = computed(() => {
+  if (isShowAll.value) return props.products
+  return props.products.slice(0, productsAmount.value)
+})
+
+const canShowMore = computed(() => props.products.length > productsAmount.value)
+
+const getImage = (product) => {
+  if (product.images?.length) return product.images[0].url
+  return placeholderImage
+}
+
+const getPrice = (product) => {
+  if (!product.sizes?.length) return 0
+  return product.sizes[0].price ?? 0
+}
+
+const formatPrice = (price) => {
+  if (!price) return ''
+  return new Intl.NumberFormat('ru-RU').format(price) + ' ₽'
 }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="mobile-hero">
-    <h1 class="heading">баня бочка</h1>
+    <h1 class="heading">{{ title }}</h1>
     <div class="gallery">
       <Swiper
         :modules="modules"
@@ -36,20 +36,15 @@
 
     <div class="description">
       <p class="text-16 bold">Описание:</p>
-      <p class="text-16">
-        Корпус бани выполнен из качественной древесины ели, собранной по надежной системе «лунный
-        паз», что обеспечивает отличную теплоизоляцию. Для долговечности и эстетики, корпус снаружи
-        обработан защитными составами (цвет на выбор клиента), а верхняя часть бочки покрыта мягкой
-        черепицей (доступны зеленый, красный или коричневый цвета).
-      </p>
+      <p class="text-16">{{ description }}</p>
       <div class="stats">
         <div class="stat">
           <p class="name text-16">Материалы:</p>
-          <p class="value text-16">Брус / металл / кирпичи</p>
+          <p class="value text-16">{{ materials }}</p>
         </div>
         <div class="stat">
           <p class="name text-16">Печь:</p>
-          <p class="value text-16">Термофор Допропар -14</p>
+          <p class="value text-16">{{ stove }}</p>
         </div>
       </div>
     </div>
@@ -74,8 +69,14 @@ import IconsArrowRight from '../../Icons/ArrowRight.vue'
 
 const modal = useModal()
 const modules = [Navigation]
+const props = defineProps({
+  product: {
+    type: Object,
+    default: null,
+  },
+})
 
-const images = [
+const placeholderImages = [
   '/images/Product/1.png',
   '/images/Product/2.png',
   '/images/Product/3.png',
@@ -83,6 +84,12 @@ const images = [
   '/images/Product/5.png',
   '/images/Product/6.png',
 ]
+
+const images = computed(() => {
+  const items = props.product?.images ?? []
+  if (items.length) return items.map((item) => item.url)
+  return placeholderImages
+})
 
 const currentSlide = ref(0)
 
@@ -95,26 +102,32 @@ function onSlideChange(swiper) {
   currentSlide.value = swiper.realIndex
 }
 
-const sizeOptions = [
-  { label: '4,2х2,2х2,5 м.', value: '4.2x2.2x2.5', price: 2270000, code: '4197410' },
-  { label: '5,0х2,2х2,5 м.', value: '5.0x2.2x2.5', price: 2580000, code: '4197411' },
-  { label: '6,0х2,2х2,5 м.', value: '6.0x2.2x2.5', price: 2890000, code: '4197412' },
-  { label: '7,0х2,2х2,5 м.', value: '7.0x2.2x2.5', price: 3200000, code: '4197413' },
-]
+const sizeOptions = computed(() => props.product?.sizes ?? [])
+const selectedSize = ref('')
 
-const selectedSize = ref(sizeOptions[0].value)
+watchEffect(() => {
+  if (!selectedSize.value && sizeOptions.value.length) {
+    selectedSize.value = sizeOptions.value[0].value
+  }
+})
 
 const currentSize = computed(() => {
-  return sizeOptions.find((option) => option.value === selectedSize.value) || sizeOptions[0]
+  return sizeOptions.value.find((option) => option.value === selectedSize.value)
 })
 
 const formattedPrice = computed(() => {
+  if (!currentSize.value?.price) return ''
   return new Intl.NumberFormat('ru-RU').format(currentSize.value.price) + ' ₽'
 })
 
 const productCode = computed(() => {
-  return currentSize.value.code
+  return currentSize.value?.code ?? ''
 })
+
+const title = computed(() => props.product?.title ?? '')
+const description = computed(() => props.product?.description ?? '')
+const materials = computed(() => props.product?.materials ?? '')
+const stove = computed(() => props.product?.stove ?? '')
 </script>
 
 <style scoped lang="scss">

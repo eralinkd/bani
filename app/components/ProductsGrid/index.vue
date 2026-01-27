@@ -1,13 +1,29 @@
 <template>
   <div class="resolver">
-    <ProductsGridDesktop class="desktop" />
-    <ProductsGridMobile class="mobile" />
+    <ProductsGridDesktop class="desktop" :products="filteredProducts" />
+    <ProductsGridMobile class="mobile" :products="filteredProducts" />
   </div>
 </template>
 
 <script setup>
 import ProductsGridDesktop from './desktop.vue'
 import ProductsGridMobile from './mobile.vue'
+
+const props = defineProps({
+  categoryId: {
+    type: String,
+    default: '',
+  },
+})
+
+const { data: productsResponse } = await useAsyncData('products-grid', () => $fetch('/api/products'))
+
+const products = computed(() => productsResponse.value?.products ?? [])
+
+const filteredProducts = computed(() => {
+  if (!props.categoryId) return products.value
+  return products.value.filter((product) => product.categoryId === props.categoryId)
+})
 </script>
 
 <style scoped lang="scss">

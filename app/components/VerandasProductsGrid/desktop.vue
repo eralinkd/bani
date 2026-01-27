@@ -20,16 +20,20 @@
       </button>
     </div>
     <div class="products">
-      <NuxtLink v-for="i in productsAmount" :key="i" to="/catalog/product" class="item hover-card">
-        <NuxtImg class="image" src="/images/Products/1.png" alt="Веранда" format="webp" />
-        <p class="text-24 text-white">Веранда</p>
+      <NuxtLink
+        v-for="product in visibleProducts"
+        :key="product.id"
+        to="/catalog/product"
+        class="item hover-card"
+      >
+        <NuxtImg class="image" :src="getImage(product)" :alt="product.title" format="webp" />
+        <p class="text-24 text-white">{{ product.title }}</p>
         <p class="text-14 text-white">
-          Уютная веранда для отдыха на свежем воздухе. Идеальное место для семейных посиделок и
-          приема гостей.
+          {{ product.description }}
         </p>
-        <p class="text-24 text-white">858 000 ₽</p>
+        <p class="text-24 text-white">{{ formatPrice(getPrice(product)) }}</p>
       </NuxtLink>
-      <UIButton v-if="!isShowAll" icon-position="none" small class="button" @click="showAll"
+      <UIButton v-if="!isShowAll && canShowMore" icon-position="none" small class="button" @click="showAll"
         >Еще</UIButton
       >
     </div>
@@ -37,12 +41,30 @@
 </template>
 
 <script setup>
+const placeholderImage = '/images/Products/1.png'
+
+const { data: productsResponse } = await useAsyncData('products-grid-verandas', () =>
+  $fetch('/api/products')
+)
+
+const productCategories = computed(() => productsResponse.value?.productCategories ?? [])
+const products = computed(() => productsResponse.value?.products ?? [])
+
+const verandasCategory = computed(() => {
+  return productCategories.value.find((category) => category.title === 'Веранды') || null
+})
+
+const filteredProducts = computed(() => {
+  if (!verandasCategory.value) return products.value
+  return products.value.filter((product) => product.categoryId === verandasCategory.value.id)
+})
+
 const productsAmount = ref(9)
 const isShowAll = ref(false)
 
 function showAll() {
   isShowAll.value = true
-  productsAmount.value = 12
+  productsAmount.value = filteredProducts.value.length
 }
 
 const selectedType = ref(null)
@@ -78,6 +100,28 @@ function resetFilters() {
   selectedLength.value = null
   minPrice.value = ''
   maxPrice.value = ''
+}
+
+const visibleProducts = computed(() => {
+  if (isShowAll.value) return filteredProducts.value
+  return filteredProducts.value.slice(0, productsAmount.value)
+})
+
+const canShowMore = computed(() => filteredProducts.value.length > productsAmount.value)
+
+const getImage = (product) => {
+  if (product.images?.length) return product.images[0].url
+  return placeholderImage
+}
+
+const getPrice = (product) => {
+  if (!product.sizes?.length) return 0
+  return product.sizes[0].price ?? 0
+}
+
+const formatPrice = (price) => {
+  if (!price) return ''
+  return new Intl.NumberFormat('ru-RU').format(price) + ' ₽'
 }
 </script>
 
