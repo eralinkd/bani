@@ -8,10 +8,18 @@
 
 */
 -- AlterTable
-ALTER TABLE "Product" ADD COLUMN     "slug" TEXT NOT NULL;
+ALTER TABLE "Product" ADD COLUMN     "slug" TEXT;
 
 -- AlterTable
-ALTER TABLE "ProductCategory" ADD COLUMN     "slug" TEXT NOT NULL;
+ALTER TABLE "ProductCategory" ADD COLUMN     "slug" TEXT;
+
+-- Backfill slugs for existing rows
+UPDATE "Product" SET "slug" = 'product-' || "id" WHERE "slug" IS NULL OR "slug" = '';
+UPDATE "ProductCategory" SET "slug" = 'category-' || "id" WHERE "slug" IS NULL OR "slug" = '';
+
+-- Enforce NOT NULL after backfill
+ALTER TABLE "Product" ALTER COLUMN "slug" SET NOT NULL;
+ALTER TABLE "ProductCategory" ALTER COLUMN "slug" SET NOT NULL;
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Product_slug_key" ON "Product"("slug");
