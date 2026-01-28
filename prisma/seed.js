@@ -33,14 +33,15 @@ const projectsSeed = [
 ]
 
 const productCategoriesSeed = [
-  { title: 'Бани', sortOrder: 1 },
-  { title: 'Беседки и веранды', sortOrder: 2 },
-  { title: 'Другие садовые объекты', sortOrder: 3 },
+  { title: 'Бани', slug: 'bani', sortOrder: 1 },
+  { title: 'Беседки и веранды', slug: 'besedki-verandy', sortOrder: 2 },
+  { title: 'Другие садовые объекты', slug: 'drugie-sadovye-obekty', sortOrder: 3 },
 ]
 
 const productsSeed = [
   {
     title: 'Баня бочка',
+    slug: 'banya-bochka',
     description:
       'Корпус бани выполнен из качественной древесины ели, собранной по надежной системе «лунный паз».',
     materials: 'Брус / металл / кирпичи',
@@ -61,6 +62,7 @@ const productsSeed = [
   },
   {
     title: 'Беседка семейная',
+    slug: 'besedka-semejnaya',
     description: 'Уютная беседка для семейных встреч на участке.',
     materials: 'Брус / металл',
     stove: null,
@@ -73,6 +75,7 @@ const productsSeed = [
   },
   {
     title: 'Веранда панорамная',
+    slug: 'veranda-panoramnaya',
     description: 'Просторная веранда с панорамным остеклением.',
     materials: 'Брус / стекло / металл',
     stove: null,
@@ -85,6 +88,7 @@ const productsSeed = [
   },
   {
     title: 'Садовый павильон',
+    slug: 'sadovyj-pavilon',
     description: 'Лёгкий павильон для отдыха на участке.',
     materials: 'Брус / металл',
     stove: null,
@@ -176,9 +180,10 @@ const seedProjects = async () => {
 const seedProductCategories = async () => {
   for (const category of productCategoriesSeed) {
     await prisma.productCategory.upsert({
-      where: { title: category.title },
+      where: { slug: category.slug },
       update: {
         sortOrder: category.sortOrder,
+        title: category.title,
       },
       create: category,
     })
@@ -197,7 +202,7 @@ const seedProducts = async () => {
 
     const existing = await prisma.product.findFirst({
       where: {
-        title: product.title,
+        slug: product.slug,
         categoryId,
       },
       select: { id: true },
@@ -212,6 +217,8 @@ const seedProducts = async () => {
       await prisma.product.update({
         where: { id: existing.id },
         data: {
+          title: product.title,
+          slug: product.slug,
           description: product.description,
           materials: product.materials,
           stove: product.stove,
@@ -234,6 +241,7 @@ const seedProducts = async () => {
     await prisma.product.create({
       data: {
         title: product.title,
+        slug: product.slug,
         description: product.description,
         materials: product.materials,
         stove: product.stove,

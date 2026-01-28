@@ -19,7 +19,7 @@
 <script setup>
 const route = useRoute()
 
-const categoryId = computed(() => String(route.params.category || ''))
+const categorySlug = computed(() => String(route.params.category || ''))
 
 const { data: productsResponse } = await useAsyncData('catalog-category', () =>
   $fetch('/api/products')
@@ -27,7 +27,7 @@ const { data: productsResponse } = await useAsyncData('catalog-category', () =>
 
 const category = computed(() => {
   const categories = productsResponse.value?.productCategories ?? []
-  return categories.find((item) => item.id === categoryId.value) || null
+  return categories.find((item) => item.slug === categorySlug.value) || null
 })
 
 if (!category.value) {
@@ -35,6 +35,7 @@ if (!category.value) {
 }
 
 const pageTitle = computed(() => category.value?.title ?? 'Категория')
+const categoryId = computed(() => category.value?.id ?? '')
 </script>
 
 <style scoped lang="scss">

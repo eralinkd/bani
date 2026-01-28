@@ -42,7 +42,7 @@ const categoryByTitle = (title) => {
 const navigateToCategory = (title) => {
   const category = categoryByTitle(title)
   if (!category) return
-  navigateTo(`/catalog/${category.id}`)
+  navigateTo(`/catalog/${category.slug}`)
 }
 </script>
 

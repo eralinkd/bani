@@ -21,14 +21,14 @@
           <div class="slide-content">
             <NuxtLink
               v-for="(item, itemIndex) in slideGroup"
-              :key="itemIndex"
-              to="/catalog/product"
+              :key="item.id || itemIndex"
+              :to="productLink(item)"
               class="item hover-card"
             >
-              <NuxtImg class="image" :src="item.image" :alt="item.title" format="webp" />
+              <NuxtImg class="image" :src="getImage(item)" :alt="item.title" format="webp" />
               <p class="text-24 text-white">{{ item.title }}</p>
               <p class="text-14 text-white">{{ item.description }}</p>
-              <p class="text-24 text-white">{{ item.price }}</p>
+              <p class="text-24 text-white">{{ formatPrice(getPrice(item)) }}</p>
             </NuxtLink>
           </div>
         </SwiperSlide>
@@ -58,16 +58,12 @@ import 'swiper/css/navigation'
 
 const modules = [Navigation]
 
-const items = Array.from({ length: 20 }, (_, index) => {
-  const imageIndex = (index % 4) + 1
-  return {
-    image: `/images/Popular/${imageIndex}.png`,
-    title: 'Баня бочка',
-    description:
-      'Простой вариант бани-бочки эконом-класса, в конструкции которой предусмотрен козырек над входом.',
-    price: '858 000 ₽',
-  }
-})
+const placeholderImage = '/images/Popular/1.png'
+const { data: productsResponse } = await useAsyncData('popular-products', () =>
+  $fetch('/api/products')
+)
+
+const items = computed(() => productsResponse.value?.products ?? [])
 
 const isMobile = ref(false)
 
@@ -89,8 +85,8 @@ onBeforeUnmount(() => {
 const slideGroups = computed(() => {
   const chunkSize = isMobile.value ? 1 : 4
   const groups = []
-  for (let i = 0; i < items.length; i += chunkSize) {
-    groups.push(items.slice(i, i + chunkSize))
+  for (let i = 0; i < items.value.length; i += chunkSize) {
+    groups.push(items.value.slice(i, i + chunkSize))
   }
   return groups
 })
@@ -110,6 +106,27 @@ const breakpoints = {
 
 const onSlideChange = (swiper) => {
   currentSlide.value = swiper.realIndex
+}
+
+const productLink = (product) => {
+  const categorySlug = product.category?.slug
+  if (categorySlug && product.slug) return `/catalog/${categorySlug}/${product.slug}`
+  return '/catalog'
+}
+
+const getImage = (product) => {
+  if (product.images?.length) return product.images[0].url
+  return placeholderImage
+}
+
+const getPrice = (product) => {
+  if (!product.sizes?.length) return 0
+  return product.sizes[0].price ?? 0
+}
+
+const formatPrice = (price) => {
+  if (!price) return ''
+  return new Intl.NumberFormat('ru-RU').format(price) + ' ₽'
 }
 </script>
 

@@ -23,7 +23,7 @@
       <NuxtLink
         v-for="product in visibleProducts"
         :key="product.id"
-        to="/catalog/product"
+        :to="productLink(product)"
         class="item hover-card"
       >
         <NuxtImg class="image" :src="getImage(product)" :alt="product.title" format="webp" />
@@ -51,7 +51,7 @@ const productCategories = computed(() => productsResponse.value?.productCategori
 const products = computed(() => productsResponse.value?.products ?? [])
 
 const verandasCategory = computed(() => {
-  return productCategories.value.find((category) => category.title === 'Веранды') || null
+  return productCategories.value.find((category) => category.title === 'Беседки и веранды') || null
 })
 
 const filteredProducts = computed(() => {
@@ -112,6 +112,12 @@ const canShowMore = computed(() => filteredProducts.value.length > productsAmoun
 const getImage = (product) => {
   if (product.images?.length) return product.images[0].url
   return placeholderImage
+}
+
+const productLink = (product) => {
+  const categorySlug = product.category?.slug
+  if (categorySlug && product.slug) return `/catalog/${categorySlug}/${product.slug}`
+  return '/catalog'
 }
 
 const getPrice = (product) => {

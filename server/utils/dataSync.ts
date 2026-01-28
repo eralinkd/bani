@@ -21,10 +21,11 @@ const buildPayload = (input: {
     categoryId: string
     images: Array<{ url: string }>
   }>
-  productCategories: Array<{ id: string; title: string }>
+  productCategories: Array<{ id: string; title: string; slug: string }>
   products: Array<{
     id: string
     title: string
+    slug: string
     description: string
     materials: string | null
     stove: string | null
@@ -32,6 +33,7 @@ const buildPayload = (input: {
     characteristicsHtml: string | null
     kitHtml: string | null
     categoryId: string
+    category: { slug: string } | null
     sizes: Array<{ label: string; value: string; price: number; code: string }>
     images: Array<{ url: string }>
   }>
@@ -87,13 +89,14 @@ export const fetchFromRedisAndUpdateCache = async () => {
         orderBy: { sortOrder: 'asc' },
       }),
       prisma.productCategory.findMany({
-        select: { id: true, title: true },
+        select: { id: true, title: true, slug: true },
         orderBy: { sortOrder: 'asc' },
       }),
       prisma.product.findMany({
         select: {
           id: true,
           title: true,
+          slug: true,
           description: true,
           materials: true,
           stove: true,
@@ -101,6 +104,7 @@ export const fetchFromRedisAndUpdateCache = async () => {
           characteristicsHtml: true,
           kitHtml: true,
           categoryId: true,
+          category: { select: { slug: true } },
           sizes: {
             select: { label: true, value: true, price: true, code: true },
             orderBy: { sortOrder: 'asc' },
@@ -162,13 +166,14 @@ export const syncDbToRedis = async () => {
       orderBy: { sortOrder: 'asc' },
     }),
     prisma.productCategory.findMany({
-      select: { id: true, title: true },
+      select: { id: true, title: true, slug: true },
       orderBy: { sortOrder: 'asc' },
     }),
     prisma.product.findMany({
       select: {
         id: true,
         title: true,
+        slug: true,
         description: true,
         materials: true,
         stove: true,
@@ -176,6 +181,7 @@ export const syncDbToRedis = async () => {
           characteristicsHtml: true,
           kitHtml: true,
         categoryId: true,
+        category: { select: { slug: true } },
         sizes: {
           select: { label: true, value: true, price: true, code: true },
           orderBy: { sortOrder: 'asc' },

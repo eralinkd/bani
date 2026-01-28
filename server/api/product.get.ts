@@ -18,10 +18,19 @@ export default defineEventHandler(async (event) => {
 
   const id = typeof query.id === 'string' ? query.id : ''
   const categoryId = typeof query.categoryId === 'string' ? query.categoryId : ''
+  const categorySlug = typeof query.categorySlug === 'string' ? query.categorySlug : ''
+  const productSlug = typeof query.productSlug === 'string' ? query.productSlug : ''
 
   let product = null
   if (id) {
     product = products.find((item) => item?.id === id) ?? null
+  } else if (productSlug && categorySlug) {
+    product =
+      products.find(
+        (item) => item?.slug === productSlug && item?.category?.slug === categorySlug
+      ) ?? null
+  } else if (productSlug) {
+    product = products.find((item) => item?.slug === productSlug) ?? null
   } else if (categoryId) {
     product = products.find((item) => item?.categoryId === categoryId) ?? null
   } else {

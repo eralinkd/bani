@@ -31,7 +31,7 @@
         @slide-change="onSlideChange"
       >
         <SwiperSlide v-for="(product, index) in products" :key="product.id || index">
-          <NuxtLink to="/catalog/product" class="item">
+          <NuxtLink :to="productLink(product)" class="item">
             <NuxtImg class="image" :src="getImage(product)" :alt="product.title" format="webp" />
             <div class="item-content">
               <p class="text-24 text-white">{{ product.title }}</p>
@@ -120,6 +120,12 @@ function resetFilters() {
 const getImage = (product) => {
   if (product.images?.length) return product.images[0].url
   return placeholderImage
+}
+
+const productLink = (product) => {
+  const categorySlug = product.category?.slug
+  if (categorySlug && product.slug) return `/catalog/${categorySlug}/${product.slug}`
+  return '/catalog'
 }
 
 const getPrice = (product) => {

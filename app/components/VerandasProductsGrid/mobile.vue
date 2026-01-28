@@ -30,16 +30,13 @@
         class="slider"
         @slide-change="onSlideChange"
       >
-        <SwiperSlide v-for="(product, index) in products" :key="index">
-          <NuxtLink to="/catalog/product" class="item">
-            <NuxtImg class="image" src="/images/Products/1.png" alt="Продукт" format="webp" />
+        <SwiperSlide v-for="(product, index) in filteredProducts" :key="product.id || index">
+          <NuxtLink :to="productLink(product)" class="item">
+            <NuxtImg class="image" :src="getImage(product)" :alt="product.title" format="webp" />
             <div class="item-content">
-              <p class="text-24 text-white">Баня бочка</p>
-              <p class="text-14 text-white">
-                Простой вариант бани-бочки эконом-класса, в конструкции которой предусмотрен козырек
-                над входом.
-              </p>
-              <p class="text-24 text-white">858 000 ₽</p>
+              <p class="text-24 text-white">{{ product.title }}</p>
+              <p class="text-14 text-white">{{ product.description }}</p>
+              <p class="text-24 text-white">{{ formatPrice(getPrice(product)) }}</p>
             </div>
           </NuxtLink>
         </SwiperSlide>
@@ -49,7 +46,7 @@
         <button class="swiper-button-prev-products-mobile" type="button">
           <IconsArrowLeft />
         </button>
-        <p class="text-18">{{ currentSlide + 1 }} / {{ products.length }}</p>
+        <p class="text-18">{{ currentSlide + 1 }} / {{ filteredProducts.length }}</p>
         <button class="swiper-button-next-products-mobile" type="button">
           <IconsArrowRight />
         </button>
@@ -68,8 +65,43 @@ import IconsArrowRight from '../Icons/ArrowRight.vue'
 
 const modules = [Navigation]
 
-const products = Array(12).fill(null)
+const placeholderImage = '/images/Products/1.png'
+const { data: productsResponse } = await useAsyncData('products-grid-verandas-mobile', () =>
+  $fetch('/api/products')
+)
+
+const productCategories = computed(() => productsResponse.value?.productCategories ?? [])
+const products = computed(() => productsResponse.value?.products ?? [])
 const currentSlide = ref(0)
+
+const verandasCategory = computed(() => {
+  return productCategories.value.find((category) => category.title === 'Беседки и веранды') || null
+})
+
+const filteredProducts = computed(() => {
+  if (!verandasCategory.value) return products.value
+  return products.value.filter((product) => product.categoryId === verandasCategory.value.id)
+})
+const productLink = (product) => {
+  const categorySlug = product.category?.slug
+  if (categorySlug && product.slug) return `/catalog/${categorySlug}/${product.slug}`
+  return '/catalog'
+}
+
+const getImage = (product) => {
+  if (product.images?.length) return product.images[0].url
+  return placeholderImage
+}
+
+const getPrice = (product) => {
+  if (!product.sizes?.length) return 0
+  return product.sizes[0].price ?? 0
+}
+
+const formatPrice = (price) => {
+  if (!price) return ''
+  return new Intl.NumberFormat('ru-RU').format(price) + ' ₽'
+}
 
 const navigationOptions = {
   nextEl: '.swiper-button-next-products-mobile',

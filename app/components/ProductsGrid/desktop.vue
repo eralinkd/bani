@@ -23,7 +23,7 @@
       <NuxtLink
         v-for="product in visibleProducts"
         :key="product.id"
-        to="/catalog/product"
+        :to="productLink(product)"
         class="item hover-card"
       >
         <NuxtImg class="image" :src="getImage(product)" :alt="product.title" format="webp" />
@@ -102,6 +102,12 @@ const canShowMore = computed(() => props.products.length > productsAmount.value)
 const getImage = (product) => {
   if (product.images?.length) return product.images[0].url
   return placeholderImage
+}
+
+const productLink = (product) => {
+  const categorySlug = product.category?.slug
+  if (categorySlug && product.slug) return `/catalog/${categorySlug}/${product.slug}`
+  return '/catalog'
 }
 
 const getPrice = (product) => {
