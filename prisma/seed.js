@@ -46,6 +46,7 @@ const productsSeed = [
       'Корпус бани выполнен из качественной древесины ели, собранной по надежной системе «лунный паз».',
     materials: 'Брус / металл / кирпичи',
     stove: 'Термофор Допропар -14',
+    isPopular: true,
     interiorHtml:
       'Корпус бани выполнен из качественной древесины ели, собранной по надежной системе «лунный паз», что обеспечивает отличную теплоизоляцию. Для долговечности и эстетики корпус снаружи обработан защитными составами (цвет на выбор клиента), а верхняя часть бочки покрыта мягкой черепицей (доступны зеленый, красный или коричневый цвета). Устойчивость конструкции обеспечивают три подставки из бруса.<br /><br /><strong>Двери и Электрика</strong><br />Входная дверь выполнена из массива древесины и комплектуется ручками и наличниками. Дверь в парилку изготовлена из массива липы. Проведена полная электрическая проводка под ключ: в каждом отделении установлены лампочка с плафоном, розетка и выключатель.',
     characteristicsHtml:
@@ -66,6 +67,7 @@ const productsSeed = [
     description: 'Уютная беседка для семейных встреч на участке.',
     materials: 'Брус / металл',
     stove: null,
+    isPopular: true,
     interiorHtml: 'Уютная беседка для семейных встреч на участке.',
     characteristicsHtml: 'Размеры - 3х3<br />Площадь помещений - 9 м²<br />Технология - Клееный брус',
     kitHtml:
@@ -79,6 +81,7 @@ const productsSeed = [
     description: 'Просторная веранда с панорамным остеклением.',
     materials: 'Брус / стекло / металл',
     stove: null,
+    isPopular: false,
     interiorHtml: 'Просторная веранда с панорамным остеклением для отдыха в любое время года.',
     characteristicsHtml: 'Размеры - 4х6<br />Площадь помещений - 24 м²<br />Технология - Клееный брус',
     kitHtml:
@@ -92,6 +95,7 @@ const productsSeed = [
     description: 'Лёгкий павильон для отдыха на участке.',
     materials: 'Брус / металл',
     stove: null,
+    isPopular: false,
     interiorHtml: 'Лёгкий павильон для отдыха на участке.',
     characteristicsHtml: 'Размеры - 3х4<br />Площадь помещений - 12 м²',
     kitHtml:
@@ -102,10 +106,32 @@ const productsSeed = [
 ]
 
 const placeholderImages = [
-  { url: '/images/OurProducts/1.png', sortOrder: 1 },
-  { url: '/images/OurProducts/1.png', sortOrder: 2 },
-  { url: '/images/OurProducts/1.png', sortOrder: 3 },
+  { url: '/uploads/test/product-1.svg', sortOrder: 1 },
+  { url: '/uploads/test/product-2.svg', sortOrder: 2 },
+  { url: '/uploads/test/product-3.svg', sortOrder: 3 },
 ]
+
+const ensureMediaMap = async (urls) => {
+  const existing = await prisma.media.findMany({
+    where: { url: { in: urls } },
+    select: { id: true, url: true },
+  })
+  const map = new Map(existing.map((item) => [item.url, item.id]))
+
+  for (const url of urls) {
+    if (map.has(url)) continue
+    const parts = url.split('/').filter(Boolean)
+    const name = parts[parts.length - 1] || url
+    const folder = parts.slice(1, -1).join('/')
+    const created = await prisma.media.create({
+      data: { url, name, folder },
+      select: { id: true, url: true },
+    })
+    map.set(created.url, created.id)
+  }
+
+  return map
+}
 
 const ensureSeo = async () => {
   await prisma.seo.upsert({
@@ -135,6 +161,14 @@ const seedCategories = async () => {
 }
 
 const seedProjects = async () => {
+  const mediaMap = await ensureMediaMap(placeholderImages.map((image) => image.url))
+  const imageLinks = placeholderImages
+    .map((image) => ({
+      mediaId: mediaMap.get(image.url),
+      sortOrder: image.sortOrder,
+    }))
+    .filter((image) => image.mediaId)
+
   const categories = await prisma.projectCategory.findMany({
     select: { id: true, title: true },
   })
@@ -159,7 +193,7 @@ const seedProjects = async () => {
           description: project.description,
           images: {
             deleteMany: {},
-            create: placeholderImages,
+            create: imageLinks,
           },
         },
       })
@@ -171,7 +205,7 @@ const seedProjects = async () => {
         title: project.title,
         description: project.description,
         categoryId,
-        images: { create: placeholderImages },
+        images: { create: imageLinks },
       },
     })
   }
@@ -191,6 +225,14 @@ const seedProductCategories = async () => {
 }
 
 const seedProducts = async () => {
+  const mediaMap = await ensureMediaMap(placeholderImages.map((image) => image.url))
+  const imageLinks = placeholderImages
+    .map((image) => ({
+      mediaId: mediaMap.get(image.url),
+      sortOrder: image.sortOrder,
+    }))
+    .filter((image) => image.mediaId)
+
   const categories = await prisma.productCategory.findMany({
     select: { id: true, title: true },
   })
@@ -222,12 +264,13 @@ const seedProducts = async () => {
           description: product.description,
           materials: product.materials,
           stove: product.stove,
+          isPopular: product.isPopular,
           interiorHtml: product.interiorHtml,
           characteristicsHtml: product.characteristicsHtml,
           kitHtml: product.kitHtml,
           images: {
             deleteMany: {},
-            create: placeholderImages,
+            create: imageLinks,
           },
           sizes: {
             deleteMany: {},
@@ -245,11 +288,12 @@ const seedProducts = async () => {
         description: product.description,
         materials: product.materials,
         stove: product.stove,
+        isPopular: product.isPopular,
         interiorHtml: product.interiorHtml,
         characteristicsHtml: product.characteristicsHtml,
         kitHtml: product.kitHtml,
         categoryId,
-        images: { create: placeholderImages },
+        images: { create: imageLinks },
         sizes: { create: sizes },
       },
     })

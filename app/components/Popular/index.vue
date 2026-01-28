@@ -60,10 +60,13 @@ const modules = [Navigation]
 
 const placeholderImage = '/images/Popular/1.png'
 const { data: productsResponse } = await useAsyncData('popular-products', () =>
-  $fetch('/api/products')
+  $fetch('/api/products'),
 )
 
-const items = computed(() => productsResponse.value?.products ?? [])
+const items = computed(() => {
+  const products = productsResponse.value?.products ?? []
+  return products.filter((product) => product.isPopular)
+})
 
 const isMobile = ref(false)
 

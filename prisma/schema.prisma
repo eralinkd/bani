@@ -45,7 +45,8 @@ model Project {
 
 model ProjectImage {
   id        String   @id @default(cuid())
-  url       String
+  mediaId   String
+  media     Media    @relation(fields: [mediaId], references: [id], onDelete: Cascade)
   sortOrder Int      @default(0)
   projectId String
   project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
@@ -73,6 +74,7 @@ model Product {
   interiorHtml        String?
   characteristicsHtml String?
   kitHtml             String?
+  isPopular  Boolean        @default(false)
   categoryId  String
   category    ProductCategory @relation(fields: [categoryId], references: [id])
   sortOrder   Int            @default(0)
@@ -97,10 +99,22 @@ model ProductSize {
 
 model ProductImage {
   id        String   @id @default(cuid())
-  url       String
+  mediaId   String
+  media     Media    @relation(fields: [mediaId], references: [id], onDelete: Cascade)
   sortOrder Int      @default(0)
   productId String
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Media {
+  id            String         @id @default(cuid())
+  url           String         @unique
+  name          String
+  folder        String
+  productImages ProductImage[]
+  projectImages ProjectImage[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 }

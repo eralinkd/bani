@@ -32,6 +32,7 @@ const buildPayload = (input: {
     interiorHtml: string | null
     characteristicsHtml: string | null
     kitHtml: string | null
+    isPopular: boolean
     categoryId: string
     category: { slug: string } | null
     sizes: Array<{ label: string; value: string; price: number; code: string }>
@@ -51,6 +52,12 @@ const buildPayload = (input: {
 
   return payload
 }
+
+const normalizeImages = (items: Array<{ media?: { url?: string } }>) =>
+  items
+    .map((item) => item.media?.url)
+    .filter(Boolean)
+    .map((url) => ({ url }))
 
 export const fetchFromRedisAndUpdateCache = async () => {
   const config = useRuntimeConfig()
@@ -84,7 +91,7 @@ export const fetchFromRedisAndUpdateCache = async () => {
           title: true,
           description: true,
           categoryId: true,
-          images: { select: { url: true }, orderBy: { sortOrder: 'asc' } },
+          images: { select: { media: { select: { url: true } } }, orderBy: { sortOrder: 'asc' } },
         },
         orderBy: { sortOrder: 'asc' },
       }),
@@ -103,13 +110,14 @@ export const fetchFromRedisAndUpdateCache = async () => {
           interiorHtml: true,
           characteristicsHtml: true,
           kitHtml: true,
+          isPopular: true,
           categoryId: true,
           category: { select: { slug: true } },
           sizes: {
             select: { label: true, value: true, price: true, code: true },
             orderBy: { sortOrder: 'asc' },
           },
-          images: { select: { url: true }, orderBy: { sortOrder: 'asc' } },
+          images: { select: { media: { select: { url: true } } }, orderBy: { sortOrder: 'asc' } },
         },
         orderBy: { sortOrder: 'asc' },
       }),
@@ -129,9 +137,15 @@ export const fetchFromRedisAndUpdateCache = async () => {
       rows,
       seo,
       categories,
-      projects,
+      projects: projects.map((project) => ({
+        ...project,
+        images: normalizeImages(project.images),
+      })),
       productCategories,
-      products,
+      products: products.map((product) => ({
+        ...product,
+        images: normalizeImages(product.images),
+      })),
     })
     const serialized = JSON.stringify(payload)
     await redis.set(redisKey, serialized)
@@ -161,7 +175,7 @@ export const syncDbToRedis = async () => {
         title: true,
         description: true,
         categoryId: true,
-        images: { select: { url: true }, orderBy: { sortOrder: 'asc' } },
+        images: { select: { media: { select: { url: true } } }, orderBy: { sortOrder: 'asc' } },
       },
       orderBy: { sortOrder: 'asc' },
     }),
@@ -180,13 +194,14 @@ export const syncDbToRedis = async () => {
           interiorHtml: true,
           characteristicsHtml: true,
           kitHtml: true,
+        isPopular: true,
         categoryId: true,
         category: { select: { slug: true } },
         sizes: {
           select: { label: true, value: true, price: true, code: true },
           orderBy: { sortOrder: 'asc' },
         },
-        images: { select: { url: true }, orderBy: { sortOrder: 'asc' } },
+        images: { select: { media: { select: { url: true } } }, orderBy: { sortOrder: 'asc' } },
       },
       orderBy: { sortOrder: 'asc' },
     }),
@@ -196,9 +211,15 @@ export const syncDbToRedis = async () => {
     rows,
     seo,
     categories,
-    projects,
+    projects: projects.map((project) => ({
+      ...project,
+      images: normalizeImages(project.images),
+    })),
     productCategories,
-    products,
+    products: products.map((product) => ({
+      ...product,
+      images: normalizeImages(product.images),
+    })),
   })
   const serialized = JSON.stringify(payload)
   await redis.set(config.cache.redisKey, serialized)
