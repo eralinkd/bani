@@ -1,11 +1,14 @@
-import { createError } from 'h3'
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
+import { createError } from 'h3'
 
 const uploadsDir = path.resolve(process.cwd(), 'public', 'uploads')
 
 const ensureUploadsDir = async () => {
   await fs.mkdir(uploadsDir, { recursive: true })
+  if (process.env.DEBUG_MEDIA || 1) {
+    console.info('[media] uploadsDir:', uploadsDir, 'cwd:', process.cwd())
+  }
 }
 
 const normalizeRelative = (value: string) => {
@@ -40,7 +43,7 @@ export const listMedia = async (relativePath: string) => {
         size: stat.size,
         updatedAt: stat.mtimeMs,
       }
-    })
+    }),
   )
 
   const sorted = items.sort((a, b) => {
