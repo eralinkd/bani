@@ -18,7 +18,13 @@ export default defineEventHandler(async (event) => {
   const pathParam = getRouterParam(event, 'path')
   if (!pathParam) throw createError({ statusCode: 404 })
 
-  const safePath = pathParam.replace(/\.\./g, '')
+  let decodedPath: string
+  try {
+    decodedPath = decodeURIComponent(pathParam.replace(/\+/g, ' '))
+  } catch {
+    throw createError({ statusCode: 400, statusMessage: 'Invalid path encoding' })
+  }
+  const safePath = decodedPath.replace(/\.\./g, '')
   const fullPath = path.join(uploadsDir, safePath)
 
   if (!fullPath.startsWith(uploadsDir)) {
