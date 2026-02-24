@@ -54,13 +54,24 @@ export const listMedia = async (relativePath: string) => {
   return { path: safeRelative, items: sorted }
 }
 
+const sanitizeFilename = (name: string) => {
+  const ext = path.extname(name)
+  const base = path.basename(name, ext)
+  const safe = base
+    .replace(/\s+/g, '-')
+    .replace(/[()]/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+  return (safe || 'file') + ext.toLowerCase()
+}
+
 export const ensureUniqueFilename = async (targetDir: string, filename: string) => {
-  const ext = path.extname(filename)
-  const base = path.basename(filename, ext)
-  let candidate = filename
+  const sanitized = sanitizeFilename(filename)
+  const ext = path.extname(sanitized)
+  const base = path.basename(sanitized, ext)
+  let candidate = sanitized
   let counter = 1
 
-  // eslint-disable-next-line no-constant-condition
   while (true) {
     try {
       await fs.access(path.join(targetDir, candidate))
