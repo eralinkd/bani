@@ -20,7 +20,7 @@
     </div>
     <div class="video">
       <iframe
-        src="https://www.youtube.com/embed/h2TVScGtcLE?si=I74QaqMq7eIbtrCq"
+        src="https://www.youtube.com/embed/b02IHJfG6cc?si=t-DX7XVWTXUgac8b"
         title="YouTube video player"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
