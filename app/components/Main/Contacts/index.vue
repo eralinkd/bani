@@ -4,9 +4,9 @@
       <h2>Контакты</h2>
       <p class="text-36">Бани 21 века – производитель и поставщик садовых построек и мебели</p>
       <div class="contacts-grid">
-        <a href="tel:+79374011990" target="_blank" class="item">
+        <a href="tel:+79361226688" target="_blank" class="item">
           <IconsContactsPhone />
-          <p class="text-18">+7 (937) 401 19 90</p>
+          <p class="text-18">+7 (936) 122 66 88</p>
         </a>
         <a href="https://t.me/bani21veka" target="_blank" class="item">
           <IconsContactsTG />
@@ -16,9 +16,9 @@
           <IconsContactsMail />
           <p class="text-18">info@bani21veka.ru</p>
         </a>
-        <a href="https://wa.me/79251375856" target="_blank" class="item">
+        <a href="https://wa.me/79022038274" target="_blank" class="item">
           <IconsContactsWhatsapp />
-          <p class="text-18">+7 (925) 137-58-56</p>
+          <p class="text-18">+7 (902) 203 82 74</p>
         </a>
       </div>
       <p class="text-16">

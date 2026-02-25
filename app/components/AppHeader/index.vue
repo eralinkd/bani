@@ -45,7 +45,7 @@
       </div>
       <div class="cta">
         <UIButton secondary small icon-position="left" @click="openPhoneLink">
-          +7 (937) 401 19 90
+          +7 (936) 122 66 88
           <template #icon>
             <AppHeaderIconsPhone />
           </template>
@@ -95,7 +95,7 @@
           </NuxtLink>
         </div>
         <UIButton secondary small icon-position="left" class="phone-btn" @click="openPhoneLink">
-          +7 (937) 401 19 90
+          +7 (936) 122 66 88
           <template #icon>
             <AppHeaderIconsPhone />
           </template>
@@ -124,7 +124,7 @@ const modal = useModal()
 
 const isMenuOpen = ref(false)
 function openPhoneLink() {
-  window.location.href = 'tel:+79374011990'
+  window.location.href = 'tel:+79361226688'
 }
 function toggleMenu() {
   isMenuOpen.value = !isMenuOpen.value
