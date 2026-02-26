@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="item">
-      <p class="title text-36">Внутреннее оснащение</p>
+      <p class="title text-36">Описание</p>
       <div class="separator"></div>
       <div class="text-16" v-html="interiorHtml"></div>
     </div>

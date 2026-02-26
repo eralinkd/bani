@@ -35,7 +35,7 @@
     </div>
 
     <div class="description">
-      <p class="text-16 bold">Описание:</p>
+      <p class="text-16 bold">Краткое описание:</p>
       <p class="text-16">{{ description }}</p>
       <div class="stats">
         <div class="stat">

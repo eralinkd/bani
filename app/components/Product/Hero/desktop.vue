@@ -20,7 +20,7 @@
       <h2>{{ title }}</h2>
       <div class="content">
         <div class="text">
-          <p class="text-16 bold">Описание:</p>
+          <p class="text-16 bold">Краткое описание:</p>
           <p class="text-16">{{ description }}</p>
           <div class="stats">
             <p class="name text-16">Материалы:</p>
