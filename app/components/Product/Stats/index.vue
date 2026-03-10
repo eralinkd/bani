@@ -1,16 +1,16 @@
 <template>
   <div class="container">
-    <div class="item">
+    <div v-if="interiorHtml" class="item">
       <p class="title text-36">Описание</p>
       <div class="separator"></div>
       <div class="text-16" v-html="interiorHtml"></div>
     </div>
-    <div class="item">
+    <div v-if="characteristicsHtml" class="item">
       <p class="title text-36">Характеристики</p>
       <div class="separator"></div>
       <div class="text-16" v-html="characteristicsHtml"></div>
     </div>
-    <div class="item">
+    <div v-if="kitHtml" class="item">
       <p class="title text-36">Комплектация</p>
       <div class="separator"></div>
       <div class="text-16" v-html="kitHtml"></div>

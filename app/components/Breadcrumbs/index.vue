@@ -36,6 +36,19 @@ const { data: productsResponse } = await useAsyncData('breadcrumbs-products', ()
   $fetch('/api/products')
 )
 
+const routeId = computed(() => {
+  const segments = (route.path || '').split('/').filter(Boolean)
+  return segments[0] === 'our-products' && segments[1] ? segments[1] : ''
+})
+
+const { data: projectResponse } = await useAsyncData(
+  () => (routeId.value ? `breadcrumbs-project-${routeId.value}` : 'breadcrumbs-project-none'),
+  () => (routeId.value ? $fetch(`/api/project/${routeId.value}`) : { project: null }),
+  { watch: [routeId] }
+)
+
+const projectTitleById = computed(() => projectResponse.value?.project?.title ?? '')
+
 const categoryTitleBySlug = computed(() => {
   const categories = productsResponse.value?.productCategories ?? []
   return new Map(categories.map((category) => [category.slug, category.title]))
@@ -64,13 +77,15 @@ const items = computed(() => {
   for (let i = 0; i < segments.length; i++) {
     acc += '/' + segments[i]
     const isLast = i === segments.length - 1
-    crumbs.push({
-      to: isLast ? undefined : acc,
-      label:
+    const label =
         LABELS[acc] ||
+        (segments[0] === 'our-products' && segments[1] && i === 1 ? projectTitleById.value : null) ||
         categoryTitleBySlug.value.get(segments[i]) ||
         productTitleBySlug.value.get(segments[i]) ||
-        humanize(segments[i]),
+        humanize(segments[i])
+    crumbs.push({
+      to: isLast ? undefined : acc,
+      label: label || humanize(segments[i]),
       current: isLast,
     })
   }

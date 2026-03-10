@@ -22,11 +22,15 @@
         <div class="text">
           <p class="text-16 bold">Краткое описание:</p>
           <p class="text-16">{{ description }}</p>
-          <div class="stats">
-            <p class="name text-16">Материалы:</p>
-            <div class="value text-16">{{ materials }}</div>
-            <div class="name text-16">Печь:</div>
-            <div class="value text-16">{{ stove }}</div>
+          <div v-if="materials || stove" class="stats">
+            <template v-if="materials">
+              <p class="name text-16">Материалы:</p>
+              <div class="value text-16">{{ materials }}</div>
+            </template>
+            <template v-if="stove">
+              <div class="name text-16">Печь:</div>
+              <div class="value text-16">{{ stove }}</div>
+            </template>
           </div>
         </div>
         <div class="filters">
@@ -34,10 +38,11 @@
             <UISelect v-model="selectedSize" :options="sizeOptions" placeholder="Выберите размер" />
           </div>
           <p class="price">{{ formattedPrice }}</p>
-          <p class="product-code">Код товара: {{ productCode }}</p>
         </div>
       </div>
-      <UIButton class="button" @click="modal.open('default')">Отправить заявку</UIButton>
+      <UIButton class="button" style="margin-top: 20px" @click="modal.open('default')"
+        >Отправить заявку</UIButton
+      >
     </div>
   </div>
 </template>

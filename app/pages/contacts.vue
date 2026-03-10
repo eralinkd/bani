@@ -69,7 +69,7 @@
                 <div class="contacts__req-row">
                   <span class="contacts__req-label text-16 muted">Юридический адрес:</span>
                   <span class="contacts__req-value text-16"
-                    >350059, Россия, г. Москва, проспект Путина, 39</span
+                    >Россия, п. Шемышейка, ул. Яксарова, дом 30а</span
                   >
                 </div>
                 <div class="contacts__req-row">

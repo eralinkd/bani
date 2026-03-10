@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="filters">
+    <!-- <div class="filters">
       <UISelect
         v-model="selectedType"
         label="Тип изделия"
@@ -18,7 +18,7 @@
       <button v-if="hasActiveFilters" class="reset-button" @click="resetFilters">
         Сбросить фильтры
       </button>
-    </div>
+    </div> -->
     <div class="products">
       <NuxtLink
         v-for="product in visibleProducts"
@@ -33,7 +33,12 @@
         </p>
         <p class="text-24 text-white">{{ formatPrice(getPrice(product)) }}</p>
       </NuxtLink>
-      <UIButton v-if="!isShowAll && canShowMore" icon-position="none" small class="button" @click="showAll"
+      <UIButton
+        v-if="!isShowAll && canShowMore"
+        icon-position="none"
+        small
+        class="button"
+        @click="showAll"
         >Еще</UIButton
       >
     </div>

@@ -37,12 +37,12 @@
     <div class="description">
       <p class="text-16 bold">Краткое описание:</p>
       <p class="text-16">{{ description }}</p>
-      <div class="stats">
-        <div class="stat">
+      <div v-if="materials || stove" class="stats">
+        <div v-if="materials" class="stat">
           <p class="name text-16">Материалы:</p>
           <p class="value text-16">{{ materials }}</p>
         </div>
-        <div class="stat">
+        <div v-if="stove" class="stat">
           <p class="name text-16">Печь:</p>
           <p class="value text-16">{{ stove }}</p>
         </div>
@@ -52,7 +52,6 @@
     <div class="filters-card">
       <UISelect v-model="selectedSize" :options="sizeOptions" placeholder="Выберите размер" />
       <p class="price">{{ formattedPrice }}</p>
-      <p class="product-code">Код товара: {{ productCode }}</p>
     </div>
 
     <UIButton class="cta-button" @click="modal.open('default')">Отправить заявку</UIButton>

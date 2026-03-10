@@ -1,24 +1,30 @@
 <template>
   <div class="container">
     <div class="grid">
-      <div class="item hover-card">
+      <div class="item hover-card" @click="navigateToCategory('Бани')">
         <NuxtImg class="image" src="/images/Catalog/Hero/1.png" alt="Бани" format="webp" />
         <UIButton class="button" secondary @click="navigateToCategory('Бани')">Бани</UIButton>
       </div>
-      <div class="item hover-card">
+      <div class="item hover-card" @click="navigateToCategory('Беседки и веранды')">
         <NuxtImg class="image" src="/images/Catalog/Hero/2.png" alt="Бани" format="webp" />
         <UIButton class="button" secondary @click="navigateToCategory('Беседки и веранды')"
           >Беседки и веранды</UIButton
         >
       </div>
-      <div class="item double hover-card desktop">
+      <div
+        class="item double hover-card desktop"
+        @click="navigateToCategory('Другие садовые объекты')"
+      >
         <NuxtImg class="image" src="/images/Catalog/Hero/3.png" alt="Бани" format="webp" />
         <UIButton class="button" secondary @click="navigateToCategory('Другие садовые объекты')"
           >Другие садовые объекты</UIButton
         >
       </div>
 
-      <div class="item double hover-card mobile">
+      <div
+        class="item double hover-card mobile"
+        @click="navigateToCategory('Другие садовые объекты')"
+      >
         <NuxtImg class="image" src="/images/Catalog/Hero/3-mobile.png" alt="Бани" format="webp" />
         <UIButton class="button" secondary @click="navigateToCategory('Другие садовые объекты')"
           >Другие садовые объекты</UIButton
@@ -30,7 +36,7 @@
 
 <script setup>
 const { data: productsResponse } = await useAsyncData('catalog-hero-categories', () =>
-  $fetch('/api/products')
+  $fetch('/api/products'),
 )
 
 const productCategories = computed(() => productsResponse.value?.productCategories ?? [])

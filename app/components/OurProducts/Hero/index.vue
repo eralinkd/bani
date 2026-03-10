@@ -12,7 +12,12 @@
       </div>
     </div>
     <div class="products">
-      <div v-for="project in filteredProjects" :key="project.id" class="product-item">
+      <div
+        v-for="project in filteredProjects"
+        :key="project.id"
+        class="product-item"
+        @click="() => navigateTo(`/our-products/${project.id}`, { replace: false })"
+      >
         <div class="slider-wrapper">
           <Swiper
             :modules="modules"
@@ -40,7 +45,7 @@
               </div>
             </SwiperSlide>
           </Swiper>
-          <div class="slider-controls">
+          <div class="slider-controls" @click.stop>
             <button :class="`swiper-button-prev-our-products-${project.id}`" type="button">
               <IconsArrowLeftWhite />
             </button>
@@ -165,6 +170,8 @@ const getSlides = (project) => {
   .product-item {
     position: relative;
     aspect-ratio: 688 / 481;
+    cursor: pointer;
+    display: block;
     width: 100%;
 
     @media (max-width: $mobileBreakpoint) {

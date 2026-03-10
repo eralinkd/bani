@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="filters">
+    <!-- <div class="filters">
       <UISelect
         v-model="selectedType"
         label="Тип изделия"
@@ -18,7 +18,7 @@
       <button v-if="hasActiveFilters" class="reset-button" @click="resetFilters">
         Сбросить фильтры
       </button>
-    </div>
+    </div> -->
 
     <div class="slider-wrapper">
       <Swiper

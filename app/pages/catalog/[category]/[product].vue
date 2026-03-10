@@ -23,10 +23,13 @@ const route = useRoute()
 const categorySlug = computed(() => String(route.params.category || ''))
 const productSlug = computed(() => String(route.params.product || ''))
 
-const { data: productResponse } = await useAsyncData('product-page', () =>
-  $fetch('/api/product', {
-    query: { categorySlug: categorySlug.value, productSlug: productSlug.value },
-  })
+const { data: productResponse } = await useAsyncData(
+  () => `product-${categorySlug.value}-${productSlug.value}`,
+  () =>
+    $fetch('/api/product', {
+      query: { categorySlug: categorySlug.value, productSlug: productSlug.value },
+    }),
+  { watch: [categorySlug, productSlug] }
 )
 
 const product = computed(() => productResponse.value?.product ?? null)
