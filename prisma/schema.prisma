@@ -35,6 +35,9 @@ model Project {
   id          String          @id @default(cuid())
   title       String
   description String
+  textBlock1  String?
+  textBlock2  String?
+  videoUrl    String?
   categoryId  String
   category    ProjectCategory @relation(fields: [categoryId], references: [id])
   sortOrder   Int             @default(0)

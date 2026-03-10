@@ -21,7 +21,18 @@
 
         <section class="content">
           <div class="left">
-            <p class="headline">{{ project?.description }}</p>
+            <p v-if="project?.description" class="headline">{{ project.description }}</p>
+            <p v-if="project?.textBlock1" class="text-block">{{ project.textBlock1 }}</p>
+            <p v-if="project?.textBlock2" class="text-block">{{ project.textBlock2 }}</p>
+            <div v-if="youtubeEmbedUrl" class="video-wrapper">
+              <iframe
+                :src="youtubeEmbedUrl"
+                title="Видео проекта"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              />
+            </div>
           </div>
           <div class="right">
             <div class="slider-wrapper">
@@ -78,7 +89,7 @@ const projectId = computed(() => String(route.params.id || ''))
 const { data: projectResponse } = await useAsyncData(
   () => `project-${projectId.value}`,
   () => $fetch(`/api/project/${projectId.value}`),
-  { watch: [projectId] }
+  { watch: [projectId] },
 )
 
 const project = computed(() => projectResponse.value?.project ?? null)
@@ -90,6 +101,13 @@ const slides = computed(() => {
 })
 
 const firstImage = computed(() => slides.value[0]?.url ?? '/images/OurProducts/1.png')
+
+const youtubeEmbedUrl = computed(() => {
+  const url = project.value?.videoUrl
+  if (!url) return null
+  const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/)
+  return match ? `https://www.youtube.com/embed/${match[1]}` : null
+})
 
 const currentSlide = ref(0)
 
@@ -123,12 +141,12 @@ if (!project.value && projectResponse.value !== undefined) {
   .hero-image {
     position: relative;
     width: 100%;
-    aspect-ratio: 1920 / 600;
+    height: 500px;
     border-radius: 20px;
     overflow: hidden;
 
     @media (max-width: $mobileBreakpoint) {
-      aspect-ratio: 328 / 220;
+      height: 400px;
       border-radius: 24px;
     }
 
@@ -136,15 +154,19 @@ if (!project.value && projectResponse.value !== undefined) {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
     }
 
     .hero-overlay {
       position: absolute;
-      bottom: 0;
+      top: 0;
       left: 0;
       right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
       padding: 40px 60px;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+      background: rgba(0, 0, 0, 0.25);
 
       @media (max-width: $mobileBreakpoint) {
         padding: 24px 20px;
@@ -153,15 +175,20 @@ if (!project.value && projectResponse.value !== undefined) {
 
     .hero-title {
       margin: 0;
-      font-size: 48px;
-      font-weight: 700;
-      line-height: 1.2;
-      color: #fff;
+      font-family: Gilroy, sans-serif;
+      font-weight: 900;
+      font-style: normal;
+      font-size: 100px;
+      line-height: 1;
+      letter-spacing: 0;
       text-transform: uppercase;
+      color: #fff;
+      text-align: center;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 
       @media (max-width: $mobileBreakpoint) {
-        font-size: 24px;
+        font-size: 35px;
+        line-height: 100%;
       }
     }
   }
@@ -179,6 +206,10 @@ if (!project.value && projectResponse.value !== undefined) {
   }
 
   .left {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
     .headline {
       margin: 0;
       font-size: 18px;
@@ -188,6 +219,35 @@ if (!project.value && projectResponse.value !== undefined) {
 
       @media (max-width: $mobileBreakpoint) {
         font-size: 16px;
+      }
+    }
+
+    .text-block {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #41424c;
+
+      @media (max-width: $mobileBreakpoint) {
+        font-size: 14px;
+      }
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: 8px;
+
+      iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
       }
     }
   }
