@@ -21,18 +21,8 @@
 
         <section class="content">
           <div class="left">
-            <p v-if="project?.description" class="headline">{{ project.description }}</p>
-            <p v-if="project?.textBlock1" class="text-block">{{ project.textBlock1 }}</p>
-            <p v-if="project?.textBlock2" class="text-block">{{ project.textBlock2 }}</p>
-            <div v-if="youtubeEmbedUrl" class="video-wrapper">
-              <iframe
-                :src="youtubeEmbedUrl"
-                title="Видео проекта"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              />
-            </div>
+            <p v-if="project?.textBlock1" class="text-block-1">{{ project.textBlock1 }}</p>
+            <p v-if="project?.textBlock2" class="text-block-2">{{ project.textBlock2 }}</p>
           </div>
           <div class="right">
             <div class="slider-wrapper">
@@ -69,9 +59,22 @@
                 </button>
               </div>
             </div>
+            {{ youtubeEmbedUrl }}
+            <div v-if="youtubeEmbedUrl" class="video-wrapper">
+              <iframe
+                :src="youtubeEmbedUrl"
+                title="Видео проекта"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              />
+            </div>
           </div>
         </section>
       </div>
+
+      <Reviews />
+      <FeedbackForm style="margin-top: 40px" />
     </main>
   </div>
 </template>
@@ -210,50 +213,43 @@ if (!project.value && projectResponse.value !== undefined) {
     flex-direction: column;
     gap: 16px;
 
-    .headline {
+    .text-block-1 {
       margin: 0;
-      font-size: 18px;
-      font-weight: 600;
-      line-height: 1.5;
+      font-family: Inter, sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 36px;
+      line-height: 100%;
+      letter-spacing: 0;
       color: #41424c;
 
       @media (max-width: $mobileBreakpoint) {
-        font-size: 16px;
+        font-size: 28px;
       }
     }
 
-    .text-block {
+    .text-block-2 {
       margin: 0;
-      font-size: 16px;
+      margin-top: 20px;
+      font-family: Inter, sans-serif;
       font-weight: 400;
-      line-height: 1.5;
+      font-style: normal;
+      font-size: 16px;
+      line-height: 100%;
+      letter-spacing: 0;
       color: #41424c;
 
       @media (max-width: $mobileBreakpoint) {
         font-size: 14px;
       }
     }
-
-    .video-wrapper {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      border-radius: 16px;
-      overflow: hidden;
-      margin-top: 8px;
-
-      iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-      }
-    }
   }
 
   .right {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
 
     .slider-wrapper {
       aspect-ratio: 688 / 485;
@@ -262,6 +258,29 @@ if (!project.value && projectResponse.value !== undefined) {
 
       @media (max-width: $mobileBreakpoint) {
         aspect-ratio: 328 / 240;
+      }
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 688 / 485;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-top: 12px; /* clear slider controls overflow */
+
+      @media (max-width: $mobileBreakpoint) {
+        aspect-ratio: 328 / 240;
+        border-radius: 24px;
+        margin-top: 0;
+      }
+
+      iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
       }
     }
 
