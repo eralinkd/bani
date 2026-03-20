@@ -31,26 +31,20 @@
                   >
                 </li>
                 <li class="contacts__item">
-                  <IconsContactsTG class="contacts__icon contacts__icon--tg" aria-hidden="true" />
-                  <a
-                    href="https://t.me/bani21veka"
-                    target="_blank"
-                    rel="noopener"
-                    class="contacts__link text-18"
-                    >@bani21veka</a
-                  >
-                </li>
-                <li class="contacts__item">
-                  <IconsContactsWhatsapp
-                    class="contacts__icon contacts__icon--wa"
+                  <img
+                    src="/max.png"
+                    alt="Max"
+                    class="contacts__icon contacts__icon--max"
+                    width="22"
+                    height="22"
                     aria-hidden="true"
                   />
                   <a
-                    href="https://wa.me/79022038274"
+                    href="https://max.ru/u/f9LHodD0cOKjZx-VqJ7AY9a3Ihlo_T5LB8c44JXGQ_Nie8Yf2UeaSfp3Pc0"
                     target="_blank"
                     rel="noopener"
                     class="contacts__link text-18"
-                    >+7 (902) 203 82 74</a
+                    >Max</a
                   >
                 </li>
               </ul>
@@ -103,7 +97,7 @@
                   >Москва — Яндекс Карты</a
                 ><iframe
                   class="contacts__map"
-                  src="https://yandex.ru/map-widget/v1/?ll=37.683562%2C55.755819&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1MzE2NjM5MxIa0KDQvtGB0YHQuNGPLCDQnNC-0YHQutCy0LAiCg14eBZCFfUFX0I%2C&sll=30.547764%2C50.449247&sspn=0.480652%2C0.183481&text=350059%2C%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F%2C%20%D0%B3.%20%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%20%D0%BF%D1%80%D0%BE%D1%81%D0%BF%D0%B5%D0%BA%D1%82%20%D0%9F%D1%83%D1%82%D0%B8%D0%BD%D0%B0%2C%2039&z=12"
+                  src="https://yandex.ru/map-widget/v1/?ll=45.380579%2C52.893565&pt=45.380579%2C52.893565&z=16&l=map"
                   allowfullscreen="true"
                   frameborder="0"
                 ></iframe>

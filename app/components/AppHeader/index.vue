@@ -26,23 +26,23 @@
       </ul>
     </div>
     <div class="right">
-      <div v-if="!isMain" class="icons">
+      <!-- <div v-if="!isMain" class="icons">
         <NuxtLink to="https://t.me/bani21veka" target="_blank">
           <AppHeaderIconsTG class="icon" />
         </NuxtLink>
         <NuxtLink to="https://wa.me/79251375856" target="_blank">
           <AppHeaderIconsWhatsapp class="icon" />
         </NuxtLink>
-      </div>
+      </div> -->
 
-      <div v-if="isMain" class="icons">
+      <!-- <div v-if="isMain" class="icons">
         <NuxtLink to="https://t.me/bani21veka" target="_blank">
           <AppHeaderIconsTGWhite class="icon" />
         </NuxtLink>
         <NuxtLink to="https://wa.me/79251375856" target="_blank">
           <AppHeaderIconsWhatsappWhite class="icon" />
         </NuxtLink>
-      </div>
+      </div> -->
       <div class="cta">
         <UIButton secondary small icon-position="left" @click="openPhoneLink">
           +7 (936) 122 66 88
@@ -83,7 +83,7 @@
         <NuxtLink to="/contacts" class="link text-18" @click="closeMenu">Контакты</NuxtLink>
       </nav>
       <div class="mobile-contacts">
-        <div class="icons" :class="{ light: isMain }">
+        <!-- <div class="icons" :class="{ light: isMain }">
           <NuxtLink to="https://t.me/bani21veka" target="_blank">
             <component :is="isMain ? 'AppHeaderIconsTGWhite' : 'AppHeaderIconsTG'" class="icon" />
           </NuxtLink>
@@ -93,7 +93,7 @@
               class="icon"
             />
           </NuxtLink>
-        </div>
+        </div> -->
         <UIButton secondary small icon-position="left" class="phone-btn" @click="openPhoneLink">
           +7 (936) 122 66 88
           <template #icon>
