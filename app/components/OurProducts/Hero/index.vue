@@ -97,7 +97,9 @@ const filteredProjects = computed(() => {
 })
 
 const getSlides = (project) => {
-  if (project.images?.length) return project.images
+  if (project.images?.length) {
+    return project.images.map((img) => (typeof img === 'string' ? { url: img } : img))
+  }
   return [{ url: placeholderImage }]
 }
 </script>

@@ -1,279 +1,283 @@
 @use './variables' as *;
 @use '@fonts' as *;
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  list-style: none;
-  text-decoration: none;
-}
-
-a {
-  color: inherit;
-}
-
-html {
+// Styles scoped to the main site only (html.site-content)
+html.site-content {
   @media (max-width: $mobileBreakpoint) {
     overflow-x: hidden;
   }
 }
 
-body {
-  font-family: Inter, sans-serif;
-  overflow-x: hidden;
-  color: $text;
-  background-color: $background;
-}
-
-main {
-  max-width: 1440px;
-  margin: 30px auto 0 auto;
-  padding: 0 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-  margin-bottom: 100px;
-  box-sizing: content-box;
-
-  @media (max-width: $mobileBreakpoint) {
+.site-content {
+  * {
+    margin: 0;
     padding: 0;
-  }
-}
-
-.container {
-  width: 100%;
-  border-radius: 20px;
-}
-
-.container.white {
-  background-color: $white;
-}
-
-h1 {
-  font-family: Gilroy;
-  font-size: 97px;
-  font-style: normal;
-  font-weight: 900;
-  line-height: 100%; /* 100px */
-  text-transform: uppercase;
-
-  @media (max-width: 1500px) {
-    font-size: 90px;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
   }
 
-  @media (max-width: 1450px) {
-    font-size: 80px;
+  a {
+    color: inherit;
   }
 
-  @media (max-width: $mobileBreakpoint) {
-    font-size: 50px;
+  body {
+    font-family: Inter, sans-serif;
+    overflow-x: hidden;
+    color: $text;
+    background-color: $background;
+  }
+
+  main {
+    max-width: 1440px;
+    margin: 30px auto 0 auto;
+    padding: 0 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    margin-bottom: 100px;
+    box-sizing: content-box;
+
+    @media (max-width: $mobileBreakpoint) {
+      padding: 0;
+    }
+  }
+
+  .container {
+    width: 100%;
+    border-radius: 20px;
+  }
+
+  .container.white {
+    background-color: $white;
+  }
+
+  h1 {
+    font-family: Gilroy;
+    font-size: 97px;
     font-style: normal;
     font-weight: 900;
-    line-height: 100%; /* 59px */
+    line-height: 100%;
     text-transform: uppercase;
+
+    @media (max-width: 1500px) {
+      font-size: 90px;
+    }
+
+    @media (max-width: 1450px) {
+      font-size: 80px;
+    }
+
+    @media (max-width: $mobileBreakpoint) {
+      font-size: 50px;
+      font-style: normal;
+      font-weight: 900;
+      line-height: 100%;
+      text-transform: uppercase;
+    }
   }
-}
 
-h2 {
-  font-family: Gilroy;
-  font-size: 97px;
-  font-style: normal;
-  font-weight: 900;
-  line-height: 110%; /* 110px */
-  text-transform: uppercase;
-
-  @media (max-width: 1500px) {
-    font-size: 90px;
-  }
-
-  @media (max-width: 1450px) {
-    font-size: 80px;
-  }
-
-  @media (max-width: $mobileBreakpoint) {
-    font-size: 50px;
+  h2 {
+    font-family: Gilroy;
+    font-size: 97px;
     font-style: normal;
     font-weight: 900;
-    line-height: 100%; /* 59px */
+    line-height: 110%;
+    text-transform: uppercase;
+
+    @media (max-width: 1500px) {
+      font-size: 90px;
+    }
+
+    @media (max-width: 1450px) {
+      font-size: 80px;
+    }
+
+    @media (max-width: $mobileBreakpoint) {
+      font-size: 50px;
+      font-style: normal;
+      font-weight: 900;
+      line-height: 100%;
+      text-transform: uppercase;
+    }
+  }
+
+  .text-64 {
+    font-family: Gilroy;
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 110%;
     text-transform: uppercase;
   }
-}
 
-.text-64 {
-  font-family: Gilroy;
-  font-size: 64px;
-  font-style: normal;
-  font-weight: 900;
-  line-height: 110%; /* 70.4px */
-  text-transform: uppercase;
-}
+  .text-52 {
+    font-family: Gilroy;
+    font-size: 52px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 110%;
+    text-transform: uppercase;
+  }
 
-.text-52 {
-  font-family: Gilroy;
-  font-size: 52px;
-  font-style: normal;
-  font-weight: 900;
-  line-height: 110%; /* 57.2px */
-  text-transform: uppercase;
-}
+  .text-48 {
+    font-family: Gilroy;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 100%;
+  }
 
-.text-48 {
-  font-family: Gilroy;
-  font-size: 48px;
-  font-style: normal;
-  font-weight: 900;
-  line-height: 100%; /* 48px */
-}
+  .text-36 {
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 
-.text-36 {
-  font-size: 36px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+    @media (max-width: $mobileBreakpoint) {
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
 
-  @media (max-width: $mobileBreakpoint) {
-    font-size: 18px;
+  .text-24 {
+    font-size: 24px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
   }
-}
 
-.text-24 {
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
+  .text-18 {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
 
-.text-18 {
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%; /* 27px */
+    @media (max-width: $mobileBreakpoint) {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%;
+    }
+  }
 
-  @media (max-width: $mobileBreakpoint) {
+  .text-16 {
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
-    line-height: 150%; /* 24px */
+    line-height: normal;
+
+    @media (max-width: $mobileBreakpoint) {
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
   }
-}
 
-.text-16 {
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-
-  @media (max-width: $mobileBreakpoint) {
+  .text-14 {
+    font-family: Gilroy;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
   }
-}
 
-.text-14 {
-  font-family: Gilroy;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
+  .text-white {
+    color: $white;
+  }
 
-.text-white {
-  color: $white;
-}
+  .hover-card {
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
 
-.hover-card {
-  cursor: pointer;
-  transition: box-shadow 0.3s ease;
+    &:hover {
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 
-  &:hover {
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+      .image {
+        transform: scale(1.1);
+      }
+    }
 
     .image {
-      transform: scale(1.1);
+      transition: transform 0.5s ease;
+    }
+
+    @media (max-width: $mobileBreakpoint) {
+      &:hover {
+        box-shadow: none;
+      }
     }
   }
 
-  .image {
-    transition: transform 0.5s ease;
+  /* Toast */
+  .toast-enter-active,
+  .toast-leave-active {
+    transition: all 0.25s ease;
   }
 
-  @media (max-width: $mobileBreakpoint) {
-    &:hover {
-      box-shadow: none;
-    }
+  .toast-enter-from,
+  .toast-leave-to {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
   }
-}
 
-/* Toast */
-.toast-enter-active,
-.toast-leave-active {
-  transition: all 0.25s ease;
-}
-.toast-enter-from,
-.toast-leave-to {
-  opacity: 0;
-  transform: translateY(8px) scale(0.98);
-}
+  .toast {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    z-index: 1060;
+    max-width: 360px;
+  }
 
-.toast {
-  position: fixed;
-  top: 12px;
-  right: 12px;
-  z-index: 1060;
-  max-width: 360px;
-}
+  .toast-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    background: #22c55e;
+    color: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #16a34a;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
 
-.toast-box {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 12px 14px;
-  background: #22c55e;
-  color: #ffffff;
-  border-radius: 12px;
-  border: 1px solid #16a34a;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
+  .toast-icon {
+    width: 20px;
+    height: 20px;
+    color: #eafff1;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
 
-.toast-icon {
-  width: 20px;
-  height: 20px;
-  color: #eafff1;
-  margin-top: 2px;
-  flex-shrink: 0;
-}
+  .toast-content {
+    flex: 1;
+  }
 
-.toast-content {
-  flex: 1;
-}
+  .toast-title {
+    font-family: Inter;
+    font-weight: 600;
+  }
 
-.toast-title {
-  font-family: Inter;
-  font-weight: 600;
-}
+  .toast-subtitle {
+    font-family: Inter;
+    font-size: 13px;
+    opacity: 0.95;
+    margin-top: 2px;
+  }
 
-.toast-subtitle {
-  font-family: Inter;
-  font-size: 13px;
-  opacity: 0.95;
-  margin-top: 2px;
-}
+  .toast-close {
+    background: transparent;
+    border: none;
+    color: #eafff1;
+    cursor: pointer;
+    padding: 2px;
+  }
 
-.toast-close {
-  background: transparent;
-  border: none;
-  color: #eafff1;
-  cursor: pointer;
-  padding: 2px;
-}
-
-.toast-close-icon {
-  width: 16px;
-  height: 16px;
+  .toast-close-icon {
+    width: 16px;
+    height: 16px;
+  }
 }

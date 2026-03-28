@@ -1,22 +1,11 @@
-import { getRouterParam } from 'h3'
-import { useRuntimeConfig } from '#imports'
-import { getCachedData, isCacheFresh } from '../../utils/dataCache'
-import { fetchFromRedisAndUpdateCache } from '../../utils/dataSync'
+import { getProjectById } from '../../utils/projects-store'
 
-const toArray = (value: unknown) => (Array.isArray(value) ? value : [])
+export default defineEventHandler((event) => {
+  const id = getRouterParam(event, 'id')
+  if (!id) throw createError({ statusCode: 400, message: 'id is required' })
 
-export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig()
+  const project = getProjectById(id)
+  if (!project) throw createError({ statusCode: 404, message: 'Project not found' })
 
-  if (!isCacheFresh(config.cache.memoryTtlMs)) {
-    await fetchFromRedisAndUpdateCache()
-  }
-
-  const payload = getCachedData() ?? {}
-  const projects = toArray((payload as Record<string, unknown>).projects)
-  const id = getRouterParam(event, 'id') ?? ''
-
-  const project = projects.find((item: { id?: string }) => item?.id === id) ?? null
-
-  return { project }
+  return project
 })

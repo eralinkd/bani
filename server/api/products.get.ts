@@ -1,23 +1,8 @@
-import { useRuntimeConfig } from '#imports'
-import { getCachedData, isCacheFresh } from '../utils/dataCache'
-import { fetchFromRedisAndUpdateCache } from '../utils/dataSync'
+import { getProductCategories, getProducts } from '../utils/products-store'
 
-export default defineEventHandler(async () => {
-  const config = useRuntimeConfig()
-
-  if (!isCacheFresh(config.cache.memoryTtlMs)) {
-    await fetchFromRedisAndUpdateCache()
+export default defineEventHandler(() => {
+  return {
+    productCategories: getProductCategories(),
+    products: getProducts(),
   }
-
-  const payload = getCachedData() ?? {}
-  const productCategories =
-    typeof payload === 'object' && payload
-      ? (payload as Record<string, unknown>).productCategories ?? []
-      : []
-  const products =
-    typeof payload === 'object' && payload
-      ? (payload as Record<string, unknown>).products ?? []
-      : []
-
-  return { productCategories, products }
 })

@@ -29,10 +29,14 @@ const { data: productResponse } = await useAsyncData(
     $fetch('/api/product', {
       query: { categorySlug: categorySlug.value, productSlug: productSlug.value },
     }),
-  { watch: [categorySlug, productSlug] }
+  { watch: [categorySlug, productSlug] },
 )
 
-const product = computed(() => productResponse.value?.product ?? null)
+const product = computed(() => {
+  const val = productResponse.value
+  if (!val) return null
+  return val.product ?? val
+})
 
 if (!product.value) {
   throw createError({ statusCode: 404, statusMessage: 'Товар не найден' })

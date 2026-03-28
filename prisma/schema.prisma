@@ -41,20 +41,9 @@ model Project {
   categoryId  String
   category    ProjectCategory @relation(fields: [categoryId], references: [id])
   sortOrder   Int             @default(0)
-  images      ProjectImage[]
+  images      Json            @default("[]")
   createdAt   DateTime        @default(now())
   updatedAt   DateTime        @updatedAt
-}
-
-model ProjectImage {
-  id        String   @id @default(cuid())
-  mediaId   String
-  media     Media    @relation(fields: [mediaId], references: [id], onDelete: Cascade)
-  sortOrder Int      @default(0)
-  projectId String
-  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 model ProductCategory {
@@ -68,23 +57,23 @@ model ProductCategory {
 }
 
 model Product {
-  id          String         @id @default(cuid())
-  title       String
-  slug        String         @unique
-  description String
-  materials   String?
-  stove       String?
+  id                  String          @id @default(cuid())
+  title               String
+  slug                String          @unique
+  description         String
+  materials           String?
+  stove               String?
   interiorHtml        String?
   characteristicsHtml String?
   kitHtml             String?
-  isPopular  Boolean        @default(false)
-  categoryId  String
-  category    ProductCategory @relation(fields: [categoryId], references: [id])
-  sortOrder   Int            @default(0)
-  sizes       ProductSize[]
-  images      ProductImage[]
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
+  isPopular           Boolean         @default(false)
+  categoryId          String
+  category            ProductCategory @relation(fields: [categoryId], references: [id])
+  sortOrder           Int             @default(0)
+  sizes               ProductSize[]
+  images              Json            @default("[]")
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
 }
 
 model ProductSize {
@@ -98,26 +87,4 @@ model ProductSize {
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-model ProductImage {
-  id        String   @id @default(cuid())
-  mediaId   String
-  media     Media    @relation(fields: [mediaId], references: [id], onDelete: Cascade)
-  sortOrder Int      @default(0)
-  productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Media {
-  id            String         @id @default(cuid())
-  url           String         @unique
-  name          String
-  folder        String
-  productImages ProductImage[]
-  projectImages ProjectImage[]
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
 }

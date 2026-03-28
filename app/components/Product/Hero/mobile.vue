@@ -86,7 +86,7 @@ const placeholderImages = [
 
 const images = computed(() => {
   const items = props.product?.images ?? []
-  if (items.length) return items.map((item) => item.url)
+  if (items.length) return items.map((item) => (typeof item === 'string' ? item : item.url))
   return placeholderImages
 })
 

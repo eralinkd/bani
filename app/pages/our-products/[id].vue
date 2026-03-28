@@ -21,8 +21,12 @@
 
         <section class="content">
           <div class="left">
-            <p v-if="project?.textBlock1" class="text-block-1">{{ project.textBlock1 }}</p>
-            <p v-if="project?.textBlock2" class="text-block-2">{{ project.textBlock2 }}</p>
+            <p v-if="project?.textBlock1" class="text-block-1 preserve-lines">
+              {{ project.textBlock1 }}
+            </p>
+            <p v-if="project?.textBlock2" class="text-block-2 preserve-lines">
+              {{ project.textBlock2 }}
+            </p>
           </div>
           <div class="right">
             <div class="slider-wrapper">
@@ -95,11 +99,18 @@ const { data: projectResponse } = await useAsyncData(
   { watch: [projectId] },
 )
 
-const project = computed(() => projectResponse.value?.project ?? null)
+const project = computed(() => {
+  const val = projectResponse.value
+  if (!val) return null
+  // Support both direct object and legacy { project: {...} } wrapper
+  return val.project ?? val
+})
 
 const slides = computed(() => {
   const imgs = project.value?.images ?? []
-  if (imgs.length) return imgs
+  if (imgs.length) {
+    return imgs.map((img) => (typeof img === 'string' ? { url: img } : img))
+  }
   return [{ url: '/images/OurProducts/1.png' }]
 })
 
@@ -125,6 +136,10 @@ if (!project.value && projectResponse.value !== undefined) {
 
 <style scoped lang="scss">
 @use '@scss/variables' as *;
+
+.preserve-lines {
+  white-space: pre-line;
+}
 
 .project-page {
   padding: 0 60px 60px;
@@ -218,13 +233,13 @@ if (!project.value && projectResponse.value !== undefined) {
       font-family: Inter, sans-serif;
       font-weight: 400;
       font-style: normal;
-      font-size: 36px;
+      font-size: 22px;
       line-height: 100%;
       letter-spacing: 0;
       color: #41424c;
 
       @media (max-width: $mobileBreakpoint) {
-        font-size: 28px;
+        font-size: 16px;
       }
     }
 
@@ -234,13 +249,13 @@ if (!project.value && projectResponse.value !== undefined) {
       font-family: Inter, sans-serif;
       font-weight: 400;
       font-style: normal;
-      font-size: 16px;
+      font-size: 22px;
       line-height: 100%;
       letter-spacing: 0;
       color: #41424c;
 
       @media (max-width: $mobileBreakpoint) {
-        font-size: 14px;
+        font-size: 16px;
       }
     }
   }

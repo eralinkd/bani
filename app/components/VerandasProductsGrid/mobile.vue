@@ -89,7 +89,10 @@ const productLink = (product) => {
 }
 
 const getImage = (product) => {
-  if (product.images?.length) return product.images[0].url
+  if (product.images?.length) {
+    const img = product.images[0]
+    return typeof img === 'string' ? img : img.url
+  }
   return placeholderImage
 }
 

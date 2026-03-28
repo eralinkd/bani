@@ -1,41 +1,29 @@
-import { getQuery } from 'h3'
-import { useRuntimeConfig } from '#imports'
-import { getCachedData, isCacheFresh } from '../utils/dataCache'
-import { fetchFromRedisAndUpdateCache } from '../utils/dataSync'
+import { getProductById, getProductBySlug, getProducts } from '../utils/products-store'
 
-const toArray = (value: unknown) => (Array.isArray(value) ? value : [])
-
-export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig()
-
-  if (!isCacheFresh(config.cache.memoryTtlMs)) {
-    await fetchFromRedisAndUpdateCache()
-  }
-
-  const payload = getCachedData() ?? {}
-  const products = toArray((payload as Record<string, unknown>).products)
+export default defineEventHandler((event) => {
   const query = getQuery(event)
+  const { id, productSlug, categorySlug } = query
 
-  const id = typeof query.id === 'string' ? query.id : ''
-  const categoryId = typeof query.categoryId === 'string' ? query.categoryId : ''
-  const categorySlug = typeof query.categorySlug === 'string' ? query.categorySlug : ''
-  const productSlug = typeof query.productSlug === 'string' ? query.productSlug : ''
-
-  let product = null
   if (id) {
-    product = products.find((item) => item?.id === id) ?? null
-  } else if (productSlug && categorySlug) {
-    product =
-      products.find(
-        (item) => item?.slug === productSlug && item?.category?.slug === categorySlug
-      ) ?? null
-  } else if (productSlug) {
-    product = products.find((item) => item?.slug === productSlug) ?? null
-  } else if (categoryId) {
-    product = products.find((item) => item?.categoryId === categoryId) ?? null
-  } else {
-    product = products[0] ?? null
+    const product = getProductById(String(id))
+    if (!product) throw createError({ statusCode: 404, message: 'Product not found' })
+    return product
   }
 
-  return { product }
+  if (productSlug) {
+    const product = getProductBySlug(String(productSlug))
+    if (!product) throw createError({ statusCode: 404, message: 'Product not found' })
+    return product
+  }
+
+  if (categorySlug) {
+    const all = getProducts()
+    const product = all.find((p) => p.category?.slug === String(categorySlug))
+    if (!product) throw createError({ statusCode: 404, message: 'Product not found' })
+    return product
+  }
+
+  const all = getProducts()
+  if (!all.length) throw createError({ statusCode: 404, message: 'No products' })
+  return all[0]
 })

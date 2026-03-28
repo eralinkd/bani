@@ -63,39 +63,39 @@ function showAll() {
   productsAmount.value = props.products.length
 }
 
-const selectedType = ref(null)
-const selectedLength = ref(null)
-const minPrice = ref('')
-const maxPrice = ref('')
+// const selectedType = ref(null)
+// const selectedLength = ref(null)
+// const minPrice = ref('')
+// const maxPrice = ref('')
 
-const typeOptions = [
-  { label: 'Баня бочка', value: 'bochka' },
-  { label: 'Квадро-бочка', value: 'quadro' },
-  { label: 'Баня дом', value: 'house' },
-]
+// const typeOptions = [
+//   { label: 'Баня бочка', value: 'bochka' },
+//   { label: 'Квадро-бочка', value: 'quadro' },
+//   { label: 'Баня дом', value: 'house' },
+// ]
 
-const lengthOptions = [
-  { label: '2 м', value: '2' },
-  { label: '3 м', value: '3' },
-  { label: '4 м', value: '4' },
-  { label: '5 м', value: '5' },
-]
+// const lengthOptions = [
+//   { label: '2 м', value: '2' },
+//   { label: '3 м', value: '3' },
+//   { label: '4 м', value: '4' },
+//   { label: '5 м', value: '5' },
+// ]
 
-const hasActiveFilters = computed(() => {
-  return (
-    selectedType.value !== null ||
-    selectedLength.value !== null ||
-    minPrice.value !== '' ||
-    maxPrice.value !== ''
-  )
-})
+// const hasActiveFilters = computed(() => {
+//   return (
+//     selectedType.value !== null ||
+//     selectedLength.value !== null ||
+//     minPrice.value !== '' ||
+//     maxPrice.value !== ''
+//   )
+// })
 
-function resetFilters() {
-  selectedType.value = null
-  selectedLength.value = null
-  minPrice.value = ''
-  maxPrice.value = ''
-}
+// function resetFilters() {
+//   selectedType.value = null
+//   selectedLength.value = null
+//   minPrice.value = ''
+//   maxPrice.value = ''
+// }
 
 const visibleProducts = computed(() => {
   if (isShowAll.value) return props.products
@@ -105,7 +105,10 @@ const visibleProducts = computed(() => {
 const canShowMore = computed(() => props.products.length > productsAmount.value)
 
 const getImage = (product) => {
-  if (product.images?.length) return product.images[0].url
+  if (product.images?.length) {
+    const img = product.images[0]
+    return typeof img === 'string' ? img : img.url
+  }
   return placeholderImage
 }
 

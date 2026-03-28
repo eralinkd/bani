@@ -33,7 +33,7 @@ function humanize(segment) {
 }
 
 const { data: productsResponse } = await useAsyncData('breadcrumbs-products', () =>
-  $fetch('/api/products')
+  $fetch('/api/products'),
 )
 
 const routeId = computed(() => {
@@ -44,10 +44,14 @@ const routeId = computed(() => {
 const { data: projectResponse } = await useAsyncData(
   () => (routeId.value ? `breadcrumbs-project-${routeId.value}` : 'breadcrumbs-project-none'),
   () => (routeId.value ? $fetch(`/api/project/${routeId.value}`) : { project: null }),
-  { watch: [routeId] }
+  { watch: [routeId] },
 )
 
-const projectTitleById = computed(() => projectResponse.value?.project?.title ?? '')
+const projectTitleById = computed(() => {
+  const val = projectResponse.value
+  if (!val) return ''
+  return val.project?.title ?? val.title ?? ''
+})
 
 const categoryTitleBySlug = computed(() => {
   const categories = productsResponse.value?.productCategories ?? []
@@ -78,11 +82,11 @@ const items = computed(() => {
     acc += '/' + segments[i]
     const isLast = i === segments.length - 1
     const label =
-        LABELS[acc] ||
-        (segments[0] === 'our-products' && segments[1] && i === 1 ? projectTitleById.value : null) ||
-        categoryTitleBySlug.value.get(segments[i]) ||
-        productTitleBySlug.value.get(segments[i]) ||
-        humanize(segments[i])
+      LABELS[acc] ||
+      (segments[0] === 'our-products' && segments[1] && i === 1 ? projectTitleById.value : null) ||
+      categoryTitleBySlug.value.get(segments[i]) ||
+      productTitleBySlug.value.get(segments[i]) ||
+      humanize(segments[i])
     crumbs.push({
       to: isLast ? undefined : acc,
       label: label || humanize(segments[i]),

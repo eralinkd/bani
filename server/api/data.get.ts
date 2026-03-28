@@ -1,15 +1,15 @@
-import { useRuntimeConfig } from '#imports'
-import { getCachedData, isCacheFresh } from '../utils/dataCache'
-import { fetchFromRedisAndUpdateCache } from '../utils/dataSync'
+import { getAppData } from '../utils/app-data-store'
+import { getSeo } from '../utils/seo-store'
+import { getProjectCategories, getProjects } from '../utils/projects-store'
+import { getProductCategories, getProducts } from '../utils/products-store'
 
-export default defineEventHandler(async () => {
-  const config = useRuntimeConfig()
-
-  if (!isCacheFresh(config.cache.memoryTtlMs)) {
-    await fetchFromRedisAndUpdateCache()
-  }
-
+export default defineEventHandler(() => {
   return {
-    data: getCachedData() ?? {},
+    seo: getSeo() ?? { title: '', description: '' },
+    appData: getAppData() ?? {},
+    projectCategories: getProjectCategories(),
+    projects: getProjects(),
+    productCategories: getProductCategories(),
+    products: getProducts(),
   }
 })
