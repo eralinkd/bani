@@ -24,11 +24,30 @@
 definePageMeta({ layout: 'admin', middleware: 'admin-auth' })
 
 const links = [
-  { to: '/admin/seo', label: 'SEO', icon: 'i-lucide-search', description: 'Заголовок и описание сайта' },
-  { to: '/admin/project-categories', label: 'Категории проектов', icon: 'i-lucide-folder', description: 'Управление категориями' },
-  { to: '/admin/projects', label: 'Проекты', icon: 'i-lucide-layout-grid', description: 'Список проектов' },
-  { to: '/admin/product-categories', label: 'Категории товаров', icon: 'i-lucide-tag', description: 'Управление категориями' },
-  { to: '/admin/products', label: 'Товары', icon: 'i-lucide-package', description: 'Каталог товаров' },
+  {
+    to: '/admin/seo',
+    label: 'SEO',
+    icon: 'i-lucide-search',
+    description: 'Заголовок и описание сайта',
+  },
+  {
+    to: '/admin/project-categories',
+    label: 'Категории проектов',
+    icon: 'i-lucide-folder',
+    description: 'Управление категориями',
+  },
+  {
+    to: '/admin/projects',
+    label: 'Проекты',
+    icon: 'i-lucide-layout-grid',
+    description: 'Список проектов',
+  },
+  {
+    to: '/admin/products',
+    label: 'Товары',
+    icon: 'i-lucide-package',
+    description: 'Каталог товаров',
+  },
   { to: '/admin/images', label: 'Медиатека', icon: 'i-lucide-images', description: 'Изображения' },
 ]
 </script>
