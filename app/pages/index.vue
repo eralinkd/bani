@@ -15,7 +15,7 @@
       <FAQ />
       <MainContacts />
     </main>
-    <!-- <AppFooter /> -->
+    <AppFooter />
   </div>
 </template>
 
@@ -29,3 +29,4 @@
   }
 }
 </style>
+

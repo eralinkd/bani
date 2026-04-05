@@ -1,5 +1,5 @@
-import { getSeo } from '../utils/seo-store'
+import { getAllSeo } from '../utils/seo-store'
 
 export default defineEventHandler(() => {
-  return getSeo() ?? { title: '', description: '' }
+  return getAllSeo()
 })

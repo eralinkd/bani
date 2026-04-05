@@ -12,7 +12,7 @@
       <WhyUs />
       <FAQ />
     </main>
-    <!-- <AppFooter /> -->
+    <AppFooter />
   </div>
 </template>
 
@@ -22,7 +22,7 @@ const route = useRoute()
 const categorySlug = computed(() => String(route.params.category || ''))
 
 const { data: productsResponse } = await useAsyncData('catalog-category', () =>
-  $fetch('/api/products')
+  $fetch('/api/products'),
 )
 
 const category = computed(() => {
@@ -36,6 +36,13 @@ if (!category.value) {
 
 const pageTitle = computed(() => category.value?.title ?? 'Категория')
 const categoryId = computed(() => category.value?.id ?? '')
+
+const { data: seoData } = useNuxtData('seo')
+const catDesc = computed(() => seoData.value?.['catalog-category']?.description || '')
+useHead(() => ({
+  title: pageTitle.value,
+  meta: catDesc.value ? [{ name: 'description', content: catDesc.value }] : [],
+}))
 </script>
 
 <style scoped lang="scss">

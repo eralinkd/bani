@@ -80,6 +80,7 @@
       <Reviews />
       <FeedbackForm style="margin-top: 40px" />
     </main>
+    <AppFooter />
   </div>
 </template>
 
@@ -132,6 +133,21 @@ function onSlideChange(swiper) {
 if (!project.value && projectResponse.value !== undefined) {
   throw createError({ statusCode: 404, statusMessage: 'Проект не найден' })
 }
+
+const requestUrl = useRequestURL()
+
+useHead(() => ({
+  title: project.value?.title ?? '',
+  meta: [{ name: 'description', content: project.value?.description ?? '' }],
+}))
+
+useOgMeta(() => ({
+  type: 'article',
+  title: project.value?.title ?? '',
+  description: project.value?.description ?? '',
+  image: project.value?.images?.[0] ?? '',
+  url: requestUrl.href,
+}))
 </script>
 
 <style scoped lang="scss">

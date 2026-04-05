@@ -19,6 +19,8 @@ model Seo {
   key         String   @id @default("main")
   title       String
   description String
+  robotsTxt   String?
+  sitemapXml  String?
   updatedAt   DateTime @updatedAt
 }
 

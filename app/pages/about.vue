@@ -9,6 +9,12 @@
       <FeedbackForm />
       <Reviews />
     </main>
-    <!-- <AppFooter /> -->
+    <AppFooter />
   </div>
 </template>
+
+<script setup>
+useSeoPage('about', { title: 'О нас' })
+useLocalBusinessJsonLd()
+</script>
+

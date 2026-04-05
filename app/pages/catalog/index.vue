@@ -12,9 +12,13 @@
       <WhyUs />
       <FAQ />
     </main>
-    <!-- <AppFooter /> -->
+    <AppFooter />
   </div>
 </template>
+
+<script setup>
+useSeoPage('catalog', { title: 'Каталог' })
+</script>
 
 <style scoped lang="scss">
 @use '@scss/variables' as *;
@@ -24,3 +28,4 @@
   }
 }
 </style>
+

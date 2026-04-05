@@ -51,3 +51,4 @@ const links = [
   { to: '/admin/images', label: 'Медиатека', icon: 'i-lucide-images', description: 'Изображения' },
 ]
 </script>
+

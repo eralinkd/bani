@@ -107,10 +107,14 @@
         </div>
       </section>
     </main>
+    <AppFooter />
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+useSeoPage('contacts', { title: 'Контакты' })
+useLocalBusinessJsonLd()
+</script>
 
 <style lang="scss" scoped>
 @use '@scss/variables' as *;

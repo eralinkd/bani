@@ -13,21 +13,42 @@ const modal = useModal()
 
 const isAdmin = computed(() => route.path.startsWith('/admin'))
 
-const { data: seoResponse } = await useAsyncData('seo', () => $fetch('/api/seo'))
+const { data: seoData } = await useAsyncData('seo', () => $fetch('/api/seo'))
+const { data: orgSchema } = await useAsyncData('org-schema', () => $fetch('/api/org-schema'))
 
-const seo = computed(() => {
-  const val = seoResponse.value
-  if (!val || typeof val !== 'object') return {}
-  return val
+const mainSeo = computed(() => seoData.value?.main ?? {})
+const siteName = computed(() => mainSeo.value.title || 'Бани 21 века')
+
+const jsonLd = computed(() => {
+  const org = orgSchema.value
+  if (!org || !org.name) return null
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: org.name,
+    ...(org.url && { url: org.url }),
+    ...(org.logo && { logo: org.logo }),
+    ...(org.sameAs?.length && { sameAs: org.sameAs }),
+    ...((org.telephone || org.email) && {
+      contactPoint: {
+        '@type': 'ContactPoint',
+        contactType: 'customer service',
+        ...(org.telephone && { telephone: org.telephone }),
+        ...(org.email && { email: org.email }),
+      },
+    }),
+  }
+  return JSON.stringify(schema)
 })
 
 useHead(() => ({
-  htmlAttrs: {
-    class: isAdmin.value ? 'admin-root' : 'site-content',
-  },
-  title: seo.value.title || 'Бани 21 века',
-  meta: [{ name: 'description', content: seo.value.description || '' }],
+  htmlAttrs: { class: isAdmin.value ? 'admin-root' : 'site-content' },
+  titleTemplate: (chunk) => (chunk ? `${chunk} | ${siteName.value}` : siteName.value),
+  meta: [{ name: 'description', content: mainSeo.value.description || '' }],
+  script: jsonLd.value ? [{ type: 'application/ld+json', innerHTML: jsonLd.value }] : [],
 }))
+
+useOgMeta()
 
 const modalIsOpen = computed({
   get: () => modal.isOpen.value,

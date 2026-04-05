@@ -1,19 +1,26 @@
 <template>
-  <div class="container">
-    <div v-if="interiorHtml" class="item">
-      <p class="title text-36">Описание</p>
-      <div class="separator"></div>
-      <div class="text-16" v-html="interiorHtml"></div>
+  <div v-if="tabs.length" class="stats-container">
+    <div class="tabs-bar">
+      <button
+        v-for="tab in tabs"
+        :key="tab.key"
+        class="tab-btn"
+        :class="{ active: activeTab === tab.key }"
+        type="button"
+        @click="activeTab = tab.key"
+      >
+        {{ tab.label }}
+      </button>
     </div>
-    <div v-if="characteristicsHtml" class="item">
-      <p class="title text-36">Характеристики</p>
-      <div class="separator"></div>
-      <div class="text-16" v-html="characteristicsHtml"></div>
-    </div>
-    <div v-if="kitHtml" class="item">
-      <p class="title text-36">Комплектация</p>
-      <div class="separator"></div>
-      <div class="text-16" v-html="kitHtml"></div>
+
+    <div class="tab-content">
+      <div
+        v-for="tab in tabs"
+        v-show="activeTab === tab.key"
+        :key="tab.key"
+        class="text-16"
+        v-html="tab.html"
+      />
     </div>
   </div>
 </template>
@@ -26,66 +33,150 @@ const props = defineProps({
   },
 })
 
-const interiorHtml = computed(() => props.product?.interiorHtml ?? '')
-const characteristicsHtml = computed(() => props.product?.characteristicsHtml ?? '')
-const kitHtml = computed(() => props.product?.kitHtml ?? '')
+const tabDefs = [
+  { key: 'interior', label: 'Описание', field: 'interiorHtml' },
+  { key: 'characteristics', label: 'Характеристики', field: 'characteristicsHtml' },
+  { key: 'kit', label: 'Комплектация', field: 'kitHtml' },
+]
+
+const tabs = computed(() =>
+  tabDefs
+    .filter((t) => props.product?.[t.field])
+    .map((t) => ({ key: t.key, label: t.label, html: props.product[t.field] })),
+)
+
+const activeTab = ref(tabs.value[0]?.key ?? '')
+
+watch(tabs, (val) => {
+  if (!val.find((t) => t.key === activeTab.value)) {
+    activeTab.value = val[0]?.key ?? ''
+  }
+})
 </script>
 
 <style scoped lang="scss">
 @use '@scss/variables' as *;
 
-.container {
-  display: grid;
-  padding: 0 60px;
-  grid-template-columns: 568fr 328fr 448fr;
-  gap: 32px;
+.stats-container {
+  padding: 0 60px 40px;
 
   @media (max-width: $mobileBreakpoint) {
-    grid-template-columns: 1fr;
-    padding: 0 16px 40px;
-    gap: 0px;
+    padding: 0 16px 32px;
+  }
+}
+
+.tabs-bar {
+  display: flex;
+  border-bottom: 1px solid #d9d9d9;
+  gap: 0;
+  margin-bottom: 28px;
+
+  @media (max-width: $mobileBreakpoint) {
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+.tab-btn {
+  position: relative;
+  padding: 18px 40px;
+  font-size: 18px;
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  color: #8e8e8e;
+  background: none;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #41a3db;
+    transform: scaleX(0);
+    transition: transform 0.2s ease;
   }
 
-  .item {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  &:hover {
+    color: $text;
+  }
+
+  &.active {
+    color: $text;
+    font-weight: 600;
+
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+
+  @media (max-width: $mobileBreakpoint) {
+    padding: 14px 24px;
+    font-size: 15px;
+  }
+}
+
+.tab-content {
+  .text-16 {
+    font-size: 16px;
+    line-height: 1.7;
+    color: $text;
 
     @media (max-width: $mobileBreakpoint) {
-      padding: 18px;
-      gap: 12px;
+      font-size: 14px;
     }
 
-    .title {
-      font-size: 36px;
-      line-height: 1.2;
+    :deep(p) {
+      margin-bottom: 10px;
 
-      @media (max-width: $mobileBreakpoint) {
-        font-size: 24px;
+      &:last-child {
+        margin-bottom: 0;
       }
     }
 
-    .separator {
-      width: 100%;
-      height: 1px;
-      background: #d9d9d9;
+    :deep(ul) {
+      padding-left: 20px;
+      margin-bottom: 10px;
+
+      li {
+        list-style: disc;
+        margin-bottom: 5px;
+      }
     }
 
-    .text-16.bold {
+    :deep(ol) {
+      padding-left: 20px;
+      margin-bottom: 10px;
+
+      li {
+        list-style: decimal;
+        margin-bottom: 5px;
+      }
+    }
+
+    :deep(strong),
+    :deep(b) {
       font-weight: 700;
     }
 
-    .text-16 {
-      @media (max-width: $mobileBreakpoint) {
-        font-size: 14px;
-      }
+    :deep(em),
+    :deep(i) {
+      font-style: italic;
+    }
 
-      ul {
-        padding-left: 20px;
-        li {
-          list-style: disc;
-        }
-      }
+    :deep(a) {
+      color: #41a3db;
+      text-decoration: underline;
     }
   }
 }

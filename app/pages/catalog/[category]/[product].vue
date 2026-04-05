@@ -10,7 +10,7 @@
       <Reviews />
       <Promotions />
     </main>
-    <!-- <AppFooter /> -->
+    <AppFooter />
   </div>
 </template>
 
@@ -41,6 +41,65 @@ const product = computed(() => {
 if (!product.value) {
   throw createError({ statusCode: 404, statusMessage: 'Товар не найден' })
 }
+
+const { data: orgSchema } = useNuxtData('org-schema')
+
+const productJsonLd = computed(() => {
+  const p = product.value
+  if (!p) return null
+
+  const baseUrl = orgSchema.value?.url || ''
+  const productUrl = `${baseUrl}/catalog/${categorySlug.value}/${productSlug.value}`
+
+  const prices = (p.sizes ?? []).map((s) => s.price).filter(Boolean)
+  const minPrice = prices.length ? Math.min(...prices) : null
+  const maxPrice = prices.length ? Math.max(...prices) : null
+  const firstSku = p.sizes?.[0]?.code || p.id
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: p.title,
+    description: p.description || undefined,
+    image: p.images?.length ? p.images : undefined,
+    sku: firstSku,
+    ...(orgSchema.value?.name && {
+      brand: { '@type': 'Brand', name: orgSchema.value.name },
+    }),
+    offers: {
+      '@type': prices.length > 1 ? 'AggregateOffer' : 'Offer',
+      priceCurrency: 'RUB',
+      availability: 'https://schema.org/InStock',
+      url: productUrl,
+      ...(minPrice && { price: minPrice }),
+      ...(prices.length > 1 && {
+        lowPrice: minPrice,
+        highPrice: maxPrice,
+        offerCount: prices.length,
+      }),
+    },
+  }
+
+  return JSON.stringify(schema)
+})
+
+const requestUrl = useRequestURL()
+
+useHead(() => ({
+  title: product.value?.title ?? '',
+  meta: [{ name: 'description', content: product.value?.description ?? '' }],
+  script: productJsonLd.value
+    ? [{ type: 'application/ld+json', innerHTML: productJsonLd.value }]
+    : [],
+}))
+
+useOgMeta(() => ({
+  type: 'product',
+  title: product.value?.title ?? '',
+  description: product.value?.description ?? '',
+  image: product.value?.images?.[0] ?? '',
+  url: requestUrl.href,
+}))
 </script>
 
 <style scoped lang="scss">

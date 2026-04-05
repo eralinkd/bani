@@ -96,6 +96,28 @@ const items = computed(() => {
 
   return crumbs
 })
+
+const requestUrl = useRequestURL()
+
+const breadcrumbJsonLd = computed(() => {
+  const origin = requestUrl.origin
+  const listItems = items.value.map((item, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: item.label,
+    item: item.to ? `${origin}${item.to}` : requestUrl.href,
+  }))
+
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: listItems,
+  })
+})
+
+useHead(() => ({
+  script: [{ type: 'application/ld+json', innerHTML: breadcrumbJsonLd.value }],
+}))
 </script>
 
 <style lang="scss" scoped>

@@ -71,3 +71,4 @@ async function deleteProduct(id) {
   }
 }
 </script>
+
