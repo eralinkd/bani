@@ -23,6 +23,8 @@ interface Product {
   title: string
   slug: string
   description: string
+  metaTitle: string | null
+  metaDescription: string | null
   materials: string | null
   stove: string | null
   interiorHtml: string | null
@@ -95,6 +97,8 @@ export async function refreshProductsFromDb() {
       title: p.title,
       slug: p.slug,
       description: p.description,
+      metaTitle: p.metaTitle,
+      metaDescription: p.metaDescription,
       materials: p.materials,
       stove: p.stove,
       interiorHtml: p.interiorHtml,

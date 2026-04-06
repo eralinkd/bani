@@ -67,6 +67,30 @@
         </div>
       </UCard>
 
+      <!-- SEO -->
+      <UCard>
+        <template #header>
+          <h2 class="font-semibold">SEO</h2>
+        </template>
+        <div class="space-y-4">
+          <UFormField label="Meta Title" class="w-full">
+            <UInput
+              v-model="form.metaTitle"
+              class="w-full"
+              placeholder="Если пусто — используется название товара"
+            />
+          </UFormField>
+          <UFormField label="Meta Description" class="w-full">
+            <UTextarea
+              v-model="form.metaDescription"
+              class="w-full"
+              :rows="3"
+              placeholder="Если пусто — используется описание товара"
+            />
+          </UFormField>
+        </div>
+      </UCard>
+
       <!-- HTML sections -->
       <UCard>
         <template #header><h2 class="font-semibold">HTML-блоки</h2></template>
@@ -181,6 +205,8 @@ const emptyForm = () => ({
   title: '',
   slug: '',
   description: '',
+  metaTitle: '',
+  metaDescription: '',
   materials: '',
   stove: '',
   interiorHtml: '',
@@ -203,6 +229,8 @@ watch(
       title: val.title ?? '',
       slug: val.slug ?? '',
       description: val.description ?? '',
+      metaTitle: val.metaTitle ?? '',
+      metaDescription: val.metaDescription ?? '',
       materials: val.materials ?? '',
       stove: val.stove ?? '',
       interiorHtml: val.interiorHtml ?? '',

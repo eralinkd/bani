@@ -1,0 +1,2 @@
+ALTER TABLE "Product" ADD COLUMN IF NOT EXISTS "metaTitle" TEXT;
+ALTER TABLE "Product" ADD COLUMN IF NOT EXISTS "metaDescription" TEXT;

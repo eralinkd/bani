@@ -85,9 +85,12 @@ const productJsonLd = computed(() => {
 
 const requestUrl = useRequestURL()
 
+const pageTitle = computed(() => product.value?.metaTitle || product.value?.title || '')
+const pageDescription = computed(() => product.value?.metaDescription || product.value?.description || '')
+
 useHead(() => ({
-  title: product.value?.title ?? '',
-  meta: [{ name: 'description', content: product.value?.description ?? '' }],
+  title: pageTitle.value,
+  meta: pageDescription.value ? [{ name: 'description', content: pageDescription.value }] : [],
   script: productJsonLd.value
     ? [{ type: 'application/ld+json', innerHTML: productJsonLd.value }]
     : [],
@@ -95,8 +98,8 @@ useHead(() => ({
 
 useOgMeta(() => ({
   type: 'product',
-  title: product.value?.title ?? '',
-  description: product.value?.description ?? '',
+  title: pageTitle.value,
+  description: pageDescription.value,
   image: product.value?.images?.[0] ?? '',
   url: requestUrl.href,
 }))

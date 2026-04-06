@@ -17,6 +17,8 @@ export default defineEventHandler(async (event) => {
       title: String(body?.title ?? ''),
       slug: String(body?.slug ?? ''),
       description: String(body?.description ?? ''),
+      metaTitle: body?.metaTitle ? String(body.metaTitle) : null,
+      metaDescription: body?.metaDescription ? String(body.metaDescription) : null,
       materials: body?.materials ? String(body.materials) : null,
       stove: body?.stove ? String(body.stove) : null,
       interiorHtml: body?.interiorHtml ? String(body.interiorHtml) : null,
