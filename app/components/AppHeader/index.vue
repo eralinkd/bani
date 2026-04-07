@@ -110,8 +110,9 @@
 
 <script setup>
 import AppHeaderIconsPhone from './Icons/Phone.vue'
-import AppHeaderIconsTGWhite from './Icons/TGWhite.vue'
-import AppHeaderIconsWhatsappWhite from './Icons/WhatsappWhite.vue'
+
+// import AppHeaderIconsTGWhite from './Icons/TGWhite.vue'
+// import AppHeaderIconsWhatsappWhite from './Icons/WhatsappWhite.vue'
 
 defineProps({
   isMain: {

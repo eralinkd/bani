@@ -134,6 +134,8 @@
 }
 
 .image {
+  max-width: none !important;
+
   width: calc(100% + 120px);
   height: 100%;
   object-fit: cover;

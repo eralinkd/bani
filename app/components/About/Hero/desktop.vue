@@ -113,6 +113,7 @@
 }
 
 .image {
+  max-width: none !important;
   position: relative;
   z-index: 2;
   width: calc(100% + 120px);

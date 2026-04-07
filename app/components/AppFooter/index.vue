@@ -3,7 +3,7 @@
     <div class="footer__inner">
       <!-- Left: logo + description + socials -->
       <div class="footer__brand">
-        <NuxtLink to="/" class="footer__logo">
+        <NuxtLink to="/" class="footer__logo w-fit">
           <AppFooterLogo />
         </NuxtLink>
         <p class="footer__desc">Строим уникальные бани<br />и беседки под ключ</p>
