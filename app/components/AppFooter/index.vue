@@ -85,7 +85,7 @@
 
       <!-- Contacts column -->
       <div class="footer__contacts">
-        <p class="footer__contact-item">г. Пенза, ул. Московская, 7</p>
+        <p class="footer__contact-item">Россия, п. Шемышейка, ул. Яксарова, дом 30а</p>
         <p class="footer__contact-item">Пн-Сб 09:00-19:00</p>
         <p class="footer__contact-item">Вс &nbsp; Выходной</p>
         <a href="tel:+79361226688" class="footer__phone">+7 (936) 122 66 88</a>
@@ -97,9 +97,19 @@
     <div class="footer__bottom">
       <p class="footer__copy">{{ year }}. Все права защищены.</p>
       <div class="footer__legal">
-        <NuxtLink to="/privacy" class="footer__legal-link">Политика конфиденциальности</NuxtLink>
-        <NuxtLink to="/personal-data" class="footer__legal-link"
-          >Обработка персональных данных</NuxtLink
+        <a
+          href="/Politika_konfidentsialnosti_bani21veka.pdf"
+          target="_blank"
+          rel="noopener"
+          class="footer__legal-link"
+          >Политика конфиденциальности</a
+        >
+        <a
+          href="/Soglashenie_na_obrabotku_personalnykh_dannykh_bani21veka.pdf"
+          target="_blank"
+          rel="noopener"
+          class="footer__legal-link"
+          >Обработка персональных данных</a
         >
       </div>
     </div>
