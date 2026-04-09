@@ -14,8 +14,10 @@
 
     <div v-else class="flex flex-1 gap-4 overflow-hidden">
       <!-- Folder sidebar -->
-      <div class="w-44 shrink-0">
+      <div class="w-64 shrink-0 overflow-y-auto">
         <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">Папки</p>
+
+        <!-- All files -->
         <button
           :class="[
             'w-full rounded-lg px-3 py-2 text-left text-sm transition-colors',
@@ -25,17 +27,56 @@
         >
           Все файлы
         </button>
-        <button
-          v-for="folder in allFolders"
-          :key="folder"
-          :class="[
-            'w-full truncate rounded-lg px-3 py-2 text-left text-sm transition-colors',
-            selectedFolder === folder ? 'bg-blue-100 font-medium text-blue-700' : 'text-gray-700 hover:bg-gray-100',
-          ]"
-          @click="selectedFolder = folder"
-        >
-          {{ folder }}
-        </button>
+
+        <!-- Tree -->
+        <template v-for="node in folderTree" :key="node.path">
+          <!-- Root folder row -->
+          <div class="flex items-center">
+            <button
+              v-if="node.children.length"
+              class="flex h-8 w-6 shrink-0 items-center justify-center text-gray-400 hover:text-gray-700"
+              @click="toggleExpand(node.path)"
+            >
+              <UIcon
+                :name="expandedFolders.has(node.path) ? 'i-lucide-chevron-down' : 'i-lucide-chevron-right'"
+                class="size-3.5"
+              />
+            </button>
+            <span v-else class="w-6 shrink-0" />
+
+            <button
+              :class="[
+                'flex flex-1 min-w-0 items-center gap-1.5 rounded-lg px-2 py-1.5 text-left text-sm transition-colors',
+                selectedFolder === node.path ? 'bg-blue-100 font-medium text-blue-700' : 'text-gray-700 hover:bg-gray-100',
+              ]"
+              @click="selectedFolder = node.path"
+            >
+              <UIcon name="i-lucide-folder" class="size-3.5 shrink-0" />
+              <span class="truncate">{{ node.name }}</span>
+            </button>
+          </div>
+
+          <!-- Children -->
+          <template v-if="expandedFolders.has(node.path)">
+            <div
+              v-for="child in node.children"
+              :key="child.path"
+              class="flex items-center pl-6"
+            >
+              <span class="w-4 shrink-0 border-l border-gray-200 self-stretch" />
+              <button
+                :class="[
+                  'flex flex-1 min-w-0 items-center gap-1.5 rounded-lg px-2 py-1.5 text-left text-sm transition-colors',
+                  selectedFolder === child.path ? 'bg-blue-100 font-medium text-blue-700' : 'text-gray-600 hover:bg-gray-100',
+                ]"
+                @click="selectedFolder = child.path"
+              >
+                <UIcon name="i-lucide-folder" class="size-3.5 shrink-0 text-gray-400" />
+                <span class="truncate">{{ child.name }}</span>
+              </button>
+            </div>
+          </template>
+        </template>
       </div>
 
       <!-- Image grid + detail panel -->
@@ -186,8 +227,54 @@ const { data, pending, refresh } = useFetch('/api/admin/images', { key: 'admin-i
 const allImages = computed(() => data.value?.images ?? [])
 const allFolders = computed(() => data.value?.folders ?? [])
 
+// Build hierarchical tree from flat path list
+const folderTree = computed(() => {
+  const rootMap = new Map()
+
+  for (const path of allFolders.value) {
+    const slashIndex = path.indexOf('/')
+    if (slashIndex === -1) {
+      // Root-level folder, no children
+      if (!rootMap.has(path)) {
+        rootMap.set(path, { name: path, path, children: [] })
+      }
+    } else {
+      const rootName = path.slice(0, slashIndex)
+      const childName = path.slice(slashIndex + 1)
+      if (!rootMap.has(rootName)) {
+        rootMap.set(rootName, { name: rootName, path: rootName, children: [] })
+      }
+      rootMap.get(rootName).children.push({ name: childName, path })
+    }
+  }
+
+  return Array.from(rootMap.values())
+})
+
+const expandedFolders = ref(new Set())
+
+function toggleExpand(path) {
+  if (expandedFolders.value.has(path)) {
+    expandedFolders.value.delete(path)
+  } else {
+    expandedFolders.value.add(path)
+  }
+  // trigger reactivity
+  expandedFolders.value = new Set(expandedFolders.value)
+}
+
 const selectedFolder = ref('')
 const selectedImage = ref(null)
+
+// Auto-expand parent when a nested folder is selected
+watch(selectedFolder, (val) => {
+  if (!val) return
+  const slashIndex = val.indexOf('/')
+  if (slashIndex !== -1) {
+    const root = val.slice(0, slashIndex)
+    expandedFolders.value = new Set([...expandedFolders.value, root])
+  }
+})
 
 const filteredImages = computed(() =>
   selectedFolder.value === ''

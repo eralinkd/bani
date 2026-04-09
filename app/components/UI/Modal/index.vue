@@ -327,12 +327,12 @@ async function handleSubmit() {
       fullName: formData.name.trim(),
     })
 
-    // if (typeof window !== 'undefined' && typeof window.ym === 'function') {
-    //   window.ym(108358274, 'reachGoal', 'form_submit')
-    // }
+    if (typeof window !== 'undefined' && typeof window.ym === 'function') {
+      window.ym(108358274, 'reachGoal', 'form_submit')
+    }
 
-    scheduleToastHide()
     close()
+    await navigateTo('/thank-you')
   } catch {
     alert('Произошла ошибка при отправке. Попробуйте позже.')
   } finally {

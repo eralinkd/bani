@@ -56,34 +56,48 @@
 <script setup>
 definePageMeta({ layout: 'admin', middleware: 'admin-auth' })
 
-const PAGE_CONFIGS = [
+const STATIC_CONFIGS = [
   { key: 'main', label: 'Главная', url: '/', defaultTitle: 'Бани 21 века' },
   { key: 'catalog', label: 'Каталог', url: '/catalog', defaultTitle: 'Каталог' },
-  { key: 'catalog-category', label: 'Страница категории', url: '/catalog/[категория]', defaultTitle: 'Название категории' },
   { key: 'our-products', label: 'Наши работы', url: '/our-products', defaultTitle: 'Наши работы' },
   { key: 'contacts', label: 'Контакты', url: '/contacts', defaultTitle: 'Контакты' },
   { key: 'about', label: 'О нас', url: '/about', defaultTitle: 'О нас' },
 ]
 
-const { data, pending, refresh } = useFetch('/api/admin/seo')
+const [{ data, pending, refresh }, { data: categoriesData }] = await Promise.all([
+  useFetch('/api/admin/seo'),
+  useFetch('/api/admin/product-categories'),
+])
 
-const forms = ref(
-  Object.fromEntries(PAGE_CONFIGS.map((p) => [p.key, { title: '', description: '', robotsTxt: '', sitemapXml: '' }]))
+const categoryConfigs = computed(() =>
+  (categoriesData.value ?? []).map((cat) => ({
+    key: `catalog-${cat.slug}`,
+    label: `Категория: ${cat.title}`,
+    url: `/catalog/${cat.slug}`,
+    defaultTitle: cat.title,
+  }))
 )
 
-const pageConfigs = PAGE_CONFIGS
+const pageConfigs = computed(() => [...STATIC_CONFIGS, ...categoryConfigs.value])
 
-watch(data, (val) => {
-  if (!val) return
-  for (const page of PAGE_CONFIGS) {
-    const row = val[page.key]
-    forms.value[page.key] = {
+const forms = ref({})
+
+function initForms(seoData, configs) {
+  const next = {}
+  for (const page of configs) {
+    const row = seoData?.[page.key]
+    next[page.key] = {
       title: row?.title ?? '',
       description: row?.description ?? '',
       robotsTxt: row?.robotsTxt ?? '',
       sitemapXml: row?.sitemapXml ?? '',
     }
   }
+  forms.value = next
+}
+
+watch([data, pageConfigs], ([seoVal, configs]) => {
+  initForms(seoVal, configs)
 }, { immediate: true })
 
 const savingKey = ref(null)

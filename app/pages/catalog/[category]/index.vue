@@ -42,10 +42,19 @@ const pageTitle = computed(() => {
 const categoryId = computed(() => category.value?.id ?? '')
 
 const { data: seoData } = useNuxtData('seo')
-const catDesc = computed(() => seoData.value?.['catalog-category']?.description || '')
+const catSeoKey = computed(() => `catalog-${categorySlug.value}`)
+const catSeo = computed(() => seoData.value?.[catSeoKey.value])
+const catTitle = computed(() => catSeo.value?.title || pageTitle.value)
+const catDesc = computed(() => catSeo.value?.description || '')
+
 useHead(() => ({
-  title: pageTitle.value,
+  title: catTitle.value,
   meta: catDesc.value ? [{ name: 'description', content: catDesc.value }] : [],
+}))
+
+useOgMeta(() => ({
+  title: catTitle.value,
+  description: catDesc.value,
 }))
 </script>
 
