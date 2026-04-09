@@ -34,5 +34,6 @@ const navItems = [
   { to: '/admin/schema', label: 'Organization', icon: 'i-lucide-code' },
   { to: '/admin/local-business', label: 'LocalBusiness', icon: 'i-lucide-map-pin' },
   { to: '/admin/reviews', label: 'Отзывы', icon: 'i-lucide-star' },
+  { to: '/admin/category-page-titles', label: 'Заголовки каталога', icon: 'i-lucide-heading' },
 ]
 </script>

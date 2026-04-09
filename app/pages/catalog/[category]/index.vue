@@ -21,9 +21,10 @@ const route = useRoute()
 
 const categorySlug = computed(() => String(route.params.category || ''))
 
-const { data: productsResponse } = await useAsyncData('catalog-category', () =>
-  $fetch('/api/products'),
-)
+const [{ data: productsResponse }, { data: categoryPageTitles }] = await Promise.all([
+  useAsyncData('catalog-category', () => $fetch('/api/products')),
+  useAsyncData('category-page-titles', () => $fetch('/api/category-page-titles')),
+])
 
 const category = computed(() => {
   const categories = productsResponse.value?.productCategories ?? []
@@ -34,7 +35,10 @@ if (!category.value) {
   throw createError({ statusCode: 404, statusMessage: 'Категория не найдена' })
 }
 
-const pageTitle = computed(() => category.value?.title ?? 'Категория')
+const pageTitle = computed(() => {
+  const custom = categoryPageTitles.value?.[categorySlug.value]
+  return custom || category.value?.title || 'Категория'
+})
 const categoryId = computed(() => category.value?.id ?? '')
 
 const { data: seoData } = useNuxtData('seo')
