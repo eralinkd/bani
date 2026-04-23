@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
-  <rect width="1200" height="800" fill="#fff5e6"/>
-  <rect x="60" y="60" width="1080" height="680" rx="32" fill="#ffc27a"/>
-  <text x="600" y="410" font-family="Arial, sans-serif" font-size="64" fill="#1f2a44" text-anchor="middle">
-    Test Image 3
-  </text>
-</svg>
