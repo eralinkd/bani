@@ -25,6 +25,12 @@ definePageMeta({ layout: 'admin', middleware: 'admin-auth' })
 
 const links = [
   {
+    to: '/admin/home-page',
+    label: 'Контент главной',
+    icon: 'i-lucide-layout-template',
+    description: 'Слайдер «Уже построили», тексты',
+  },
+  {
     to: '/admin/seo',
     label: 'SEO',
     icon: 'i-lucide-search',

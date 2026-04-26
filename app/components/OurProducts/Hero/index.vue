@@ -59,6 +59,32 @@
         </div>
       </div>
     </div>
+
+    <section v-if="galleryUrls.length" class="works-gallery" aria-label="Галерея работ">
+      <h2 style="margin-bottom: 20px">Галерея</h2>
+      <div class="works-gallery__grid">
+        <button
+          v-for="(url, i) in visibleGalleryImages"
+          :key="`${url}-${i}`"
+          type="button"
+          class="works-gallery__cell"
+          :aria-label="`Открыть фото ${i + 1} из ${galleryUrls.length}`"
+          @click="openLightbox(i)"
+        >
+          <NuxtImg class="works-gallery__img" :src="url" alt="" format="webp" />
+        </button>
+      </div>
+      <div v-if="showGalleryMore" class="works-gallery__more-wrap">
+        <UIButton
+          secondary
+          icon-position="none"
+          :show-icon="false"
+          @click="galleryVisibleRows += galleryRowsStep"
+        >
+          Ещё
+        </UIButton>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -77,9 +103,54 @@ const { data: projectsResponse } = await useAsyncData('projects', () => $fetch('
 
 const items = computed(() => projectsResponse.value?.projectCategories ?? [])
 const projects = computed(() => projectsResponse.value?.projects ?? [])
+const projectGallery = computed(() => {
+  const raw = projectsResponse.value?.projectGallery
+  return raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {}
+})
 
 const currentSlides = ref({})
 const selected = ref('')
+
+const galleryCols = 4
+const galleryRowsInitial = 2
+const galleryRowsStep = 2
+const galleryVisibleRows = ref(galleryRowsInitial)
+
+const galleryUrls = computed(() => {
+  const id = selected.value
+  if (!id) return []
+  const raw = projectGallery.value[id]
+  if (!Array.isArray(raw)) return []
+  return raw.map((u) => String(u ?? '').trim()).filter(Boolean)
+})
+
+const visibleGalleryImages = computed(() => {
+  const max = galleryVisibleRows.value * galleryCols
+  return galleryUrls.value.slice(0, max)
+})
+
+const showGalleryMore = computed(() => visibleGalleryImages.value.length < galleryUrls.value.length)
+
+watch(selected, () => {
+  galleryVisibleRows.value = galleryRowsInitial
+})
+
+async function openLightbox(sliceIndex) {
+  if (!import.meta.client || !galleryUrls.value.length) return
+  const [{ default: PhotoSwipe }] = await Promise.all([
+    import('photoswipe'),
+    import('photoswipe/style.css'),
+  ])
+  const dataSource = galleryUrls.value.map((src) => ({
+    src,
+    alt: 'Наши работы',
+  }))
+  const pswp = new PhotoSwipe({
+    dataSource,
+    index: sliceIndex,
+  })
+  pswp.init()
+}
 
 watchEffect(() => {
   if (!selected.value && items.value.length) {
@@ -307,6 +378,75 @@ const getSlides = (project) => {
       .text-18 {
         color: $white;
       }
+    }
+  }
+}
+
+.works-gallery {
+  margin-top: 48px;
+
+  @media (max-width: $mobileBreakpoint) {
+    margin-top: 32px;
+  }
+
+  &__title {
+    margin: 0 0 20px;
+    font-weight: 600;
+    color: $text;
+
+    @media (max-width: $mobileBreakpoint) {
+      margin-bottom: 16px;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+
+    @media (max-width: $mobileBreakpoint) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+  }
+
+  &__cell {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border: none;
+    cursor: pointer;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #e8e8e8;
+    border-radius: 4px;
+
+    &:focus-visible {
+      outline: 2px solid $text;
+      outline-offset: 2px;
+    }
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.25s ease;
+
+    .works-gallery__cell:hover & {
+      transform: scale(1.03);
+    }
+  }
+
+  &__more-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+
+    @media (max-width: $mobileBreakpoint) {
+      margin-top: 20px;
     }
   }
 }

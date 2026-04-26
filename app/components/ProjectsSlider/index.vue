@@ -1,10 +1,9 @@
 <template>
   <div class="container white">
     <div class="left">
-      <h2>Уже построили</h2>
-      <p class="text-36">
-        Оцените наше мастерство и вдохновитесь примерами реальных работ, выполненных для наших
-        клиентов.
+      <h2>{{ block.title }}</h2>
+      <p v-if="block.subtitle" class="text-36">
+        {{ block.subtitle }}
       </p>
       <UIButton @click="navigateTo('/our-products')">Наши работы</UIButton>
     </div>
@@ -19,23 +18,22 @@
             prevEl: '.swiper-button-prev-projects',
           }"
           class="slider"
-          :loop="true"
+          :loop="slides.length > 1"
           @slide-change="onSlideChange"
         >
-          <SwiperSlide v-for="(slide, index) in slides" :key="index" class="slide">
+          <SwiperSlide
+            v-for="(slide, index) in slides"
+            :key="`${slide.image}-${index}`"
+            class="slide"
+          >
             <div class="item hover-card">
-              <NuxtImg
-                class="image"
-                src="/images/ProjectsSlider/1.png"
-                alt="Проект"
-                format="webp"
-              />
-              <p class="text-16">Баня бочка в Пензе</p>
+              <NuxtImg class="image" :src="slide.image" alt="" format="webp" />
+              <p v-if="slide.caption" class="text-16">{{ slide.caption }}</p>
             </div>
           </SwiperSlide>
         </Swiper>
 
-        <div class="slider-controls">
+        <div v-if="slides.length" class="slider-controls">
           <button class="swiper-button-prev-projects" type="button">
             <IconsArrowLeft />
           </button>
@@ -54,10 +52,18 @@ import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import 'swiper/css/navigation'
+import IconsArrowLeft from '../Icons/ArrowLeft.vue'
+import IconsArrowRight from '../Icons/ArrowRight.vue'
 
 const modules = [Navigation]
 
-const slides = Array(5).fill(null) // 5 слайдов с одной картинкой
+const { data: blockData } = await useAsyncData('projects-slider-public', () =>
+  $fetch('/api/projects-slider'),
+)
+
+const block = computed(() => blockData.value ?? {})
+const slides = computed(() => (Array.isArray(block.value.slides) ? block.value.slides : []))
+
 const currentSlide = ref(0)
 
 const onSlideChange = (swiper) => {

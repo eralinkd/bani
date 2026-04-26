@@ -29,11 +29,13 @@ const navItems = [
   { to: '/admin/seo', label: 'SEO', icon: 'i-lucide-search' },
   { to: '/admin/project-categories', label: 'Кат. проектов', icon: 'i-lucide-folder' },
   { to: '/admin/projects', label: 'Проекты', icon: 'i-lucide-layout-grid' },
+  { to: '/admin/gallery', label: 'Галерея', icon: 'i-lucide-gallery-horizontal' },
   { to: '/admin/products', label: 'Товары', icon: 'i-lucide-package' },
   { to: '/admin/images', label: 'Медиатека', icon: 'i-lucide-images' },
   { to: '/admin/schema', label: 'Organization', icon: 'i-lucide-code' },
   { to: '/admin/local-business', label: 'LocalBusiness', icon: 'i-lucide-map-pin' },
   { to: '/admin/reviews', label: 'Отзывы', icon: 'i-lucide-star' },
   { to: '/admin/category-page-titles', label: 'Заголовки каталога', icon: 'i-lucide-heading' },
+  { to: '/admin/home-page', label: 'Слайдер на главной', icon: 'i-lucide-layout-template' },
 ]
 </script>

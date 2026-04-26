@@ -3,6 +3,7 @@
     <AppHeader />
     <main>
       <Breadcrumbs />
+      <PageTitle>Наши работы</PageTitle>
       <OurProductsHero class="mobile-margin" />
       <WhyUs />
       <Reviews />
@@ -23,4 +24,3 @@ useSeoPage('our-products', { title: 'Наши работы' })
   }
 }
 </style>
-
