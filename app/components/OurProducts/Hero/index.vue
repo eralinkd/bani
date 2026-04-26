@@ -135,19 +135,65 @@ watch(selected, () => {
   galleryVisibleRows.value = galleryRowsInitial
 })
 
+/**
+ * PhotoSwipe ожидает у каждого слайда `src`, `width`, `height` — иначе до загрузки
+ * используются размеры вьюпорта и картинка искажается.
+ * @see https://photoswipe.com/data-sources/
+ */
+const galleryImageSizeCache = new Map()
+
+function probeImageSize(src) {
+  const cached = galleryImageSizeCache.get(src)
+  if (cached) return Promise.resolve(cached)
+  return new Promise((resolve) => {
+    const img = new Image()
+    img.onload = () => {
+      const dims = {
+        width: img.naturalWidth || 0,
+        height: img.naturalHeight || 0,
+      }
+      if (dims.width > 0 && dims.height > 0) galleryImageSizeCache.set(src, dims)
+      resolve(dims)
+    }
+    img.onerror = () => resolve({ width: 0, height: 0 })
+    img.src = src
+  })
+}
+
 async function openLightbox(sliceIndex) {
-  if (!import.meta.client || !galleryUrls.value.length) return
+  if (!import.meta.client) return
+  const urls = [...galleryUrls.value]
+  if (!urls.length) return
+
+  const index = Math.min(Math.max(0, sliceIndex), urls.length - 1)
+
   const [{ default: PhotoSwipe }] = await Promise.all([
     import('photoswipe'),
     import('photoswipe/style.css'),
   ])
-  const dataSource = galleryUrls.value.map((src) => ({
-    src,
-    alt: 'Наши работы',
-  }))
+
+  const dataSource = await Promise.all(
+    urls.map(async (src) => {
+      const { width, height } = await probeImageSize(src)
+      const item = { src, alt: 'Наши работы' }
+      if (width > 0 && height > 0) {
+        item.width = width
+        item.height = height
+      }
+      return item
+    }),
+  )
+
   const pswp = new PhotoSwipe({
     dataSource,
-    index: sliceIndex,
+    index,
+    /** @see https://photoswipe.com/adjusting-zoom-level — «fit» вписывает изображение в область, не как «cover». */
+    initialZoomLevel: 'fit',
+    /** 1 = натуральный размер при зуме / двойном тапе. */
+    secondaryZoomLevel: 1,
+    /** @see https://photoswipe.com/options */
+    padding: { top: 32, bottom: 32, left: 32, right: 32 },
+    bgOpacity: 0.92,
   })
   pswp.init()
 }
