@@ -8,40 +8,50 @@
       <UIButton @click="navigateTo('/our-products')">Наши работы</UIButton>
     </div>
     <div class="right">
-      <div class="slider-wrapper">
-        <Swiper
-          :modules="modules"
-          :slides-per-view="1"
-          :space-between="0"
-          :navigation="{
-            nextEl: '.swiper-button-next-projects',
-            prevEl: '.swiper-button-prev-projects',
-          }"
-          class="slider"
-          :loop="slides.length > 1"
-          @slide-change="onSlideChange"
-        >
-          <SwiperSlide
-            v-for="(slide, index) in slides"
-            :key="`${slide.image}-${index}`"
-            class="slide"
+      <!-- Как у карточек в OurProducts: клик вешаем на обёртку вне логики Swiper — тогда всплытие не блокируется -->
+      <div
+        class="slider-click-area"
+        :class="{ 'slider-click-area--linked': activeSlide?.projectId }"
+        role="presentation"
+        @click="onSliderAreaClick"
+      >
+        <div class="slider-wrapper">
+          <Swiper
+            :modules="modules"
+            :slides-per-view="1"
+            :space-between="0"
+            :navigation="{
+              nextEl: '.swiper-button-next-projects',
+              prevEl: '.swiper-button-prev-projects',
+            }"
+            class="slider"
+            :loop="slides.length > 1"
+            @slide-change="onSlideChange"
           >
-            <div class="item hover-card">
-              <NuxtImg class="image" :src="slide.image" alt="" format="webp" />
-              <p v-if="slide.caption" class="text-16">{{ slide.caption }}</p>
-            </div>
-          </SwiperSlide>
-        </Swiper>
-
-        <div v-if="slides.length" class="slider-controls">
-          <button class="swiper-button-prev-projects" type="button">
-            <IconsArrowLeft />
-          </button>
-          <p class="text-18">{{ currentSlide + 1 }} / {{ slides.length }}</p>
-          <button class="swiper-button-next-projects" type="button">
-            <IconsArrowRight />
-          </button>
+            <SwiperSlide
+              v-for="(slide, index) in slides"
+              :key="`${slide.image}-${index}-${slide.projectId || ''}`"
+              class="slide"
+            >
+              <div class="slide-inner">
+                <div class="item hover-card">
+                  <NuxtImg class="image" :src="slide.image" alt="" format="webp" />
+                  <p v-if="slide.caption" class="text-16">{{ slide.caption }}</p>
+                </div>
+              </div>
+            </SwiperSlide>
+          </Swiper>
         </div>
+      </div>
+
+      <div v-if="slides.length" class="slider-controls" @click.stop>
+        <button class="swiper-button-prev-projects" type="button">
+          <IconsArrowLeft />
+        </button>
+        <p class="text-18">{{ currentSlide + 1 }} / {{ slides.length }}</p>
+        <button class="swiper-button-next-projects" type="button">
+          <IconsArrowRight />
+        </button>
       </div>
     </div>
   </div>
@@ -66,8 +76,22 @@ const slides = computed(() => (Array.isArray(block.value.slides) ? block.value.s
 
 const currentSlide = ref(0)
 
+const activeSlide = computed(() => {
+  const list = slides.value
+  if (!list.length) return null
+  const i = currentSlide.value
+  if (i < 0 || i >= list.length) return list[0]
+  return list[i] ?? null
+})
+
 const onSlideChange = (swiper) => {
   currentSlide.value = swiper.realIndex
+}
+
+function onSliderAreaClick() {
+  const id = activeSlide.value?.projectId
+  if (!id) return
+  navigateTo(`/our-products/${id}`)
 }
 </script>
 
@@ -100,6 +124,14 @@ const onSlideChange = (swiper) => {
 
 .right {
   position: relative;
+
+  .slider-click-area {
+    width: 100%;
+
+    &--linked {
+      cursor: pointer;
+    }
+  }
 
   .slider-wrapper {
     aspect-ratio: 688 / 485;
@@ -136,22 +168,30 @@ const onSlideChange = (swiper) => {
       height: 100%;
       display: flex;
       flex-shrink: 0;
+    }
 
-      .item {
+    .slide-inner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-shrink: 0;
+    }
+
+    .item {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border-radius: 20px;
+
+      @media (max-width: $mobileBreakpoint) {
         width: 100%;
         height: 100%;
         position: relative;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        border-radius: 20px;
-
-        @media (max-width: $mobileBreakpoint) {
-          width: 100%;
-          height: 100%;
-          position: relative;
-        }
       }
+
     }
 
     .image {

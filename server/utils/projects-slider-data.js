@@ -1,6 +1,7 @@
 const DEFAULT_SLIDE = {
   image: '/images/ProjectsSlider/1.png',
   caption: 'Баня бочка в Пензе',
+  projectId: '',
 }
 
 export const DEFAULT_PROJECTS_SLIDER = {
@@ -33,8 +34,9 @@ export function normalizeProjectsSliderPayload(raw) {
       if (!isPlainObject(item)) continue
       const image = String(item.image ?? '').trim()
       const caption = String(item.caption ?? '').trim()
+      const projectId = String(item.projectId ?? '').trim()
       if (!image) continue
-      slides.push({ image, caption })
+      slides.push({ image, caption, projectId })
     }
   }
 

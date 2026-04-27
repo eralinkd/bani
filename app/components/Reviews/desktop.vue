@@ -27,7 +27,7 @@
             nextEl: '.swiper-button-next-reviews',
             prevEl: '.swiper-button-prev-reviews',
           }"
-          :loop="true"
+          :loop="slideGroups.length > 1"
           :breakpoints="breakpoints"
           class="slider"
           @slide-change="onSlideChange"
@@ -67,7 +67,7 @@
         <button class="swiper-button-prev-reviews" type="button">
           <IconsArrowLeft />
         </button>
-        <p class="text-18">{{ currentSlide + 1 }} / {{ slideGroups.length }}</p>
+        <p class="text-18">{{ slideCounterText }}</p>
         <button class="swiper-button-next-reviews" type="button">
           <IconsArrowRight />
         </button>
@@ -79,7 +79,7 @@
 <script setup>
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import 'swiper/css'
 import 'swiper/css/navigation'
 
@@ -100,6 +100,14 @@ const slideGroups = computed(() => {
 
 const currentSlide = ref(0)
 
+const slideCounterText = computed(() => {
+  const total = slideGroups.value.length
+  if (total === 0) return '0 / 0'
+  const idx = Number.isFinite(currentSlide.value) ? currentSlide.value : 0
+  const safeIdx = Math.min(Math.max(0, idx), total - 1)
+  return `${safeIdx + 1} / ${total}`
+})
+
 const breakpoints = {
   769: {
     slidesPerView: 1,
@@ -112,7 +120,8 @@ const breakpoints = {
 }
 
 const onSlideChange = (swiper) => {
-  currentSlide.value = swiper.realIndex
+  const ri = swiper.realIndex
+  currentSlide.value = Number.isFinite(ri) ? ri : 0
 }
 </script>
 

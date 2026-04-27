@@ -17,7 +17,7 @@
             nextEl: '.swiper-button-next-reviews',
             prevEl: '.swiper-button-prev-reviews',
           }"
-          :loop="true"
+          :loop="slideGroups.length > 1"
           :breakpoints="breakpoints"
           :observer="true"
           :observe-parents="true"
@@ -59,7 +59,7 @@
         <button class="swiper-button-prev-reviews" type="button">
           <IconsArrowLeft />
         </button>
-        <p class="text-18">{{ currentSlide + 1 }} / {{ slideGroups.length }}</p>
+        <p class="text-18">{{ slideCounterText }}</p>
         <button class="swiper-button-next-reviews" type="button">
           <IconsArrowRight />
         </button>
@@ -89,7 +89,7 @@ import 'swiper/css/navigation'
 
 const modules = [Navigation]
 
-const { data: reviewsData } = useNuxtData('reviews')
+const { data: reviewsData } = await useAsyncData('reviews', () => $fetch('/api/reviews'))
 
 const reviews = computed(() => reviewsData.value?.reviews ?? [])
 const links = computed(() => reviewsData.value?.links ?? { gis2: '', google: '', yandex: '' })
@@ -97,6 +97,14 @@ const links = computed(() => reviewsData.value?.links ?? { gis2: '', google: '',
 const slideGroups = computed(() => reviews.value.map((review) => [review]))
 
 const currentSlide = ref(0)
+
+const slideCounterText = computed(() => {
+  const total = slideGroups.value.length
+  if (total === 0) return '0 / 0'
+  const idx = Number.isFinite(currentSlide.value) ? currentSlide.value : 0
+  const safeIdx = Math.min(Math.max(0, idx), total - 1)
+  return `${safeIdx + 1} / ${total}`
+})
 
 const breakpoints = {
   0: {
@@ -106,7 +114,8 @@ const breakpoints = {
 }
 
 const onSlideChange = (swiper) => {
-  currentSlide.value = swiper.realIndex
+  const ri = swiper.realIndex
+  currentSlide.value = Number.isFinite(ri) ? ri : 0
 }
 </script>
 

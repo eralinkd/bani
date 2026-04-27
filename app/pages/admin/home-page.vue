@@ -63,6 +63,26 @@
             <UFormField label="Подпись на слайде" class="mt-3 w-full">
               <UInput v-model="slide.caption" class="w-full" placeholder="Например: Баня в Пензе" />
             </UFormField>
+            <UFormField label="Страница проекта" class="mt-3 w-full">
+              <p class="mb-1.5 text-xs text-gray-500">
+                Если выбрать проект, клик по слайду на сайте откроет его страницу.
+              </p>
+              <select
+                v-model="slide.projectId"
+                class="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm"
+              >
+                <option value="">— Не открывать проект —</option>
+                <optgroup
+                  v-for="[catTitle, projs] in projectsByCategory"
+                  :key="catTitle"
+                  :label="catTitle"
+                >
+                  <option v-for="proj in projs" :key="proj.id" :value="proj.id">
+                    {{ proj.title }}
+                  </option>
+                </optgroup>
+              </select>
+            </UFormField>
           </div>
         </div>
       </UCard>
@@ -78,9 +98,24 @@
 <script setup>
 definePageMeta({ layout: 'admin', middleware: 'admin-auth' })
 
-const { data, pending, refresh } = await useAsyncData('admin-projects-slider', () =>
-  $fetch('/api/admin/projects-slider'),
-)
+const [
+  { data: sliderData, pending, refresh: refreshSlider },
+  { data: projectsList },
+] = await Promise.all([
+  useAsyncData('admin-home-page-slider', () => $fetch('/api/admin/projects-slider')),
+  useAsyncData('admin-home-page-projects', () => $fetch('/api/admin/projects')),
+])
+
+const projectsByCategory = computed(() => {
+  const list = projectsList.value ?? []
+  const groups = new Map()
+  for (const p of list) {
+    const cat = p.category?.title ?? 'Проекты'
+    if (!groups.has(cat)) groups.set(cat, [])
+    groups.get(cat).push({ id: p.id, title: p.title })
+  }
+  return [...groups.entries()].sort(([a], [b]) => a.localeCompare(b, 'ru'))
+})
 
 const form = ref({
   title: '',
@@ -89,20 +124,26 @@ const form = ref({
 })
 
 watch(
-  data,
+  sliderData,
   (val) => {
     if (!val) return
     form.value = {
       title: val.title ?? '',
       subtitle: val.subtitle ?? '',
-      slides: Array.isArray(val.slides) ? val.slides.map((s) => ({ ...s })) : [],
+      slides: Array.isArray(val.slides)
+        ? val.slides.map((s) => ({
+            image: s.image ?? '',
+            caption: s.caption ?? '',
+            projectId: s.projectId ?? '',
+          }))
+        : [],
     }
   },
   { immediate: true },
 )
 
 function addSlide() {
-  form.value.slides.push({ image: '', caption: '' })
+  form.value.slides.push({ image: '', caption: '', projectId: '' })
 }
 
 function removeSlide(i) {
@@ -124,7 +165,7 @@ async function save() {
         slides: form.value.slides,
       },
     })
-    await refresh()
+    await refreshSlider()
     saved.value = true
     setTimeout(() => {
       saved.value = false
