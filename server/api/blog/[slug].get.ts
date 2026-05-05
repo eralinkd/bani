@@ -4,7 +4,7 @@ import {
   extractToc,
   prepareBlogDoc,
   estimateReadingMinutesFromPrepared,
-} from '../../../shared/blog-render'
+} from '~/shared/blog-render'
 
 export default defineEventHandler(async (event) => {
   const slug = getRouterParam(event, 'slug')

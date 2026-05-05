@@ -1,5 +1,7 @@
 import { fileURLToPath } from 'node:url'
 
+const projectRoot = fileURLToPath(new URL('./', import.meta.url))
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
@@ -49,11 +51,18 @@ export default defineNuxtConfig({
     ],
   },
 
+  nitro: {
+    alias: {
+      '~': projectRoot,
+      '@': projectRoot,
+    },
+  },
+
   vite: {
     resolve: {
       alias: {
-        '@': fileURLToPath(new URL('./', import.meta.url)),
-        '~': fileURLToPath(new URL('./', import.meta.url)),
+        '@': projectRoot,
+        '~': projectRoot,
         '@scss': fileURLToPath(new URL('./assets/scss', import.meta.url)),
         '@fonts': fileURLToPath(new URL('./assets/scss/fonts', import.meta.url)),
       },

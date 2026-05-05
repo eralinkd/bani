@@ -55,7 +55,7 @@
 </template>
 
 <script setup>
-import { emptyBlogDoc, isDocContent } from '../../../shared/blog-doc'
+import { emptyBlogDoc, isDocContent } from '~/shared/blog-doc'
 
 const props = defineProps({
   pageTitle: { type: String, required: true },

@@ -1,5 +1,5 @@
 import { prisma } from '../../../utils/prisma'
-import { isDocContent } from '../../../../shared/blog-doc'
+import { isDocContent } from '~/shared/blog-doc'
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id')
