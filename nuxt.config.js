@@ -56,6 +56,14 @@ export default defineNuxtConfig({
       '~': projectRoot,
       '@': projectRoot,
     },
+    // Не бандлить Prisma в чанки: иначе в .output остаётся клиент времени сборки без новых моделей (blogPost undefined).
+    rollupConfig: {
+      external: (id) =>
+        id === '@prisma/client' ||
+        id.startsWith('@prisma/client/') ||
+        id.includes('/.prisma/client/') ||
+        id.includes('node_modules/.prisma'),
+    },
   },
 
   vite: {
