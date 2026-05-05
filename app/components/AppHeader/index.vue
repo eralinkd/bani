@@ -14,9 +14,9 @@
         <li>
           <NuxtLink to="/our-products" class="text-14">Наши работы</NuxtLink>
         </li>
-        <!-- <li>
-          <NuxtLink to="/" class="text-14">Блог</NuxtLink>
-        </li> -->
+        <li>
+          <NuxtLink to="/blog" class="text-14">Блог</NuxtLink>
+        </li>
         <li>
           <NuxtLink to="/#reviews" class="text-14">Отзывы</NuxtLink>
         </li>

@@ -31,6 +31,7 @@ const navItems = [
   { to: '/admin/projects', label: 'Проекты', icon: 'i-lucide-layout-grid' },
   { to: '/admin/gallery', label: 'Галерея', icon: 'i-lucide-gallery-horizontal' },
   { to: '/admin/products', label: 'Товары', icon: 'i-lucide-package' },
+  { to: '/admin/blog', label: 'Блог', icon: 'i-lucide-newspaper' },
   { to: '/admin/images', label: 'Медиатека', icon: 'i-lucide-images' },
   { to: '/admin/schema', label: 'Organization', icon: 'i-lucide-code' },
   { to: '/admin/local-business', label: 'LocalBusiness', icon: 'i-lucide-map-pin' },

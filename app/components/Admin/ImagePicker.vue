@@ -1,6 +1,7 @@
 <template>
   <div class="flex flex-col gap-2">
     <div
+      v-if="!pickOnly"
       class="relative flex h-36 w-full items-center justify-center overflow-hidden rounded-lg border border-gray-200 bg-gray-50"
     >
       <img v-if="modelValue" :src="modelValue" class="h-full w-full object-contain" :alt="label" />
@@ -11,10 +12,10 @@
     </div>
     <div class="flex gap-2">
       <UButton size="sm" variant="outline" icon="i-lucide-images" @click="openPicker">
-        {{ modelValue ? 'Изменить' : 'Выбрать' }}
+        {{ pickOnly ? 'Медиатека' : modelValue ? 'Изменить' : 'Выбрать' }}
       </UButton>
       <UButton
-        v-if="modelValue"
+        v-if="modelValue && !pickOnly"
         size="sm"
         variant="outline"
         color="error"
@@ -24,7 +25,7 @@
         Убрать
       </UButton>
     </div>
-    <p v-if="modelValue" class="break-all text-xs text-gray-400">{{ modelValue }}</p>
+    <p v-if="modelValue && !pickOnly" class="break-all text-xs text-gray-400">{{ modelValue }}</p>
   </div>
 
   <Teleport to="body">
@@ -116,6 +117,8 @@
 const props = defineProps({
   modelValue: { type: String, default: '' },
   label: { type: String, default: 'Изображение' },
+  /** Только кнопка выбора (без превью), для вставки в редактор */
+  pickOnly: { type: Boolean, default: false },
 })
 
 const emit = defineEmits(['update:modelValue'])

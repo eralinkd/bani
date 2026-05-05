@@ -54,6 +54,12 @@ const links = [
     icon: 'i-lucide-package',
     description: 'Каталог товаров',
   },
+  {
+    to: '/admin/blog',
+    label: 'Блог',
+    icon: 'i-lucide-newspaper',
+    description: 'Посты: текст и фото в любом порядке',
+  },
   { to: '/admin/images', label: 'Медиатека', icon: 'i-lucide-images', description: 'Изображения' },
 ]
 </script>

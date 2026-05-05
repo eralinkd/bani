@@ -41,6 +41,11 @@ const routeId = computed(() => {
   return segments[0] === 'our-products' && segments[1] ? segments[1] : ''
 })
 
+const routeBlogSlug = computed(() => {
+  const segments = (route.path || '').split('/').filter(Boolean)
+  return segments[0] === 'blog' && segments[1] ? segments[1] : ''
+})
+
 const { data: projectResponse } = await useAsyncData(
   () => (routeId.value ? `breadcrumbs-project-${routeId.value}` : 'breadcrumbs-project-none'),
   () => (routeId.value ? $fetch(`/api/project/${routeId.value}`) : { project: null }),
@@ -63,6 +68,14 @@ const productTitleBySlug = computed(() => {
   return new Map(products.map((product) => [product.slug, product.title]))
 })
 
+const { data: blogPostForCrumb } = await useAsyncData(
+  () => (routeBlogSlug.value ? `breadcrumbs-blog-${routeBlogSlug.value}` : 'breadcrumbs-blog-none'),
+  () => (routeBlogSlug.value ? $fetch(`/api/blog/${routeBlogSlug.value}`) : Promise.resolve(null)),
+  { watch: [routeBlogSlug] },
+)
+
+const blogArticleTitleFromApi = computed(() => blogPostForCrumb.value?.title ?? '')
+
 const items = computed(() => {
   const path = route.path || '/'
   const segments = path.split('/').filter(Boolean)
@@ -84,6 +97,7 @@ const items = computed(() => {
     const label =
       LABELS[acc] ||
       (segments[0] === 'our-products' && segments[1] && i === 1 ? projectTitleById.value : null) ||
+      (segments[0] === 'blog' && segments[1] && i === 1 ? blogArticleTitleFromApi.value : null) ||
       categoryTitleBySlug.value.get(segments[i]) ||
       productTitleBySlug.value.get(segments[i]) ||
       humanize(segments[i])
