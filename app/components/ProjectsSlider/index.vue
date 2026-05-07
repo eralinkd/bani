@@ -5,7 +5,7 @@
       <p v-if="block.subtitle" class="text-36">
         {{ block.subtitle }}
       </p>
-      <UIButton @click="navigateTo('/our-products')">Наши работы</UIButton>
+      <UIButton @click="onWorksClick">Наши работы</UIButton>
     </div>
     <div class="right">
       <!-- Как у карточек в OurProducts: клик вешаем на обёртку вне логики Swiper — тогда всплытие не блокируется -->
@@ -67,6 +67,14 @@ import IconsArrowRight from '../Icons/ArrowRight.vue'
 
 const modules = [Navigation]
 
+const props = defineProps({
+  /** Маршрут для кнопки «Наши работы»; по умолчанию /our-products. */
+  worksNavigateTo: {
+    type: [String, Object],
+    default: null,
+  },
+})
+
 const { data: blockData } = await useAsyncData('projects-slider-public', () =>
   $fetch('/api/projects-slider'),
 )
@@ -86,6 +94,10 @@ const activeSlide = computed(() => {
 
 const onSlideChange = (swiper) => {
   currentSlide.value = swiper.realIndex
+}
+
+function onWorksClick() {
+  navigateTo(props.worksNavigateTo ?? '/our-products')
 }
 
 function onSliderAreaClick() {

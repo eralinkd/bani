@@ -44,32 +44,6 @@
 
       <UCard>
         <template #header>
-          <div class="flex items-center justify-between">
-            <p class="font-semibold">Соцсети (sameAs)</p>
-            <UButton size="sm" variant="ghost" icon="i-lucide-plus" @click="addSameAs"
-              >Добавить</UButton
-            >
-          </div>
-        </template>
-        <div class="space-y-2">
-          <p v-if="!form.sameAs.length" class="py-2 text-center text-sm text-gray-400">
-            Нет ссылок
-          </p>
-          <div v-for="(_, i) in form.sameAs" :key="i" class="flex items-center gap-2">
-            <UInput v-model="form.sameAs[i]" class="flex-1" placeholder="https://vk.com/..." />
-            <UButton
-              size="sm"
-              variant="ghost"
-              color="error"
-              icon="i-lucide-trash-2"
-              @click="removeSameAs(i)"
-            />
-          </div>
-        </div>
-      </UCard>
-
-      <UCard>
-        <template #header>
           <p class="font-semibold">Предпросмотр JSON-LD</p>
         </template>
         <pre class="overflow-auto rounded bg-gray-50 p-3 text-xs text-gray-700">{{ preview }}</pre>
@@ -90,7 +64,7 @@ const { data, pending, refresh } = useFetch('/api/admin/org-schema')
 const saving = ref(false)
 const saved = ref(false)
 
-const form = ref({ name: '', url: '', logo: '', telephone: '', email: '', sameAs: [] })
+const form = ref({ name: '', url: '', logo: '', telephone: '', email: '' })
 
 watch(
   data,
@@ -102,7 +76,6 @@ watch(
       logo: val.logo ?? '',
       telephone: val.telephone ?? '',
       email: val.email ?? '',
-      sameAs: Array.isArray(val.sameAs) ? [...val.sameAs] : [],
     }
   },
   { immediate: true },
@@ -115,7 +88,6 @@ const preview = computed(() => {
     ...(form.value.name && { name: form.value.name }),
     ...(form.value.url && { url: form.value.url }),
     ...(form.value.logo && { logo: form.value.logo }),
-    ...(form.value.sameAs.filter(Boolean).length && { sameAs: form.value.sameAs.filter(Boolean) }),
     ...((form.value.telephone || form.value.email) && {
       contactPoint: {
         '@type': 'ContactPoint',
@@ -127,14 +99,6 @@ const preview = computed(() => {
   }
   return JSON.stringify(schema, null, 2)
 })
-
-function addSameAs() {
-  form.value.sameAs.push('')
-}
-
-function removeSameAs(i) {
-  form.value.sameAs.splice(i, 1)
-}
 
 async function save() {
   saving.value = true

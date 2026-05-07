@@ -19,16 +19,18 @@
                     class="contacts__icon contacts__icon--phone"
                     aria-hidden="true"
                   />
-                  <a href="tel:+79361226688" class="contacts__link text-18">+7 (936) 122 66 88</a>
+                  <a :href="SITE_CONTACTS.phoneTel" class="contacts__link text-18">{{
+                    SITE_CONTACTS.phoneDisplay
+                  }}</a>
                 </li>
                 <li class="contacts__item">
                   <IconsContactsMail
                     class="contacts__icon contacts__icon--email"
                     aria-hidden="true"
                   />
-                  <a href="mailto:info@bani21veka.ru" class="contacts__link text-18"
-                    >info@bani21veka.ru</a
-                  >
+                  <a :href="SITE_CONTACTS.mailto" class="contacts__link text-18">{{
+                    SITE_CONTACTS.email
+                  }}</a>
                 </li>
                 <li class="contacts__item">
                   <img
@@ -40,7 +42,7 @@
                     aria-hidden="true"
                   />
                   <a
-                    href="https://max.ru/u/f9LHodD0cOKjZx-VqJ7AY9a3Ihlo_T5LB8c44JXGQ_Nie8Yf2UeaSfp3Pc0"
+                    :href="SITE_CONTACTS.maxUrl"
                     target="_blank"
                     rel="noopener"
                     class="contacts__link text-18"
@@ -95,9 +97,10 @@
                   href="https://yandex.ru/maps/geo/moskva/53166393/?ll=37.683562%2C55.755819&mode=search&sll=30.547764%2C50.449247&sspn=0.480652%2C0.183481&text=350059%2C%20%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F%2C%20%D0%B3.%20%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%20%D0%BF%D1%80%D0%BE%D1%81%D0%BF%D0%B5%D0%BA%D1%82%20%D0%9F%D1%83%D1%82%D0%B8%D0%BD%D0%B0%2C%2039&utm_medium=mapframe&utm_source=maps&z=12"
                   style="color: #eee; font-size: 12px; position: absolute; top: 14px"
                   >Москва — Яндекс Карты</a
-                ><iframe
+                >
+                <iframe
                   class="contacts__map"
-                  src="https://yandex.ru/map-widget/v1/?ll=45.380579%2C52.893565&pt=45.380579%2C52.893565&z=16&l=map"
+                  :src="SITE_CONTACTS.mapWidgetSrc"
                   allowfullscreen="true"
                   frameborder="0"
                 ></iframe>
@@ -112,6 +115,8 @@
 </template>
 
 <script setup>
+import { SITE_CONTACTS } from '~/app/utils/siteContacts'
+
 useSeoPage('contacts', { title: 'Контакты' })
 useLocalBusinessJsonLd()
 </script>

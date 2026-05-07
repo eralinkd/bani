@@ -98,6 +98,7 @@ import IconsArrowRightWhite from '../../Icons/ArrowRightWhite.vue'
 
 const modules = [Navigation]
 
+const route = useRoute()
 const placeholderImage = '/images/OurProducts/1.png'
 const { data: projectsResponse } = await useAsyncData('projects', () => $fetch('/api/projects'))
 
@@ -199,8 +200,19 @@ async function openLightbox(sliceIndex) {
 }
 
 watchEffect(() => {
-  if (!selected.value && items.value.length) {
-    selected.value = items.value[0].id
+  const cats = items.value
+  if (!cats.length) return
+
+  const q = route.query.category
+  if (q) {
+    const id = String(q)
+    if (cats.some((c) => c.id === id)) {
+      selected.value = id
+      return
+    }
+  }
+  if (!selected.value) {
+    selected.value = cats[0].id
   }
 })
 

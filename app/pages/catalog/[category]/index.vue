@@ -5,7 +5,7 @@
       <Breadcrumbs />
       <PageTitle>{{ pageTitle }}</PageTitle>
       <ProductsGrid class="mobile-margin" :category-id="categoryId" />
-      <ProjectsSlider class="mobile-margin big" />
+      <ProjectsSlider class="mobile-margin big" :works-navigate-to="projectsListNavigateTo" />
       <HowWeWork no-button />
       <Reviews />
       <Promotions />
@@ -21,10 +21,12 @@ const route = useRoute()
 
 const categorySlug = computed(() => String(route.params.category || ''))
 
-const [{ data: productsResponse }, { data: categoryPageTitles }] = await Promise.all([
-  useAsyncData('catalog-category', () => $fetch('/api/products')),
-  useAsyncData('category-page-titles', () => $fetch('/api/category-page-titles')),
-])
+const [{ data: productsResponse }, { data: categoryPageTitles }, { data: projectsResponse }] =
+  await Promise.all([
+    useAsyncData('catalog-category', () => $fetch('/api/products')),
+    useAsyncData('category-page-titles', () => $fetch('/api/category-page-titles')),
+    useAsyncData('projects', () => $fetch('/api/projects')),
+  ])
 
 const category = computed(() => {
   const categories = productsResponse.value?.productCategories ?? []
@@ -40,6 +42,25 @@ const pageTitle = computed(() => {
   return custom || category.value?.title || 'Категория'
 })
 const categoryId = computed(() => category.value?.id ?? '')
+
+/** Сопоставление категории каталога с projectCategories (Бани ↔ длинное название и т.д.). */
+function projectCategoryIdForProductTitle(productTitle, projectCategories) {
+  if (!productTitle || !projectCategories?.length) return null
+  const exact = projectCategories.find((c) => c.title === productTitle)
+  if (exact) return exact.id
+  const byPrefix = projectCategories.find((c) => c.title.startsWith(productTitle))
+  if (byPrefix) return byPrefix.id
+  return null
+}
+
+const projectsListNavigateTo = computed(() => {
+  const projectCatId = projectCategoryIdForProductTitle(
+    category.value?.title,
+    projectsResponse.value?.projectCategories ?? [],
+  )
+  if (!projectCatId) return null
+  return { path: '/our-products', query: { category: projectCatId } }
+})
 
 const { data: seoData } = useNuxtData('seo')
 const catSeoKey = computed(() => `catalog-${categorySlug.value}`)
