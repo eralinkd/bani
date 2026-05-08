@@ -70,6 +70,7 @@ model Product {
   interiorHtml        String?
   characteristicsHtml String?
   kitHtml             String?
+  additionalHtml      String?
   isPopular           Boolean         @default(false)
   categoryId          String
   category            ProductCategory @relation(fields: [categoryId], references: [id])

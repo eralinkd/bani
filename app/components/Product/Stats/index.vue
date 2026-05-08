@@ -37,6 +37,7 @@ const tabDefs = [
   { key: 'interior', label: 'Описание', field: 'interiorHtml' },
   { key: 'characteristics', label: 'Характеристики', field: 'characteristicsHtml' },
   { key: 'kit', label: 'Комплектация', field: 'kitHtml' },
+  { key: 'additional', label: 'Дополнительно', field: 'additionalHtml' },
 ]
 
 const tabs = computed(() =>

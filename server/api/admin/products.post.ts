@@ -25,6 +25,7 @@ export default defineEventHandler(async (event) => {
       interiorHtml: body?.interiorHtml ? String(body.interiorHtml) : null,
       characteristicsHtml: body?.characteristicsHtml ? String(body.characteristicsHtml) : null,
       kitHtml: body?.kitHtml ? String(body.kitHtml) : null,
+      additionalHtml: body?.additionalHtml ? String(body.additionalHtml) : null,
       isPopular: Boolean(body?.isPopular),
       categoryId,
       sortOrder: Number(body?.sortOrder ?? 0),

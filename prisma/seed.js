@@ -268,6 +268,7 @@ const seedProducts = async () => {
           interiorHtml: product.interiorHtml,
           characteristicsHtml: product.characteristicsHtml,
           kitHtml: product.kitHtml,
+          additionalHtml: product.additionalHtml ?? null,
           images: {
             deleteMany: {},
             create: imageLinks,
@@ -292,6 +293,7 @@ const seedProducts = async () => {
         interiorHtml: product.interiorHtml,
         characteristicsHtml: product.characteristicsHtml,
         kitHtml: product.kitHtml,
+        additionalHtml: product.additionalHtml ?? null,
         categoryId,
         images: { create: imageLinks },
         sizes: { create: sizes },

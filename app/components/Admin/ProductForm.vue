@@ -108,6 +108,13 @@
           <UFormField label="Комплектация (HTML)" class="w-full">
             <UTextarea v-model="form.kitHtml" class="w-full font-mono text-xs" :rows="5" />
           </UFormField>
+          <UFormField label="Дополнительно (HTML)" class="w-full">
+            <UTextarea
+              v-model="form.additionalHtml"
+              class="w-full font-mono text-xs"
+              :rows="5"
+            />
+          </UFormField>
         </div>
       </UCard>
 
@@ -212,6 +219,7 @@ const emptyForm = () => ({
   interiorHtml: '',
   characteristicsHtml: '',
   kitHtml: '',
+  additionalHtml: '',
   isPopular: false,
   categoryId: '',
   sortOrder: 0,
@@ -236,6 +244,7 @@ watch(
       interiorHtml: val.interiorHtml ?? '',
       characteristicsHtml: val.characteristicsHtml ?? '',
       kitHtml: val.kitHtml ?? '',
+      additionalHtml: val.additionalHtml ?? '',
       isPopular: val.isPopular ?? false,
       categoryId: val.categoryId ?? '',
       sortOrder: val.sortOrder ?? 0,

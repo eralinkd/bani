@@ -30,6 +30,7 @@ interface Product {
   interiorHtml: string | null
   characteristicsHtml: string | null
   kitHtml: string | null
+  additionalHtml: string | null
   isPopular: boolean
   categoryId: string
   category: { id: string; title: string; slug: string } | null
@@ -104,6 +105,7 @@ export async function refreshProductsFromDb() {
       interiorHtml: p.interiorHtml,
       characteristicsHtml: p.characteristicsHtml,
       kitHtml: p.kitHtml,
+      additionalHtml: p.additionalHtml,
       isPopular: p.isPopular,
       categoryId: p.categoryId,
       category: catMap.get(p.categoryId) ?? null,
