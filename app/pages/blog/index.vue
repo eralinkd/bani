@@ -51,12 +51,12 @@ useSeoPage('blog', {
   description: 'Статьи и новости о банных проектах',
 })
 
-/** Одинаковые карточки по сетке; фон чередуется: обложка / тёмная / светлая */
+/** С обложкой — всегда фон-картинка; без обложки чередование тёмная / светлая как раньше */
 function cardVariant(post: CardPost, index: number): 'image' | 'dark' | 'light' {
+  if (post.coverImage) return 'image'
   const mod = index % 3
-  if (mod === 0) return post.coverImage ? 'image' : 'dark'
   if (mod === 1) return 'dark'
-  return 'light'
+  return mod === 2 ? 'light' : 'dark'
 }
 </script>
 

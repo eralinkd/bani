@@ -19,8 +19,29 @@
         v-show="activeTab === tab.key"
         :key="tab.key"
         class="text-16"
-        v-html="tab.html"
-      />
+        :class="{ 'tab-content--kit-bath': tab.key === 'kit' && isBath }"
+      >
+        <template v-if="tab.key === 'kit' && isBath">
+          <div class="kit-bath-grid">
+            <div v-if="product?.kitHtml" class="kit-bath-col" v-html="product.kitHtml" />
+            <div v-if="product?.additionalHtml" class="kit-bath-col kit-bath-col--additional">
+              <h3 class="kit-bath-additional-title">Дополнительно</h3>
+              <div v-html="product.additionalHtml" />
+            </div>
+          </div>
+        </template>
+        <template v-else-if="tab.key === 'kit' && isGazeboCategory">
+          <div class="kit-gazebo-stack">
+            <div v-if="product?.kitHtml" v-html="product.kitHtml" />
+            <div
+              v-if="product?.additionalHtml"
+              :class="{ 'kit-gazebo-stack__tail': product?.kitHtml }"
+              v-html="product.additionalHtml"
+            />
+          </div>
+        </template>
+        <div v-else v-html="tab.html" />
+      </div>
     </div>
   </div>
 </template>
@@ -33,17 +54,35 @@ const props = defineProps({
   },
 })
 
+const CATEGORY_BATH = 'bani'
+const CATEGORY_GAZEBOS = 'besedki-verandy'
+
 const tabDefs = [
   { key: 'interior', label: 'Описание', field: 'interiorHtml' },
   { key: 'characteristics', label: 'Характеристики', field: 'characteristicsHtml' },
-  { key: 'kit', label: 'Комплектация', field: 'kitHtml' },
-  { key: 'additional', label: 'Дополнительно', field: 'additionalHtml' },
+  { key: 'kit', label: 'Комплектация', labelGazebo: 'Дополнительно', field: 'kitHtml' },
 ]
 
+const categorySlug = computed(() => props.product?.category?.slug ?? '')
+
+const isBath = computed(() => categorySlug.value === CATEGORY_BATH)
+
+const isGazeboCategory = computed(() => categorySlug.value === CATEGORY_GAZEBOS)
+
+function tabHasContent(t) {
+  const p = props.product
+  if (!p) return false
+  if (t.key !== 'kit') return Boolean(p[t.field])
+  if (isBath.value || isGazeboCategory.value) return Boolean(p.kitHtml || p.additionalHtml)
+  return Boolean(p.kitHtml)
+}
+
 const tabs = computed(() =>
-  tabDefs
-    .filter((t) => props.product?.[t.field])
-    .map((t) => ({ key: t.key, label: t.label, html: props.product[t.field] })),
+  tabDefs.filter(tabHasContent).map((t) => ({
+    key: t.key,
+    label: t.key === 'kit' && isGazeboCategory.value ? t.labelGazebo : t.label,
+    html: props.product[t.field],
+  })),
 )
 
 const activeTab = ref(tabs.value[0]?.key ?? '')
@@ -128,6 +167,44 @@ watch(tabs, (val) => {
 }
 
 .tab-content {
+  .kit-bath-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+
+    @media (max-width: $mobileBreakpoint) {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+  }
+
+  .kit-bath-col {
+    min-width: 0;
+  }
+
+  .kit-gazebo-stack__tail {
+    margin-top: 24px;
+
+    @media (max-width: $mobileBreakpoint) {
+      margin-top: 20px;
+    }
+  }
+
+  .kit-bath-additional-title {
+    margin: 0 0 12px;
+    font-family: Inter, sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: $text;
+
+    @media (max-width: $mobileBreakpoint) {
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+  }
+
   .text-16 {
     font-size: 16px;
     line-height: 1.7;
