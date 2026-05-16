@@ -35,6 +35,3 @@ logs
 .env
 .env.*
 !.env.example
-
-public/uploads
-public/images
